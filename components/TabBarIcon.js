@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from 'expo';
+// import { Icon as AntIcon} from 'expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
@@ -15,3 +16,4 @@ export default class TabBarIcon extends React.Component {
     );
   }
 }
+
