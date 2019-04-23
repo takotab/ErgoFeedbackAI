@@ -8,44 +8,80 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { WebBrowser, Camera } from 'expo';
+import { WebBrowser, Camera, Permissions } from 'expo';
 
 import { CameraExample } from '../components/Camera';
 import { MonoText } from '../components/StyledText';
 
 export default class CameraScreen extends React.Component {
-    static navigationOptions = {
-        header: null,
+    state = {
+        hasCameraPermission: null,
+        type: Camera.Constants.Type.back,
     };
 
+    async componentDidMount() {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        this.setState({ hasCameraPermission: status === 'granted' });
+    }
     render() {
-        return (
-            <View style={styles.container}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.welcomeContainer}>
-                        <Image
-                            source={
-                                __DEV__
-                                    ? require('../assets/images/robot-dev.png')
-                                    : require('../assets/images/robot-prod.png')
-                            }
-                            style={styles.welcomeImage}
-                        />
+        const { hasCameraPermission } = this.state;
+        if (hasCameraPermission === null) {
+            return <View style={styles.welcomeContainer}>
+                <Image
+                    source={
+                        __DEV__
+                            ? require('../assets/images/robot-dev.png')
+                            : require('../assets/images/robot-prod.png')
+                    }
+                    style={styles.welcomeImage}
+                />
+            </View>
+        } else if (hasCameraPermission === false) {
+            return <Text>No access to camera</Text>;
+        } else {
+            return (
+                <View style={styles.container}>
+                    <View style={{ flex: 1 }}>
+                        <Camera style={{ flex: .8 }} type={this.state.type}>
+                            <View
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: 'transparent',
+                                    flexDirection: 'row',
+                                }}>
+                                <TouchableOpacity
+                                    style={{
+                                        flex: 1,
+                                        alignSelf: 'flex-end',
+                                        alignItems: 'center',
+                                    }}
+                                    onPress={() => {
+                                        this.setState({
+                                            type: this.state.type === Camera.Constants.Type.back
+                                                ? Camera.Constants.Type.front
+                                                : Camera.Constants.Type.back,
+                                        });
+                                    }}>
+                                    <Text
+                                        style={{ fontSize: 18, marginBottom: 10, color: 'blue' }}>
+                                        {' '}Flip{' '}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </Camera>
                     </View>
-                <Camera ref={ref => { this.camera = ref; }}/>
-                </ScrollView>
 
-                <View style={styles.tabBarInfoContainer}>
-                    <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+                    <View style={styles.tabBarInfoContainer}>
+                        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
-                    <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-                        <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+                        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+                        </View>
                     </View>
                 </View>
-            </View>
-        );
+            );
+        }
     }
-
     _maybeRenderDevelopmentModeWarning() {
         if (__DEV__) {
             const learnMoreButton = (
@@ -93,7 +129,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     contentContainer: {
-        paddingTop: 30,
+        flex: 1,
     },
     welcomeContainer: {
         alignItems: 'center',
