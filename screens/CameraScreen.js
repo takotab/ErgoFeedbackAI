@@ -10,6 +10,14 @@ import {
 } from 'react-native';
 import { WebBrowser, Camera, Permissions } from 'expo';
 
+import {
+    Ionicons,
+    MaterialIcons,
+    Foundation,
+    MaterialCommunityIcons,
+    Octicons
+} from '@expo/vector-icons'
+
 import { CameraExample } from '../components/Camera';
 import { MonoText } from '../components/StyledText';
 
@@ -18,6 +26,25 @@ export default class CameraScreen extends React.Component {
         hasCameraPermission: null,
         type: Camera.Constants.Type.back,
     };
+    takePicture = () => {
+        if (this.camera) {
+            this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+        }
+    };
+    renderTopBar = () =>
+        <View
+            style={styles.topBar}>
+
+            <View style={{ flex: 0.4 }}>
+                <TouchableOpacity
+                    onPress={this.takePicture}
+                    style={{ alignSelf: 'center' }}
+                >
+                    <Ionicons name="ios-radio-button-on" size={70} color="white" />
+                </TouchableOpacity>
+            </View>
+        </View>
+
 
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -42,8 +69,29 @@ export default class CameraScreen extends React.Component {
             return (
                 <View style={styles.container}>
                     <View style={{ flex: 1 }}>
-                        <Camera style={{ flex: .8 }} type={this.state.type}>
-                            <View
+                        <Camera ref={ref => { this.camera = ref; }}
+                            style={{ flex: .9 }} type={this.state.type}>
+                            {/* {this.renderTopBar()} */}
+                            {/* {this.renderBottomBar()} */}
+                            <View style={{
+                                flex: 1, backgroundColor: 'transparent',
+                                flexDirection: 'row'
+                            }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this.takePicture()
+                                    }} 
+                                    style={{
+                                        flex: 1,
+                                        alignSelf: 'flex-end',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'blue' }}>
+                                        Picture</Text>
+                                </TouchableOpacity>
+                            </View>
+                            < View
                                 style={{
                                     flex: 1,
                                     backgroundColor: 'transparent',
@@ -78,7 +126,7 @@ export default class CameraScreen extends React.Component {
                             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
                         </View>
                     </View>
-                </View>
+                </View >
             );
         }
     }
