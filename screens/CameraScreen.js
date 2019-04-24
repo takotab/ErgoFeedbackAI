@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { WebBrowser, Camera, Permissions } from 'expo';
+import { WebBrowser, Camera, Permissions, FileSystem } from 'expo';
 
 import {
     Ionicons,
@@ -25,12 +25,37 @@ export default class CameraScreen extends React.Component {
     state = {
         hasCameraPermission: null,
         type: Camera.Constants.Type.back,
+        photos: [''],
     };
+
+
+    onAddPhoto = (photoDir) => {
+        const { _hasCameraPermission, _type, photodirs } = this.state
+
+        this.setState({
+            todos: [photodirs, ...photoDir],
+        })
+        console.log(this.photos)
+    }
+
     takePicture = () => {
         if (this.camera) {
             this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+
         }
     };
+
+    onPictureSaved = async photo => {
+        dir = `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`
+        console.log('Picture made and saved' + dir)
+        await FileSystem.moveAsync({
+            from: photo.uri,
+            to: dir,
+        });
+        this.onAddPhoto(dir)
+        this.setState({ newPhotos: true });
+        // return `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`
+    }
     renderTopBar = () =>
         <View
             style={styles.topBar}>
@@ -49,6 +74,9 @@ export default class CameraScreen extends React.Component {
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
+        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
+            console.log(e, 'Directory exists');
+        });
     }
     render() {
         const { hasCameraPermission } = this.state;
@@ -80,7 +108,7 @@ export default class CameraScreen extends React.Component {
                                 <TouchableOpacity
                                     onPress={() => {
                                         this.takePicture()
-                                    }} 
+                                    }}
                                     style={{
                                         flex: 1,
                                         alignSelf: 'flex-end',
@@ -120,7 +148,7 @@ export default class CameraScreen extends React.Component {
                     </View>
 
                     <View style={styles.tabBarInfoContainer}>
-                        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+                        <Text style={styles.tabBarInfoText}>Thisdd is a tab bar. You can edit it in:</Text>
 
                         <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
                             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
