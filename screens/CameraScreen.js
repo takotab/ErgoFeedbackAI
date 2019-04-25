@@ -18,7 +18,7 @@ import {
     Octicons
 } from '@expo/vector-icons'
 
-import { CameraExample } from '../components/Camera';
+import { UploadPhotoAsync } from '../uploadFile'
 import { MonoText } from '../components/StyledText';
 
 export default class CameraScreen extends React.Component {
@@ -36,6 +36,7 @@ export default class CameraScreen extends React.Component {
             todos: [photodirs, ...photoDir],
         })
         console.log(this.photos)
+
     }
 
     takePicture = () => {
@@ -54,6 +55,7 @@ export default class CameraScreen extends React.Component {
         });
         this.onAddPhoto(dir)
         this.setState({ newPhotos: true });
+        console.log('cloud reaction:' + await UploadPhotoAsync(dir))
         // return `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`
     }
     renderTopBar = () =>
