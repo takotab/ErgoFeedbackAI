@@ -1,12 +1,25 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View, Text } from 'react-native';
+import { Button, ScrollView, StyleSheet, View, Text, FileSystem } from 'react-native';
 import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
+import { UploadPhotoAsync } from '../uploadFile'
+
 export default class LinksScreen extends React.Component {
+  state = {
+    hasPhotos: false,
+    uri: Null,
+  };
   static navigationOptions = {
     title: 'Links',
   };
+  _onPictureSaved = async photo => {
+    console.log('Picture made and saved' + photo.uri)
+    response = await UploadPhotoAsync(photo.uri)
+    json_response = await response.json()
+    console.log('cloud reaction:' + json_response)
+    this.setState({ hasPhotos: true, uri: photo.uri });
 
+  }
   _askPermission = async (type, failureMessage) => {
     const { status, permissions } = await Permissions.askAsync(type);
 
@@ -23,7 +36,7 @@ export default class LinksScreen extends React.Component {
       aspect: [4, 3],
     });
 
-    this._handleImagePicked(pickerResult);
+    this._onPictureSaved(pickerResult);
   };
 
   _pickPhoto = async () => {
@@ -34,27 +47,47 @@ export default class LinksScreen extends React.Component {
       aspect: [4, 3],
     });
 
-    this._handleImagePicked(pickerResult);
+    this._onPictureSaved(pickerResult);
   };
 
   render() {
-    return (
-      <ScrollView style={styles.container}>
-        <View><Text>Test</Text></View>
-        <View style={{ marginVertical: 8 }}>
-          <Button
-            onPress={this._takePhoto}
-            title="Take a photo"
-          />
-        </View>
-        <View>
-          <Button
-            onPress={this._pickPhoto}
-            title="Pick Photo"
-          />
-        </View>
-      </ScrollView>
-    );
+    if (!this.hasPhotos) {
+      console.log(this.hasPhotos)
+      return (
+        <ScrollView style={styles.container}>
+          <View><Text>Test</Text></View>
+          <View style={{ marginVertical: 8 }}>
+            <Button
+              onPress={this._takePhoto}
+              title="Take a photo"
+            />
+          </View>
+          <View>
+            <Button
+              onPress={this._pickPhoto}
+              title="Pick Photo"
+            />
+          </View>
+        </ScrollView>
+      );
+    }
+    else {
+      console.log(this.hasPhotos)
+      return < Image
+        style={{
+          width: 51,
+          height: 51,
+          resizeMode: 'contain',
+        }
+        }
+        source={{
+          uri:
+            this.uri,
+        }
+        }
+      />
+    }
+
   }
 }
 
