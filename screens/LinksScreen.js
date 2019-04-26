@@ -74,10 +74,10 @@ export default class LinksScreen extends React.Component {
       console.log(this.state.uri)
       return <View>
         <Text>IS this the photo you want?</Text>
-        <Image
+        {/* <Image
           style={{ width: 50, height: 50 }}
           source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-        />
+        /> */}
         < Image
           style={{
             width: 80,
