@@ -7,7 +7,7 @@ import { UploadPhotoAsync } from '../uploadFile'
 export default class LinksScreen extends React.Component {
   state = {
     hasPhotos: false,
-    uri: Null,
+    uri: '',
   };
   static navigationOptions = {
     title: 'Links',
