@@ -50,6 +50,11 @@ export default class LinksScreen extends React.Component {
     this._onPictureSaved(pickerResult);
   };
 
+  _goNext = async () => {
+    await console.log('goNext');
+    
+  };
+
   render() {
     if (!this.state.hasPhotos) {
       return (
@@ -74,20 +79,22 @@ export default class LinksScreen extends React.Component {
       console.log(this.state.uri)
       return <View>
         <Text>IS this the photo you want?</Text>
-        {/* <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-        /> */}
+
         < Image
           style={{
-            width: 80,
-            height: 80,
+            width: 200,
+            height: 150,
             resizeMode: 'contain',
+            marginVertical: 8,
           }}
           source={{
             uri:
               this.state.uri,
           }}
+        />
+        <Button
+          onPress={this._goNext}
+          title='Yes, continue!'
         />
       </View>
     }
