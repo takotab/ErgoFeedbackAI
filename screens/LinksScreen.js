@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View, Text, FileSystem } from 'react-native';
+import { Button, ScrollView, StyleSheet, View, Text, FileSystem, Image } from 'react-native';
 import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
 import { UploadPhotoAsync } from '../uploadFile'
@@ -51,8 +51,7 @@ export default class LinksScreen extends React.Component {
   };
 
   render() {
-    if (!this.hasPhotos) {
-      console.log(this.hasPhotos)
+    if (!this.state.hasPhotos) {
       return (
         <ScrollView style={styles.container}>
           <View><Text>Test</Text></View>
@@ -72,20 +71,25 @@ export default class LinksScreen extends React.Component {
       );
     }
     else {
-      console.log(this.hasPhotos)
-      return < Image
-        style={{
-          width: 51,
-          height: 51,
-          resizeMode: 'contain',
-        }
-        }
-        source={{
-          uri:
-            this.uri,
-        }
-        }
-      />
+      console.log(this.state.uri)
+      return <View>
+        <Text>IS this the photo you want?</Text>
+        <Image
+          style={{ width: 50, height: 50 }}
+          source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
+        />
+        < Image
+          style={{
+            width: 80,
+            height: 80,
+            resizeMode: 'contain',
+          }}
+          source={{
+            uri:
+              this.state.uri,
+          }}
+        />
+      </View>
     }
 
   }
