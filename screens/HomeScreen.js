@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Alert
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -21,42 +22,56 @@ export default class HomeScreen extends React.Component {
   state = {
     questions: questions,
     currentQuestion: ["Q1"],
-    answers: { "Q1": null }
+    answers: { "Q1": null },
+    required: ["Q1"]
   }
   static navigationOptions = {
     header: null,
   };
-  _renderSingleQ = (key) => {
+  _renderSingleQ = (key, index) => {
     console.log('render single question key:' + key)
     return <Question
       onSelect={answer => {
         this.onSelect(key, answer);
       }}
+      index={index + 1}
       question={this.state.questions[key]}
       answer={this.state.answers[key]}
       key={key}
     />
   }
-  addQuestionToState = (key) => {
-
-    this.setState({
-      currentQuestion: [...this.state.currentQuestion, key]
-    });
-    this.setState({
-      answers:
-      {
-        ...this.answers,
-        key: null
+  checkIfAlreadyExist = (key) => {
+    let result = true
+    this.state.currentQuestion.forEach((item, index) => {
+      if (key === item) {
+        console.log(key + ' already in currentQuestions')
+        result = false
       }
     });
+    return result
+  }
+  addQuestionToState = (key) => {
+    if (this.checkIfAlreadyExist(key)) {
+      this.setState({
+        required: [...this.state.required, key]
+      });
+      this.setState({
+        currentQuestion: [...this.state.currentQuestion, key]
+      });
+      this.setState({
+        answers:
+        {
+          ...this.answers,
+          key: null
+        }
+      });
+    }
   };
 
   _renderQuestions = () => {
-    console.log('state: ' + this.state.currentQuestion)
-
     const result = [];
     this.state.currentQuestion.forEach((key, index) => {
-      result.push(this._renderSingleQ(key))
+      result.push(this._renderSingleQ(key, index))
     })
     return result
   }
@@ -78,11 +93,23 @@ export default class HomeScreen extends React.Component {
   };
 
   onSubmit = () => {
-    const { navigate } = this.props.navigation;
-    navigate('Questions', {
-      name: 'Jane',
-      uri: this.state.uri,
-    })
+    // TODO: check if alles is ingevuld
+    let allGood = true
+    this.state.required.forEach((item, index) => {
+      console.log(item)
+      if (this.state.answers[item] == null) {
+        _index = index + 1
+        Alert.alert('Vraag ' + _index + ' vergeten', 'Vult u alstublieft nog vraag ' + _index + ' in.')
+        allGood = false
+      }
+    });
+    if (allGood) {
+      const { navigate } = this.props.navigation;
+      navigate('Questions', {
+        name: 'Jane',
+        uri: this.state.uri,
+      })
+    }
   }
 
   render() {
