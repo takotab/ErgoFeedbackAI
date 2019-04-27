@@ -17,6 +17,7 @@ import Question from '../components/Questions';
 var questions = require('./questions1.json');
 
 export default class HomeScreen extends React.Component {
+
   static navigationOptions = {
     header: null,
   };
@@ -37,7 +38,10 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-          <Question question={questions.Q1} />
+          <Question
+            question={questions.Q1}
+            progress='.5'
+          />
 
 
         </ScrollView>

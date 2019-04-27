@@ -52,10 +52,10 @@ export default class Question extends React.Component {
         return (
             <View style={{ flex: 1, padding: 12 }}>
                 <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
-                    {this.props.current + 1} out of 10
+                    {this.props.progress * 100}%
         </Text>
 
-                <Text style={{ fontSize: 32, fontWeight: "bold", color: "#3498db" }}>
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: "#3498db" }}>
                     {this.props.question.question}
                 </Text>
                 <RadioGroup
