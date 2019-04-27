@@ -36,7 +36,9 @@ export default class HomeScreen extends React.Component {
       answer={this.state.answers[key]}
     />
   }
+
   _renderQuestions = () => {
+    console.log('currentQuestions: ' + this.state.currentQuestion)
     const result = [];
     this.state.currentQuestion.forEach((key, index) => {
       result.push(this._renderSingleQ(key))
@@ -50,21 +52,25 @@ export default class HomeScreen extends React.Component {
     console.log('answered q:' + question.question + ' as: ' + answer)
 
     if ('Callback' in question) {
-      if (question.id in question.Callback) {
-        this.state.currentQuestion.push(question.Callback[answer])
+      if (answer in question.Callback) {
+        this.setState({
+          currentQuestion: [...this.state.currentQuestion, question.Callback[answer]]
+        })
+
       }
     }
   };
 
   onSubmit = () => {
     const { navigate } = this.props.navigation;
-    navigate('Main', {
+    navigate('Questions', {
       name: 'Jane',
       uri: this.state.uri,
     })
   }
+
   render() {
-    console.log(questions["Q1"].id + questions["Q1"].question)
+    console.log('render')
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
