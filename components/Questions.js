@@ -22,30 +22,31 @@ export default class Question extends React.Component {
                     <Text style={styles.radioText}>Nee</Text>
                 </RadioButton>
             ];
-        } else {
-            const result = [];
-
-            question.incorrect_answers.forEach((item, index) => {
-                let key = `${question.id}-${index}`;
-
-                if (index === this.props.correctPosition) {
-                    let key2 = `${question.id}-100`;
-                    result.push(
-                        <RadioButton value={question.correct_answer} key={key2}>
-                            <Text style={styles.radioText}>{question.correct_answer}</Text>
-                        </RadioButton>
-                    );
-                }
-
-                result.push(
-                    <RadioButton value={item} key={key}>
-                        <Text style={styles.radioText}>{item}</Text>
-                    </RadioButton>
-                );
-            });
-
-            return result;
         }
+        // else {
+        //     const result = [];
+
+        //     question.incorrect_answers.forEach((item, index) => {
+        //         let key = `${question.id}-${index}`;
+
+        //         if (index === this.props.correctPosition) {
+        //             let key2 = `${question.id}-100`;
+        //             result.push(
+        //                 <RadioButton value={question.correct_answer} key={key2}>
+        //                     <Text style={styles.radioText}>{question.correct_answer}</Text>
+        //                 </RadioButton>
+        //             );
+        //         }
+
+        //         result.push(
+        //             <RadioButton value={item} key={key}>
+        //                 <Text style={styles.radioText}>{item}</Text>
+        //             </RadioButton>
+        //         );
+        //     });
+
+        //     return result;
+        // }
     };
 
     render() {

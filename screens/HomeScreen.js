@@ -34,6 +34,7 @@ export default class HomeScreen extends React.Component {
       }}
       question={this.state.questions[key]}
       answer={this.state.answers[key]}
+      key={key}
     />
   }
   addQuestionToState = (key) => {
