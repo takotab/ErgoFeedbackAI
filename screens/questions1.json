@@ -1,0 +1,13 @@
+{
+    "Q1": {
+        "question": "Gebruikt u een smartphone/tablet voor uw werk? (mailen, internetten, agendabeheer.)",
+        "type": "boolean",
+        "id": "Q1"
+    },
+
+    "Q2": {
+        "question": "Met een extern toetsenboard?",
+        "type": "boolean",
+        "id": "Q2"
+    }
+}

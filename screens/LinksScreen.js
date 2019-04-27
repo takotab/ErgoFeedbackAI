@@ -9,14 +9,16 @@ export default class LinksScreen extends React.Component {
     hasPhotos: false,
     uri: '',
   };
+
   static navigationOptions = {
     title: 'Links',
   };
+  
   _onPictureSaved = async photo => {
     console.log('Picture made and saved' + photo.uri)
-    response = await UploadPhotoAsync(photo.uri)
-    json_response = await response.json()
-    console.log('cloud reaction:' + json_response)
+    // response = await UploadPhotoAsync(photo.uri)
+    // json_response = await response.json()
+    // console.log('cloud reaction:' + json_response)
     this.setState({ hasPhotos: true, uri: photo.uri });
 
   }
@@ -45,14 +47,19 @@ export default class LinksScreen extends React.Component {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
-    });
+    }); '  '
 
     this._onPictureSaved(pickerResult);
   };
 
   _goNext = async () => {
     await console.log('goNext');
-    
+    const { navigate } = this.props.navigation;
+    navigate('Questions', {
+      name: 'Jane',
+      uri: this.state.uri,
+    })
+
   };
 
   render() {
