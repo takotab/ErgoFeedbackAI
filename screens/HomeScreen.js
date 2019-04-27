@@ -36,9 +36,23 @@ export default class HomeScreen extends React.Component {
       answer={this.state.answers[key]}
     />
   }
+  addQuestionToState = (key) => {
+
+    this.setState({
+      currentQuestion: [...this.state.currentQuestion, key]
+    });
+    this.setState({
+      answers:
+      {
+        ...this.answers,
+        key: null
+      }
+    });
+  };
 
   _renderQuestions = () => {
-    console.log('currentQuestions: ' + this.state.currentQuestion)
+    console.log('state: ' + this.state.currentQuestion)
+
     const result = [];
     this.state.currentQuestion.forEach((key, index) => {
       result.push(this._renderSingleQ(key))
@@ -48,17 +62,18 @@ export default class HomeScreen extends React.Component {
 
   onSelect = (index, answer) => {
     const question = questions[index];
-    this.state.answers[question.id] = answer
-    console.log('answered q:' + question.question + ' as: ' + answer)
+    const id = question.id
+    this.setState({
+      ...this.answers,
+      id: answer
+    })
 
     if ('Callback' in question) {
       if (answer in question.Callback) {
-        this.setState({
-          currentQuestion: [...this.state.currentQuestion, question.Callback[answer]]
-        })
-
+        this.addQuestionToState(question.Callback[answer]);
       }
     }
+
   };
 
   onSubmit = () => {

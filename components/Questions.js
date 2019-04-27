@@ -49,7 +49,6 @@ export default class Question extends React.Component {
     };
 
     render() {
-        console.log(this.props.question)
         return (
             <View style={{ flex: 1, padding: 12 }}>
 
