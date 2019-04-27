@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
 
 export default class Question extends React.Component {
@@ -14,12 +14,12 @@ export default class Question extends React.Component {
     renderOptions = question => {
         if (question.type === "boolean") {
             return [
-                <RadioButton value={"True"} key={1}>
-                    <Text style={styles.radioText}>True</Text>
+                <RadioButton value={"Ja"} key={question.id + 1}>
+                    <Text style={styles.radioText}>Ja</Text>
                 </RadioButton>,
 
-                <RadioButton value={"False"} key={2}>
-                    <Text style={styles.radioText}>False</Text>
+                <RadioButton value={"Nee"} key={question.id + 2}>
+                    <Text style={styles.radioText}>Nee</Text>
                 </RadioButton>
             ];
         } else {
@@ -49,28 +49,25 @@ export default class Question extends React.Component {
     };
 
     render() {
+        console.log(this.props.question)
         return (
             <View style={{ flex: 1, padding: 12 }}>
-                <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
-                    {this.props.progress * 100}%
-        </Text>
+
 
                 <Text style={{ fontSize: 16, fontWeight: "bold", color: "#3498db" }}>
                     {this.props.question.question}
                 </Text>
                 <RadioGroup
-                    onSelect={(index, answer) => this.setState({ answer })}
-                    selectedIndex={null}
+                    onSelect={(index, answer) => {
+                        this.setState({ answer })
+                        this.props.onSelect(answer)
+                    }
+                    }
+                    selectedIndex={this.props.answer}
                 >
                     {this.renderOptions(this.props.question)}
                 </RadioGroup>
 
-                <Button
-                    title="Submit Answser"
-                    onPress={() => {
-                        this.props.onSelect(this.state.answer);
-                    }}
-                />
             </View>
         );
     }

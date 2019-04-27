@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -17,12 +18,51 @@ import Question from '../components/Questions';
 var questions = require('./questions1.json');
 
 export default class HomeScreen extends React.Component {
-
+  state = {
+    questions: questions,
+    currentQuestion: ["Q1"],
+    answers: { "Q1": null }
+  }
   static navigationOptions = {
     header: null,
   };
+  _renderSingleQ = (key) => {
+    console.log('render single question key:' + key)
+    return <Question
+      onSelect={answer => {
+        this.onSelect(key, answer);
+      }}
+      question={this.state.questions[key]}
+      answer={this.state.answers[key]}
+    />
+  }
+  _renderQuestions = () => {
+    const result = [];
+    this.state.currentQuestion.forEach((key, index) => {
+      result.push(this._renderSingleQ(key))
+    })
+    return result
+  }
 
+  onSelect = (index, answer) => {
+    const question = questions[index];
+    this.state.answers[question.id] = answer
+    console.log('answered q:' + question.question + ' as: ' + answer)
 
+    if ('Callback' in question) {
+      if (question.id in question.Callback) {
+        this.state.currentQuestion.push(question.Callback[answer])
+      }
+    }
+  };
+
+  onSubmit = () => {
+    const { navigate } = this.props.navigation;
+    navigate('Main', {
+      name: 'Jane',
+      uri: this.state.uri,
+    })
+  }
   render() {
     console.log(questions["Q1"].id + questions["Q1"].question)
     return (
@@ -38,12 +78,18 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-          <Question
-            question={questions.Q1}
-            progress='.5'
+          <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
+            {this.props.progress * 100}%
+        </Text>
+          {this._renderQuestions()}
+
+
+          <Button
+            title="Submit Answser"
+            onPress={() => {
+              this.onSubmit();
+            }}
           />
-
-
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>

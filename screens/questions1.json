@@ -2,7 +2,10 @@
     "Q1": {
         "question": "Gebruikt u een smartphone/tablet voor uw werk? (mailen, internetten, agendabeheer.)",
         "type": "boolean",
-        "id": "Q1"
+        "id": "Q1",
+        "Callback": {
+            "Ja": "Q2"
+        }
     },
 
     "Q2": {
