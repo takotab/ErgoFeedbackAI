@@ -1,4 +1,7 @@
+>2 uur 
+
 Hoe lang werkt u op een gemiddelde werkdag met een beeldscherm (computer, laptop en/of tablet)?
+
 Percentages per werk plek?
   Eén of meer beeldschermen met los toetsenbord en muis
   Laptop (open) met los toetsenbord en muis
@@ -7,11 +10,17 @@ Percentages per werk plek?
   Tablet in hoes met toetsenbord of laptop (zonder apart toetsenbord en/of muis)
   tablet (zonder accessoires)
 
+Laptop of tablet -> zonder extern toestenboard / muis -> beeldscherm omhoog
+
 Maakt u voor uw werk gemiddeld langer dan een half uur per dag gebruik van een tablet (zonder extern aangesloten toetsenbord)? Bijvoorbeeld mailen, agendabeheer, notuleren.
 smartphone
+
 Wordt uw beeldschermwerk (op een gemiddelde werkdag) minimaal 2x per dag afgewisseld met andere werkzaamheden zoals vergaderingen, collegiaal overleg, bellen, werken met papieren dossiers? Exclusief de lunchpauze.
+
 Werkt u heel intensief met één onderdeel van uw apparatuur? D.w.z. leest u vooral intensief van het scherm, typt u vooral veel of muist u vooral veel?
+
 Zit u vaak langer dan een uur achter elkaar zonder afwisseling met lopen en staan (zowel voor beeldschermwerk als andere taken die zittend worden uitgevoerd)?
+
 Doet u regelmatig 's avonds (buiten werkuren) nog beeldschermwerk?
 
 ====
@@ -22,53 +31,65 @@ Heeft u de zithoogte van uw stoel aangepast aan uw beenlengte? Dat wil zeggen:
 uw voeten zijn ondersteund (op de grond of een voetenbankje)
 uw knieën zijn vrijwel op dezelfde hoogte als uw heupen
 uw bovenbenen worden comfortabel ondersteund (waarbij u geen hinderlijke drukpunten ervaart)
-
+-ai
 
 Heeft u uw rugleuning op de voor u juiste manier ingesteld? Dat wil zeggen:
 het onderste deel van uw rug wordt gesteund door de welving van de rugleuning
 de rugleuning komt minimaal tot uw schouderbladen
 
+
 Kunt u de armsteunen van uw stoel goed gebruiken, dat wil zeggen:
 zitten de armleuningen niet in de weg bij het aanschuiven van de stoel?
 kunt u uw bovenarmen ontspannen laten rusten op de armsteunen?
+Ai 1
+
+++ Abductie
+Niet doen
 
 ====werkblad
-Is het werkblad groot genoeg voor uw werkzaamheden?
-
-Is het werkblad groot genoeg voor uw werkzaamheden?
+-- Is het werkblad groot genoeg voor uw werkzaamheden?
 
 Zijn hoogte van tafel en stoel ingesteld op uw lichaamslengte? Dat wil zeggen: kunt u een houding innemen met ontspannen schouders en afhangende bovenarmen?
+Ai 1
 
-Is het werkblad inclusief draagconstructie aan de voorzijde dikker dan 5 cm?
+-- Is het werkblad inclusief draagconstructie aan de voorzijde dikker dan 5 cm?
+?? AI
 
 Is uw bureau instelbaar tot stahoogte?
-  Weet u hoe u de tafel tot stahoogte in kunt stellen?
   Wisselt u af tussen zittend en staand werken?
 
+-- Is het werkblad vrij van spiegelingen?
+?AI
 
-Is het werkblad vrij van spiegelingen?
-Alleen beantwoorden als u veel leest of overtypt van documenten: Is er een voldoende grote en stabiele documenthouder beschikbaar?
+Alleen beantwoorden als u veel leest of overtypt van documenten: Is er een voldoende grote en stabiele **documenthouder** beschikbaar?
+
+?AI
+
+10 vinger blind typen?
+  Met hoeveel vingers typt u?
+  
 === werkdruk
-Heeft u een duidelijke taakomschrijving en afspraken over wat er van u op het werk wordt verwacht?
+-- Heeft u een duidelijke taakomschrijving en afspraken over wat er van u op het werk wordt verwacht?
 
-Bestaat uw werk uit moeilijkere en makkelijkere taken?
+-- Bestaat uw werk uit moeilijkere en makkelijkere taken?
 
-
-Moet u regelmatig met een erg hoog tempo werken?
+-- Moet u regelmatig met een erg hoog tempo werken?
 
 Komt het regelmatig voor dat u uw werk echt niet af kunt krijgen?
 
-Bepaalt u zelf de volgorde van uw werkzaamheden?
+-- Bepaalt u zelf de volgorde van uw werkzaamheden?
 
-Kunt u zelf uw werktempo regelen?
+-- Kunt u zelf uw werktempo regelen?
 
-Kunt u bij problemen tijdens het werk snel hulp van collega's inschakelen?
+-- Kunt u bij problemen tijdens het werk snel hulp van collega's inschakelen?
 
 
-Bent u tevreden over de ondersteuning door uw direct leidinggevende? Denk hierbij aan beschikbaarheid en aanspreekbaarheid.
+-- Bent u tevreden over de ondersteuning door uw direct leidinggevende? Denk hierbij aan beschikbaarheid en aanspreekbaarheid.
+
 Kunt u bij technische problemen hulp inroepen? Dit geldt ook voor hulp bij het gebruik van technische middelen die u gebruikt.
+Stoel en tafel
 
-Voelt u zich, vanuit uzelf of door collega's of leidinggevende, verplicht om ook buiten werktijd bereikbaar te zijn?
+-- Voelt u zich, vanuit uzelf of door collega's of leidinggevende, verplicht om ook buiten werktijd bereikbaar te zijn?
 
-Ontvangt u tijdens uw werk meerdere keren per uur signalen van uw telefoon of computer, zoals berichten en afspraak-herinneringen?
+-- Ontvangt u tijdens uw werk meerdere keren per uur signalen van uw telefoon of computer, zoals berichten en afspraak-herinneringen?
 ===
