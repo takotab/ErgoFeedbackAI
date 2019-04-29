@@ -49,7 +49,9 @@ Niet doen
 ====werkblad
 -- Is het werkblad groot genoeg voor uw werkzaamheden?
 
-Zijn hoogte van tafel en stoel ingesteld op uw lichaamslengte? Dat wil zeggen: kunt u een houding innemen met ontspannen schouders en afhangende bovenarmen?
+Zijn hoogte van tafel en stoel ingesteld op uw lichaamslengte?
+ Dat wil zeggen: 
+ kunt u een houding innemen met ontspannen schouders en afhangende bovenarmen?
 Ai 1
 
 -- Is het werkblad inclusief draagconstructie aan de voorzijde dikker dan 5 cm?

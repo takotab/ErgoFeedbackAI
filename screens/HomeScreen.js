@@ -33,13 +33,13 @@ export default class HomeScreen extends React.Component {
     console.log('type = ' + this.state.questions[key].type)
     return [
       <Question
+        key={key + index}
         onSelect={answer => {
           this.onSelect(key, answer);
         }}
         index={index + 1}
         question={this.state.questions[key]}
         answer={this.state.answers[key]}
-        key={key + index}
       />
     ];
   }

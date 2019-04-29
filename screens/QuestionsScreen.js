@@ -11,31 +11,105 @@ export default class QuestionScreen extends React.Component {
     static navigationOptions = {
         title: 'Questions',
     };
+
+    _renderSingleQ = (key, index) => {
+        console.log('render single question key:' + key)
+        console.log('type = ' + this.state.questions[key].type)
+        return [
+            <Question
+                key={key + index}
+                onSelect={answer => {
+                    this.onSelect(key, answer);
+                }}
+                index={index + 1}
+                question={this.state.questions[key]}
+                answer={this.state.answers[key]}
+            />
+        ];
+    }
+
+    _renderQuestions = () => {
+        const result = [];
+        console.log(this.props.questions)
+        this.props.questions.forEach((key, index) => {
+            result.push(this._renderSingleQ(key, index))
+        })
+        return result
+    }
+    onSubmit = () => {
+        let allGood = true
+        this.state.required.forEach((item, index) => {
+            console.log(item)
+            if (this.state.answers[item] == null) {
+                _index = index + 1
+                Alert.alert('Vraag ' + _index + ' vergeten', 'Vult u alstublieft nog vraag ' + _index + ' in.')
+                allGood = false
+            }
+        });
+        if (allGood) {
+            const { navigate } = this.props.navigation;
+            navigate('Questions', {
+                name: 'Jane',
+                uri: this.state.uri,
+            })
+        }
+    }
+
     render() {
+        console.log('render')
         const { navigation } = this.props;
         const uri = navigation.getParam('uri', 'Null')
-        console.log(questions["Q1"].id + questions["Q1"].question)
+        // const questions = this.props.questions
 
-        return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        return [
+            <View style={styles.container}>
+                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                    <View style={styles.welcomeContainer}>
+                        <Image
+                            source={
+                                __DEV__
+                                    ? require('../assets/images/robot-dev.png')
+                                    : require('../assets/images/robot-prod.png')
+                            }
+                            style={styles.welcomeImage}
+                        />
+                    </View>
+                    {/* <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
+                        {this.props.progress * 100}%
+        </Text> */}
+                    {this._renderQuestions()}
 
-            <Text>
-                Questions Screen
-                other
-            </Text>
-            <Question question={questions["Q1"]} />
-            < Image
-                style={{
-                    width: 200,
-                    height: 150,
-                    resizeMode: 'contain',
-                    marginVertical: 8,
-                    marginHorizontal: 8,
-                }}
-                source={{
-                    uri:
-                        uri,
-                }}
-            />
-        </View>
+                    <Button
+                        title="Volgende "
+                        onPress={() => {
+                            this.onSubmit();
+                        }}
+                    />
+                </ScrollView>
+            </View>
+        ];
+
     };
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    developmentModeText: {
+        marginBottom: 20,
+        color: 'rgba(0,0,0,0.4)',
+        fontSize: 14,
+        lineHeight: 19,
+        textAlign: 'center',
+    },
+    contentContainer: {
+        paddingTop: 30,
+    },
+    welcomeContainer: {
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+    },
+})

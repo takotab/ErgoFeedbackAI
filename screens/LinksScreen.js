@@ -13,7 +13,7 @@ export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Links',
   };
-  
+
   _onPictureSaved = async photo => {
     console.log('Picture made and saved' + photo.uri)
     // response = await UploadPhotoAsync(photo.uri)
@@ -55,8 +55,9 @@ export default class LinksScreen extends React.Component {
   _goNext = async () => {
     await console.log('goNext');
     const { navigate } = this.props.navigation;
+    questions = require('../questionData/questions1.json')
     navigate('Questions', {
-      name: 'Jane',
+      questions: questions,
       uri: this.state.uri,
     })
 

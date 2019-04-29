@@ -1,0 +1,24 @@
+{
+    "Q1": {
+        "question": "Kunt u een houding innemen met ontspannen schouders en afhangende bovenarmen??",
+        "type": "boolean",
+        "id": "Q1",
+        "req": "false"
+    },
+    "Q2": {
+        "question": "Is uw bureau instelbaar tot stahoogte?",
+        "type": "boolean",
+        "id": "Q2"
+    },
+    "Q3": {
+        "question": "Kunt u met 10 vingers blind typen?",
+        "type": "boolean",
+        "id": "Q3"
+    },
+    "Q4": {
+        "question": "Kunt u bij technische problemen rond het instellen van uw stoel/tafel hulp inroepen?",
+        "type": "boolean",
+        "id": "Q4",
+        "next": "false"
+    }
+}
