@@ -16,7 +16,7 @@ import { MonoText } from '../components/StyledText';
 import QuestionScreen from './QuestionsScreen';
 import Question from '../components/Questions';
 
-var questions = require('./questions1.json');
+var questions = require('../questionData/questions1.json');
 
 export default class HomeScreen extends React.Component {
   state = {
@@ -86,12 +86,16 @@ export default class HomeScreen extends React.Component {
 
     if ('Callback' in question) {
       if (answer in question.Callback) {
-        this.addQuestionToState(question.Callback[answer]);
+        const callbacks = question.Callback[answer]
+        callbacks.forEach((key, index) => {
+          console.log('callbacks key ' + key)
+          this.addQuestionToState(key);
+
+        })
       }
     }
 
   };
-
   onSubmit = () => {
     // TODO: check if alles is ingevuld
     let allGood = true

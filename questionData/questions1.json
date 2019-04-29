@@ -8,16 +8,6 @@
             "Ja": ["Q2", "Q3", "Q4"]
         }
     },
-    "Q2": {
-        "question": "Hoelang gebruikt u uw smartphone?",
-        "type": "slider",
-        "id": "Q2"
-    },
-    "Q3": {
-        "question": "Hoelang gebruikt u uw Tablet?",
-        "type": "slider",
-        "id": "Q3"
-    },
     "Q4": {
         "question": "Gebruikt u een extern toetsenboard?",
         "type": "boolean",

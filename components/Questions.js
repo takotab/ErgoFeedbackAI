@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
+import Slider from '@react-native-community/slider';
 
 export default class Question extends React.Component {
     constructor() {
@@ -10,63 +11,77 @@ export default class Question extends React.Component {
             answer: null
         };
     }
+    renderBool = (question) => {
+        return [
+            <RadioButton value={"Ja"} key={question.id + 'Ja'}>
+                <Text style={styles.radioText}>Ja</Text>
+            </RadioButton>,
 
+            <RadioButton value={"Nee"} key={question.id + 'Nee'}>
+                <Text style={styles.radioText}>Nee</Text>
+            </RadioButton>
+        ];
+    }
     renderOptions = question => {
         if (question.type === "boolean") {
             return [
-                <RadioButton value={"Ja"} key={question.id + 1}>
-                    <Text style={styles.radioText}>Ja</Text>
-                </RadioButton>,
-
-                <RadioButton value={"Nee"} key={question.id + 2}>
-                    <Text style={styles.radioText}>Nee</Text>
-                </RadioButton>
-            ];
-        }
-        else {
-            const result = [];
-
-            question.incorrect_answers.forEach((item, index) => {
-                let key = `${question.id}-${index}`;
-
-                if (index === this.props.correctPosition) {
-                    let key2 = `${question.id}-100`;
-                    result.push(
-                        <RadioButton value={question.correct_answer} key={key2}>
-                            <Text style={styles.radioText}>{question.correct_answer}</Text>
-                        </RadioButton>
-                    );
-                }
-
-                result.push(
-                    <RadioButton value={item} key={key}>
-                        <Text style={styles.radioText}>{item}</Text>
-                    </RadioButton>
-                );
-            });
-
-            return result;
-        }
-    };
-
-    render() {
-        return (
-            <View style={{ flex: 1, padding: 12 }}>
-
-
-                <Text style={{ fontSize: 16, fontWeight: "bold", color: "#3498db" }}>
-                    {this.props.index}) {this.props.question.question}
-                </Text>
                 <RadioGroup
                     onSelect={(index, answer) => {
-                        this.setState({ answer })
+                        this.setState({ answer: answer })
                         this.props.onSelect(answer)
-                    }
-                    }
+                    }}
                     selectedIndex={this.props.answer}
+                    key={'radioBool' + question.id}
                 >
-                    {this.renderOptions(this.props.question)}
-                </RadioGroup>
+                    {this.renderBool(question)}
+                </RadioGroup >
+
+            ];
+        }
+        else if (question.type == "slider") {
+            return [
+                <Slider
+                    style={{ width: 200, height: 40 }}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#FFFFFF"
+                    maximumTrackTintColor="#000000"
+                />
+            ];
+        }
+
+    };
+    renderDescription = () => {
+        if ('description' in this.props.question) {
+            return <View style={{ flexDirection: 'row', flex: 1 }}>
+                <Text style={{
+                    fontSize: 14, color: "#5b6a75",
+                    flexWrap: 'wrap'
+                }}>
+                    {'\t\t'}{this.props.question.description}
+                </Text>
+            </View >
+
+        }
+    }
+    render() {
+        return (
+            //style={{ flex: 1, padding: 12 }}
+            <View style={{
+                flexDirection: 'column',
+                flex: 0.8
+            }}>
+                <View style={styles.viewText}>
+
+                    <Text style={{
+                        fontSize: 16, fontWeight: "bold", color: "#3498db",
+                    }}>
+                        {this.props.index}) {this.props.question.question}
+                    </Text>
+                </View >
+
+                {this.renderDescription()}
+                {this.renderOptions(this.props.question)}
 
             </View>
         );
@@ -76,5 +91,14 @@ export default class Question extends React.Component {
 const styles = StyleSheet.create({
     radioText: {
         fontSize: 20
+    },
+    viewText: {
+        flexDirection: "column",
+
+    },
+    textQuestion: {
+        flexWrap: 'wrap'
+
     }
+
 });
