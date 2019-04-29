@@ -39,13 +39,20 @@ export default class Question extends React.Component {
             ];
         }
         else if (question.type == "slider") {
+            console.log('render slider')
             return [
                 <Slider
                     style={{ width: 200, height: 40 }}
                     minimumValue={0}
-                    maximumValue={1}
+                    maximumValue={6 * 60}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="#000000"
+                    step={15}
+                    value={this.props.answer}
+                    onValueChange={(answer) => {
+                        this.setState({ answer: answer })
+                        this.props.onSelect(answer)
+                    }}
                 />
             ];
         }

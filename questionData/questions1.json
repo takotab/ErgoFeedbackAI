@@ -5,12 +5,29 @@
         "description": "mailen, internetten, agendabeheer",
         "id": "Q1",
         "Callback": {
-            "Ja": ["Q2", "Q3", "Q4"]
+            "Ja": ["Q2", "Q3", "Q4", "Q5"]
         }
     },
-    "Q4": {
-        "question": "Gebruikt u een extern toetsenboard?",
+    "Q2": {
+        "question": "Hoelang gebruikt u uw smartphone?",
+        "description": "Geeft u de tijd in minuten.",
+        "type": "slider",
+        "id": "Q2"
+    },
+    "Q3": {
+        "question": "Gebruikt u hierbij een extern toetsenboard?",
         "type": "boolean",
+        "id": "Q3"
+    },
+    "Q4": {
+        "question": "Hoelang gebruikt u uw Tablet?",
+        "description": "Geeft u de tijd in minuten.",
+        "type": "slider",
         "id": "Q4"
+    },
+    "Q5": {
+        "question": "Gebruikt u hierbij een extern toetsenboard?",
+        "type": "boolean",
+        "id": "Q5"
     }
 }

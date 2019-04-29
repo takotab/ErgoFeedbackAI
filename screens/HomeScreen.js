@@ -25,21 +25,30 @@ export default class HomeScreen extends React.Component {
     answers: { "Q1": null },
     required: ["Q1"]
   }
+  stateChanges = []
   static navigationOptions = {
     header: null,
   };
   _renderSingleQ = (key, index) => {
     console.log('render single question key:' + key)
-    return <Question
-      onSelect={answer => {
-        this.onSelect(key, answer);
-      }}
-      index={index + 1}
-      question={this.state.questions[key]}
-      answer={this.state.answers[key]}
-      key={key}
-    />
+    return [
+      <Question
+        onSelect={answer => {
+          this.onSelect(key, answer);
+        }}
+        index={index + 1}
+        question={this.state.questions[key]}
+        answer={this.state.answers[key]}
+        key={key}
+      />
+    ];
   }
+  // executeStateChanges = () => {
+  //   key = this.stateChanges[0]
+  //   this.addQuestionToState(key)
+  //   this.stateChanges.filter(item => item !== key)
+  // }
+
   checkIfAlreadyExist = (key) => {
     let result = true
     this.state.currentQuestion.forEach((item, index) => {
@@ -65,11 +74,13 @@ export default class HomeScreen extends React.Component {
           key: null
         }
       });
+      console.log('added ' + key)
     }
   };
 
   _renderQuestions = () => {
     const result = [];
+    console.log(this.state.currentQuestion)
     this.state.currentQuestion.forEach((key, index) => {
       result.push(this._renderSingleQ(key, index))
     })
@@ -86,11 +97,20 @@ export default class HomeScreen extends React.Component {
 
     if ('Callback' in question) {
       if (answer in question.Callback) {
-        const callbacks = question.Callback[answer]
-        callbacks.forEach((key, index) => {
-          console.log('callbacks key ' + key)
-          this.addQuestionToState(key);
+        let callbacks = question.Callback[answer]
 
+
+        callbacks.forEach((key, index) => {
+          if (index == 0) {
+            this.addQuestionToState(key);
+          }
+          else {
+            setTimeout(() => {
+              this.addQuestionToState(key);
+            }
+              , index)
+            console.log('added ' + key + ' to futher changes w delay:' + 1000 * index)
+          }
         })
       }
     }
