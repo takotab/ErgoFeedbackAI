@@ -55,9 +55,10 @@ export default class LinksScreen extends React.Component {
   _goNext = async () => {
     await console.log('goNext');
     const { navigate } = this.props.navigation;
-    questions = require('../questionData/questions1.json')
+    questions1 = require('../questionData/questions1.json')
+    console.log('question gonext' + questions1)
     navigate('Questions', {
-      questions: questions,
+      questions: questions1,
       uri: this.state.uri,
     })
 

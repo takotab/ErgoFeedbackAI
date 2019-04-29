@@ -5,12 +5,13 @@ import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 import { UploadPhotoAsync } from '../uploadFile'
 import { Question } from '../components/Questions'
 
-var questions = require('./questions1.json');
+// var questions = require('./questions1.json');
 
 export default class QuestionScreen extends React.Component {
     static navigationOptions = {
         title: 'Questions',
     };
+
 
     _renderSingleQ = (key, index) => {
         console.log('render single question key:' + key)
@@ -28,10 +29,10 @@ export default class QuestionScreen extends React.Component {
         ];
     }
 
-    _renderQuestions = () => {
+    _renderQuestions = (questions) => {
         const result = [];
-        console.log(this.props.questions)
-        this.props.questions.forEach((key, index) => {
+        console.log(questions)
+        questions.forEach((key, index) => {
             result.push(this._renderSingleQ(key, index))
         })
         return result
@@ -59,7 +60,7 @@ export default class QuestionScreen extends React.Component {
         console.log('render')
         const { navigation } = this.props;
         const uri = navigation.getParam('uri', 'Null')
-        // const questions = this.props.questions
+        const questions = navigation.getParam('questions', {})
 
         return [
             <View style={styles.container}>
@@ -77,7 +78,7 @@ export default class QuestionScreen extends React.Component {
                     {/* <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
                         {this.props.progress * 100}%
         </Text> */}
-                    {this._renderQuestions()}
+                    {this._renderQuestions(questions)}
 
                     <Button
                         title="Volgende "
