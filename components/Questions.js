@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
-import Slider from '@react-native-community/slider';
+
 
 export default class Question extends React.Component {
     constructor() {
@@ -41,19 +41,14 @@ export default class Question extends React.Component {
         else if (question.type == "slider") {
             console.log('render slider')
             return [
-                <Slider
-                    style={{ width: 200, height: 40 }}
-                    minimumValue={0}
-                    maximumValue={6 * 60}
-                    minimumTrackTintColor="#FFFFFF"
-                    maximumTrackTintColor="#000000"
-                    step={15}
-                    value={this.props.answer}
-                    onValueChange={(answer) => {
-                        this.setState({ answer: answer })
-                        this.props.onSelect(answer)
-                    }}
-                />
+                <View>
+                    {/* TODO: add HH:MM */}
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: .8 }}
+                        onChangeText={(answer) => this.setState({ answer })}
+                        value={this.state.answer}
+                    />
+                </View>
             ];
         }
 

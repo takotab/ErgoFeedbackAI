@@ -8,12 +8,11 @@ import {
   TouchableOpacity,
   View,
   Button,
-  Alert
+  Alert,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import QuestionScreen from './QuestionsScreen';
 import Question from '../components/Questions';
 
 var questions = require('../questionData/questions1.json');
@@ -25,12 +24,13 @@ export default class HomeScreen extends React.Component {
     answers: { "Q1": null },
     required: ["Q1"]
   }
-  stateChanges = []
+
   static navigationOptions = {
     header: null,
   };
   _renderSingleQ = (key, index) => {
     console.log('render single question key:' + key)
+    console.log('type = ' + this.state.questions[key].type)
     return [
       <Question
         onSelect={answer => {
@@ -39,16 +39,10 @@ export default class HomeScreen extends React.Component {
         index={index + 1}
         question={this.state.questions[key]}
         answer={this.state.answers[key]}
-        key={key}
+        key={key + index}
       />
     ];
   }
-  // executeStateChanges = () => {
-  //   key = this.stateChanges[0]
-  //   this.addQuestionToState(key)
-  //   this.stateChanges.filter(item => item !== key)
-  // }
-
   checkIfAlreadyExist = (key) => {
     let result = true
     this.state.currentQuestion.forEach((item, index) => {
@@ -99,7 +93,7 @@ export default class HomeScreen extends React.Component {
       if (answer in question.Callback) {
         let callbacks = question.Callback[answer]
 
-
+        const delay = 50
         callbacks.forEach((key, index) => {
           if (index == 0) {
             this.addQuestionToState(key);
@@ -108,8 +102,8 @@ export default class HomeScreen extends React.Component {
             setTimeout(() => {
               this.addQuestionToState(key);
             }
-              , index)
-            console.log('added ' + key + ' to futher changes w delay:' + 1000 * index)
+              , delay * index)
+            console.log('added ' + key + ' to futher changes w delay:' + delay * index)
           }
         })
       }
@@ -117,7 +111,6 @@ export default class HomeScreen extends React.Component {
 
   };
   onSubmit = () => {
-    // TODO: check if alles is ingevuld
     let allGood = true
     this.state.required.forEach((item, index) => {
       console.log(item)
