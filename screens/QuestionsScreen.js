@@ -10,7 +10,7 @@ import {
     Platform
 } from 'react-native';
 
-import { SingleQuestion } from '../components/Questions.js'
+import { SingleQuestion } from '../components/Questions'
 
 
 export default class QuestionsScreen extends React.Component {
@@ -45,26 +45,30 @@ export default class QuestionsScreen extends React.Component {
             answer = questions[key].answer
         }
 
-        console.log(answer)
-        console.log(index)
         return [
-            // <Text key={key} >{key}</Text>
-            <SingleQuestion
-                // key={key + "-" + index}
-                // onSelect={answer => {
-                //     this.onSelect(key, answer);
-                // }}
-                // index={index}
-                // question={questions[key]}
-                // answer={answer}
+            < SingleQuestion
+                key={key + "-" + index}
+                keys={key + "-" + index}
+                onSelect={answer => {
+                    this.onSelect(key, answer);
+                }}
+                index={index}
+                question={questions[key]}
+                answer={answer}
             />
         ];
     }
 
-    _renderQuestions = (questions) => {
+    renderQuestions = () => {
+        const { navigation } = this.props;
+        var questions = navigation.getParam('questions', null)
+        if (questions == null) {
+            questions = require('../questionData/questions1.json')
+        }
+
         const result = [];
         var i = 1;
-        while (i < 3) {
+        while (i < 50) {
             if ('Q' + i in questions) {
                 result.push(this._renderSingleQ('Q' + i, i, questions))
                 i++
@@ -74,7 +78,6 @@ export default class QuestionsScreen extends React.Component {
                 i = 101
             }
         }
-        console.log('end while loop')
         return result
     }
 
@@ -106,11 +109,6 @@ export default class QuestionsScreen extends React.Component {
 
     render() {
         console.log('render')
-        const { navigation } = this.props;
-        var questions = navigation.getParam('questions', null)
-        if (questions == null) {
-            questions = require('../questionData/questions1.json')
-        }
         return [
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -124,10 +122,7 @@ export default class QuestionsScreen extends React.Component {
                             style={styles.welcomeImage}
                         />
                     </View>
-                    <View>
-                        {this._renderQuestions(questions)}
-                    </View>
-
+                    {this.renderQuestions()}
                     <Button
                         title="Volgende"
                         onPress={() => {

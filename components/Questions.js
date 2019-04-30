@@ -8,7 +8,7 @@ import {
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
 
 
-export default class SingleQuestion extends React.Component {
+export class SingleQuestion extends React.Component {
     constructor() {
         super();
 
@@ -32,12 +32,12 @@ export default class SingleQuestion extends React.Component {
         if (question.type === "boolean") {
             return [
                 <RadioGroup
+                    key={'radioBool-' + key}
                     onSelect={(index, answer) => {
                         this.setState({ answer: answer })
                         this.props.onSelect(answer)
                     }}
                     selectedIndex={this.props.answer}
-                    key={'radioBool-' + key}
                 >
                     {this.renderBool(key)}
                 </RadioGroup >
