@@ -24,34 +24,43 @@ export default class MetaQuestionsScreen extends React.Component {
 
 
     render() {
-        const { navigate } = this.props.navigation;
-        var current_questions = navigation.getParam('question_meta_num', '1')
+        console.log('---- meta ----')
+        var current_questions = this.props.navigation.getParam('question_meta_num', '1')
+        console.log('meta' + current_questions)
+        console.log(q2)
+        console.log('---meta---q2')
         switch (current_questions) {
             case (1):
                 console.log("Metaswitch " + current_questions);
-                < QuestionsScreen
-                    questions={q1}
-                    question_meta_num={1}
-                />
+                this.props.navigation.navigate('Questions', {
+                    questions: { q1 },
+                    question_meta_num: current_questions
+
+                })
             case (2):
                 console.log("Metaswitch " + current_questions);
-                < QuestionsScreen
-                    questions={q2}
-                    question_meta_num={2}
-                />
+                this.props.navigation.navigate('Questions', {
+                    questions: q2,
+                    question_meta_num: current_questions
+
+                })
             case (3):
                 console.log("Metaswitch " + current_questions);
-                < QuestionsScreen
-                    questions={q3}
-                    question_meta_num={3}
-                />
+                this.props.navigation.navigate('Questions', {
+                    questions: { q3 },
+                    question_meta_num: current_questions
+
+                })
             case (4):
                 console.log("Metaswitch " + current_questions);
-                < QuestionsScreen
-                    questions={q4}
-                    question_meta_num={4}
-                />
-        }
+                this.props.navigation.navigate('Questions', {
+                    questions: { q4 },
+                    question_meta_num: current_questions
 
+                })
+            case (5):
+                this.props.navigation.navigate('Home')
+        }
+        return <View><Text>Loading..</Text></View>
     };
 }

@@ -34,7 +34,7 @@ export class SingleQuestion extends React.Component {
                     key={'radioBool-' + key}
                     onSelect={(index, answer) => {
                         this.setState({ answer: answer })
-                        this.props.onSelect(answer)
+                        this.props.onSelect(index)
                     }}
                     selectedIndex={this.props.answer}
                 >

@@ -16,9 +16,7 @@ import { SingleQuestion } from '../components/Questions'
 
 export default class QuestionsScreen extends React.Component {
     state = {
-        answers: {
-            'Q1': null
-        }
+        Q1: null
     }
     static navigationOptions = {
         title: 'Questions',
@@ -35,24 +33,20 @@ export default class QuestionsScreen extends React.Component {
     _renderSingleQ = (key, index, questions) => {
         console.log('render single question key:' + key)
         var answer = null
-        if (!key in this.state.answers) {
-            () =>
-                this.setState({
-                    answers: {
-                        ...this.answers,
-                        key: null
-                    }
-                })
+        if (!key in this.state) {
+            // () =>
+            this.setState((state, props) => ({
+                [key]: null
+            }));
+            console.log('added ' + key)
         }
-        else if (this.state.answers[key] == null && 'answer' in questions[key]) {
-            () =>
-                this.setState({
-                    answers: {
-                        ...this.answers,
-                        key: questions[key].answer
-                    }
-                })
+        if (this.state[key] == null && 'answer' in questions[key]) {
+            // () =>
+            this.setState((state, props) => ({
+                [key]: questions[key].answer
+            }))
             answer = questions[key].answer
+            console.log('added default ' + key + '  ' + answer)
         }
 
         return [
@@ -83,16 +77,15 @@ export default class QuestionsScreen extends React.Component {
                 i = 101
             }
         }
+        console.log(this.state)
+        console.log(questions)
         return result
     }
 
     onSelect = (key, answer) => {
         console.log('selected ' + answer + " for " + key)
         this.setState({
-            answers: {
-                ...this.answers,
-                [key]: answer
-            }
+            [key]: answer
         })
     }
 
@@ -100,10 +93,10 @@ export default class QuestionsScreen extends React.Component {
         questions = this._loadQuestionsJson()
         let allGood = true
         var i = 1;
-        console.log(this.state.answers)
+        console.log(questions)
         while (i < 50) {
             if ('Q' + i in questions) {
-                if (this.state.answers['Q' + i] == null) {
+                if (this.state['Q' + i] == null) {
                     Alert.alert('Vraag ' + i + ' vergeten', 'Vult u alstublieft nog vraag ' + i + ' in.')
                     allGood = false
                     i = 101
@@ -117,15 +110,16 @@ export default class QuestionsScreen extends React.Component {
         // TODO: send answers to cloud
 
         if (allGood) {
-            const { navigate } = this.props.navigation;
-            var question_meta_num = navigation.getParam('question_meta_num', '1') + 1
-            navigate.push('Questions', {
+            var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1')) + 1
+            console.log('toward meta: ' + question_meta_num)
+            this.props.navigation.navigate('Meta', {
                 question_meta_num: question_meta_num,
             })
         }
     }
 
     render() {
+        console.log('--- QuestionsScreen ---')
         console.log('render')
         return [
             <View style={styles.container}>

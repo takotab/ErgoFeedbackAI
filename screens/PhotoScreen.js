@@ -52,7 +52,7 @@ export default class PhotoScreen extends React.Component {
 
   _goNext = async () => {
     await console.log('goNext');
-    navigate('Questions')
+    navigate('Meta')
 
   };
 

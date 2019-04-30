@@ -3,10 +3,8 @@
         "question": "Wordt uw beeldschermwerk minimaal 2x per dag afgewisseld met andere werkzaamheden?",
         "type": "boolean",
         "description": "Denk aan: vergaderingen, collegiaal overleg, bellen, werken met papieren dossiers dit exclusief de lunchpauze",
-        "id": "Q1",
-        "Callback": {
-            "Ja": ["Q2", "Q3", "Q4", "Q5"]
-        }
+        "id": "Q1"
+
     },
     "Q2": {
         "question": "Werkt u heel intensief met één onderdeel van uw apparatuur?",
