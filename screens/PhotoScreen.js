@@ -52,13 +52,7 @@ export default class PhotoScreen extends React.Component {
 
   _goNext = async () => {
     await console.log('goNext');
-    const { navigate } = this.props.navigation;
-    questions1 = require('../questionData/questions1.json')
-    console.log('question gonext' + questions1)
-    navigate('Questions', {
-      questions: questions1,
-      uri: this.state.uri,
-    })
+    navigate('Questions')
 
   };
 

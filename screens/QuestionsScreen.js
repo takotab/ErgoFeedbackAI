@@ -7,7 +7,8 @@ import {
     Text,
     FileSystem,
     Image,
-    Platform
+    Platform,
+    Alert,
 } from 'react-native';
 
 import { SingleQuestion } from '../components/Questions'
@@ -23,25 +24,34 @@ export default class QuestionsScreen extends React.Component {
         title: 'Questions',
     };
 
-
+    _loadQuestionsJson = () => {
+        const { navigation } = this.props;
+        var questions = navigation.getParam('questions', null)
+        if (questions == null) {
+            questions = require('../questionData/questions1.json')
+        }
+        return questions
+    }
     _renderSingleQ = (key, index, questions) => {
         console.log('render single question key:' + key)
         var answer = null
         if (!key in this.state.answers) {
-            this.setState({
-                answers: {
-                    ...this.answers,
-                    key: null
-                }
-            })
+            () =>
+                this.setState({
+                    answers: {
+                        ...this.answers,
+                        key: null
+                    }
+                })
         }
-        if (this.state.answers[key] == null && 'answer' in questions[key]) {
-            this.setState({
-                answers: {
-                    ...this.answers,
-                    key: question.key.answer
-                }
-            })
+        else if (this.state.answers[key] == null && 'answer' in questions[key]) {
+            () =>
+                this.setState({
+                    answers: {
+                        ...this.answers,
+                        key: questions[key].answer
+                    }
+                })
             answer = questions[key].answer
         }
 
@@ -49,7 +59,7 @@ export default class QuestionsScreen extends React.Component {
             < SingleQuestion
                 key={key + "-" + index}
                 keys={key + "-" + index}
-                onSelect={answer => {
+                onSelect={(answer) => {
                     this.onSelect(key, answer);
                 }}
                 index={index}
@@ -60,12 +70,7 @@ export default class QuestionsScreen extends React.Component {
     }
 
     renderQuestions = () => {
-        const { navigation } = this.props;
-        var questions = navigation.getParam('questions', null)
-        if (questions == null) {
-            questions = require('../questionData/questions1.json')
-        }
-
+        questions = this._loadQuestionsJson()
         const result = [];
         var i = 1;
         while (i < 50) {
@@ -82,27 +87,40 @@ export default class QuestionsScreen extends React.Component {
     }
 
     onSelect = (key, answer) => {
+        console.log('selected ' + answer + " for " + key)
         this.setState({
-            ...this.answers,
-            key: answer
+            answers: {
+                ...this.answers,
+                [key]: answer
+            }
         })
     }
 
     onSubmit = () => {
+        questions = this._loadQuestionsJson()
         let allGood = true
-        this.state.required.forEach((item, index) => {
-            console.log(item)
-            if (this.state.answers[item] == null) {
-                _index = index + 1
-                Alert.alert('Vraag ' + _index + ' vergeten', 'Vult u alstublieft nog vraag ' + _index + ' in.')
-                allGood = false
+        var i = 1;
+        console.log(this.state.answers)
+        while (i < 50) {
+            if ('Q' + i in questions) {
+                if (this.state.answers['Q' + i] == null) {
+                    Alert.alert('Vraag ' + i + ' vergeten', 'Vult u alstublieft nog vraag ' + i + ' in.')
+                    allGood = false
+                    i = 101
+                }
+                i++
             }
-        });
+            else {
+                i = 101
+            }
+        }
+        // TODO: send answers to cloud
+
         if (allGood) {
             const { navigate } = this.props.navigation;
-            navigate('Questions', {
-                name: 'Jane',
-                uri: this.state.uri,
+            var question_meta_num = navigation.getParam('question_meta_num', '1') + 1
+            navigate.push('Questions', {
+                question_meta_num: question_meta_num,
             })
         }
     }
@@ -112,16 +130,7 @@ export default class QuestionsScreen extends React.Component {
         return [
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.welcomeContainer}>
-                        <Image
-                            source={
-                                __DEV__
-                                    ? require('../assets/images/robot-dev.png')
-                                    : require('../assets/images/robot-prod.png')
-                            }
-                            style={styles.welcomeImage}
-                        />
-                    </View>
+
                     {this.renderQuestions()}
                     <Button
                         title="Volgende"

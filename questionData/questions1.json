@@ -10,7 +10,9 @@
         "description": "Geeft u de tijd in minuten.",
         "type": "slider",
         "id": "Q2",
-        "req": "False"
+        "req": "False",
+        "answer": "0"
+
     },
     "Q3": {
         "question": "Gebruikt u hierbij een extern toetsenboard?",
@@ -23,7 +25,8 @@
         "description": "Geeft u de tijd in minuten.",
         "type": "slider",
         "id": "Q4",
-        "req": "False"
+        "req": "False",
+        "answer": "0"
     },
     "Q5": {
         "question": "Gebruikt u hierbij een extern toetsenboard?",

@@ -28,7 +28,6 @@ export class SingleQuestion extends React.Component {
         ];
     }
     renderOptions = (question, key) => {
-        console.log('questionrenderopptions')
         if (question.type === "boolean") {
             return [
                 <RadioGroup
@@ -45,14 +44,17 @@ export class SingleQuestion extends React.Component {
             ];
         }
         else if (question.type == "slider") {
-            console.log('render slider')
             return [
-                <View>
+                <View style={{ padding: 10 }}>
                     {/* TODO: add HH:MM */}
                     <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: .8 }}
-                        onChangeText={(answer) => this.setState({ answer })}
-                        value={this.state.answer}
+                        style={{ height: 40, borderColor: 'gray', borderWidth: .5, justifyContent: 'center' }}
+                        onChangeText={(answer) => {
+                            this.setState({ answer: answer })
+                            this.props.onSelect(answer)
+                        }}
+                        defaultValue={this.props.answer}
+                        keyboardType='numeric'
                     />
                 </View>
             ];
@@ -73,10 +75,9 @@ export class SingleQuestion extends React.Component {
         }
     }
     render() {
-        console.log('render question key:' + this.props.key)
         return (
             //style={{ flex: 1, padding: 12 }}
-            <View style={{
+            <View key={this.props.keys + 'view'} style={{
                 flexDirection: 'column',
                 flex: 0.8
             }}>
@@ -90,7 +91,7 @@ export class SingleQuestion extends React.Component {
                 </View >
 
                 {this.renderDescription()}
-                {this.renderOptions(this.props.question, this.props.key)}
+                {this.renderOptions(this.props.question, this.props.keys)}
 
             </View>
         );
