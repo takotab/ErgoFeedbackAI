@@ -8,35 +8,75 @@ import { Question } from '../components/Questions'
 // var questions = require('./questions1.json');
 
 export default class QuestionScreen extends React.Component {
+    state = {
+        answers: {
+            'Q1': null
+        }
+    }
     static navigationOptions = {
         title: 'Questions',
     };
 
 
-    _renderSingleQ = (key, index) => {
+    _renderSingleQ = (key, index, questions) => {
         console.log('render single question key:' + key)
-        console.log('type = ' + this.state.questions[key].type)
+
+        if (!key in this.state.answers) {
+            this.setState({
+                answers: {
+                    ...this.answers,
+                    key: null
+                }
+            })
+        }
+        if (this.state.answers[key] == null && 'answer' in questions[key]) {
+            this.setState({
+                answers: {
+                    ...this.answers,
+                    key: question.key.answer
+                }
+            })
+        }
+        answer = this.state.answers.key
+
         return [
             <Question
                 key={key + index}
                 onSelect={answer => {
-                    this.onSelect(key, answer);
+                    this.onSelect(key, answer, questions);
                 }}
-                index={index + 1}
-                question={this.state.questions[key]}
-                answer={this.state.answers[key]}
+                index={index}
+                question={questions[key]}
+                answer={answer}
             />
         ];
     }
 
     _renderQuestions = (questions) => {
         const result = [];
-        console.log(questions)
-        questions.forEach((key, index) => {
-            result.push(this._renderSingleQ(key, index))
-        })
+        var i = 1;
+        while (i < 100) {
+            if ('Q' + i in questions) {
+                result.push(this._renderSingleQ('Q' + i, i, questions))
+                i++
+            }
+            else {
+                console.log('Q' + i + ' not more in json')
+                i = 101
+            }
+        }
+        console.log('end while loop')
         return result
     }
+
+    onSelect = (key, answer, questions) => {
+        const question = questions[key];
+        this.setState({
+            ...this.answers,
+            key: answer
+        })
+    }
+
     onSubmit = () => {
         let allGood = true
         this.state.required.forEach((item, index) => {
@@ -59,7 +99,6 @@ export default class QuestionScreen extends React.Component {
     render() {
         console.log('render')
         const { navigation } = this.props;
-        const uri = navigation.getParam('uri', 'Null')
         const questions = navigation.getParam('questions', {})
 
         return [
@@ -78,10 +117,12 @@ export default class QuestionScreen extends React.Component {
                     {/* <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
                         {this.props.progress * 100}%
         </Text> */}
-                    {this._renderQuestions(questions)}
+                    <View>
+                        {this._renderQuestions(questions)}
+                    </View>
 
                     <Button
-                        title="Volgende "
+                        title="Volgende"
                         onPress={() => {
                             this.onSubmit();
                         }}
