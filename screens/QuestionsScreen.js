@@ -9,14 +9,11 @@ import {
     Image,
     Platform
 } from 'react-native';
-import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
-import { UploadPhotoAsync } from '../uploadFile'
-import { Question } from '../components/Questions'
+import { SingleQuestion } from '../components/Questions.js'
 
-// var questions = require('./questions1.json');
 
-export default class QuestionScreen extends React.Component {
+export default class QuestionsScreen extends React.Component {
     state = {
         answers: {
             'Q1': null
@@ -29,7 +26,7 @@ export default class QuestionScreen extends React.Component {
 
     _renderSingleQ = (key, index, questions) => {
         console.log('render single question key:' + key)
-
+        var answer = null
         if (!key in this.state.answers) {
             this.setState({
                 answers: {
@@ -45,18 +42,21 @@ export default class QuestionScreen extends React.Component {
                     key: question.key.answer
                 }
             })
+            answer = questions[key].answer
         }
-        answer = this.state.answers.key
 
+        console.log(answer)
+        console.log(index)
         return [
-            <Question
-                key={key + index}
-                onSelect={answer => {
-                    this.onSelect(key, answer, questions);
-                }}
-                index={index}
-                question={questions[key]}
-                answer={answer}
+            // <Text key={key} >{key}</Text>
+            <SingleQuestion
+                // key={key + "-" + index}
+                // onSelect={answer => {
+                //     this.onSelect(key, answer);
+                // }}
+                // index={index}
+                // question={questions[key]}
+                // answer={answer}
             />
         ];
     }
@@ -64,7 +64,7 @@ export default class QuestionScreen extends React.Component {
     _renderQuestions = (questions) => {
         const result = [];
         var i = 1;
-        while (i < 100) {
+        while (i < 3) {
             if ('Q' + i in questions) {
                 result.push(this._renderSingleQ('Q' + i, i, questions))
                 i++
@@ -78,8 +78,7 @@ export default class QuestionScreen extends React.Component {
         return result
     }
 
-    onSelect = (key, answer, questions) => {
-        const question = questions[key];
+    onSelect = (key, answer) => {
         this.setState({
             ...this.answers,
             key: answer
@@ -125,9 +124,6 @@ export default class QuestionScreen extends React.Component {
                             style={styles.welcomeImage}
                         />
                     </View>
-                    {/* <Text style={{ fontSize: 16, color: "#666", textAlign: "right" }}>
-                        {this.props.progress * 100}%
-        </Text> */}
                     <View>
                         {this._renderQuestions(questions)}
                     </View>
@@ -141,11 +137,6 @@ export default class QuestionScreen extends React.Component {
                 </ScrollView>
             </View>
 
-            // <View style={styles.tabBarInfoContainer}>
-            //     <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            //         <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-            //     </View>
-            // </View>
         ];
 
     };

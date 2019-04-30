@@ -1,9 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput
+} from "react-native";
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
 
 
-export default class Question extends React.Component {
+export default class SingleQuestion extends React.Component {
     constructor() {
         super();
 
@@ -11,18 +16,19 @@ export default class Question extends React.Component {
             answer: null
         };
     }
-    renderBool = (question) => {
+    renderBool = (key) => {
         return [
-            <RadioButton value={"Ja"} key={question.id + 'Ja'}>
+            <RadioButton value={"Ja"} key={key + 'Ja'}>
                 <Text style={styles.radioText}>Ja</Text>
             </RadioButton>,
 
-            <RadioButton value={"Nee"} key={question.id + 'Nee'}>
+            <RadioButton value={"Nee"} key={key + 'Nee'}>
                 <Text style={styles.radioText}>Nee</Text>
             </RadioButton>
         ];
     }
-    renderOptions = question => {
+    renderOptions = (question, key) => {
+        console.log('questionrenderopptions')
         if (question.type === "boolean") {
             return [
                 <RadioGroup
@@ -31,9 +37,9 @@ export default class Question extends React.Component {
                         this.props.onSelect(answer)
                     }}
                     selectedIndex={this.props.answer}
-                    key={'radioBool' + question.id}
+                    key={'radioBool-' + key}
                 >
-                    {this.renderBool(question)}
+                    {this.renderBool(key)}
                 </RadioGroup >
 
             ];
@@ -67,6 +73,7 @@ export default class Question extends React.Component {
         }
     }
     render() {
+        console.log('render question key:' + this.props.key)
         return (
             //style={{ flex: 1, padding: 12 }}
             <View style={{
@@ -83,7 +90,7 @@ export default class Question extends React.Component {
                 </View >
 
                 {this.renderDescription()}
-                {this.renderOptions(this.props.question)}
+                {this.renderOptions(this.props.question, this.props.key)}
 
             </View>
         );

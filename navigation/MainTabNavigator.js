@@ -33,7 +33,7 @@ const QeustionsStack = createStackNavigator({
 });
 
 QeustionsStack.navigationOptions = {
-  tabBarLabel: 'Qeustions',
+  tabBarLabel: 'Questions',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
