@@ -1,5 +1,14 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View, Text, FileSystem, Image } from 'react-native';
+import {
+    Button,
+    ScrollView,
+    StyleSheet,
+    View,
+    Text,
+    FileSystem,
+    Image,
+    Platform
+} from 'react-native';
 import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
 import { UploadPhotoAsync } from '../uploadFile'
@@ -99,8 +108,10 @@ export default class QuestionScreen extends React.Component {
     render() {
         console.log('render')
         const { navigation } = this.props;
-        const questions = navigation.getParam('questions', {})
-
+        var questions = navigation.getParam('questions', null)
+        if (questions == null) {
+            questions = require('../questionData/questions1.json')
+        }
         return [
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -129,6 +140,12 @@ export default class QuestionScreen extends React.Component {
                     />
                 </ScrollView>
             </View>
+
+            // <View style={styles.tabBarInfoContainer}>
+            //     <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+            //         <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+            //     </View>
+            // </View>
         ];
 
     };
@@ -153,5 +170,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
+    },
+    tabBarInfoContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: { height: -3 },
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
+        }),
+        alignItems: 'center',
+        backgroundColor: '#fbfbfb',
+        paddingVertical: 20,
+    },
+    codeHighlightContainer: {
+        backgroundColor: 'rgba(0,0,0,0.05)',
+        borderRadius: 3,
+        paddingHorizontal: 4,
+    },
+    navigationFilename: {
+        marginTop: 5,
+    },
+    codeHighlightText: {
+        color: 'rgba(96,100,109, 0.8)',
     },
 })

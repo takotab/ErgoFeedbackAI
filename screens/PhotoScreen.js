@@ -4,16 +4,14 @@ import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
 import { UploadPhotoAsync } from '../uploadFile'
 
-export default class LinksScreen extends React.Component {
+export default class PhotoScreen extends React.Component {
   state = {
     hasPhotos: false,
     uri: '',
   };
-
-  static navigationOptions = {
-    title: 'Links',
-  };
-
+  // static navigationOptions = {
+  //   header: 'Ph',
+  // };
   _onPictureSaved = async photo => {
     console.log('Picture made and saved' + photo.uri)
     // response = await UploadPhotoAsync(photo.uri)
@@ -106,6 +104,7 @@ export default class LinksScreen extends React.Component {
           title='Yes, continue!'
         />
       </View>
+
     }
 
   }

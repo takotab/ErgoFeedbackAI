@@ -5,17 +5,17 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIconAnt from '../components/TabBarIconAnt'
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import PhotoScreen from '../screens/PhotoScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import CameraScreen from '../screens/CameraScreen';
+import QuestionsScreen from '../screens/QuestionsScreen';
 
-const CameraStack = createStackNavigator({
-  Camera: CameraScreen,
+
+const PhotosStack = createStackNavigator({
+  Photos: PhotoScreen,
 });
 
-CameraStack.navigationOptions = {
-  tabBarLabel: 'Camera',
+PhotosStack.navigationOptions = {
+  tabBarLabel: 'Photos',
   tabBarIcon: ({ focused }) => (
     <TabBarIconAnt
       focused={focused}
@@ -28,32 +28,12 @@ CameraStack.navigationOptions = {
   ),
 };
 
-
-
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const QeustionsStack = createStackNavigator({
+  Qeustions: QuestionsScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+QeustionsStack.navigationOptions = {
+  tabBarLabel: 'Qeustions',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -77,8 +57,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  CameraStack,
-  LinksStack,
+  PhotosStack,
+  QeustionsStack,
   SettingsStack,
 });
