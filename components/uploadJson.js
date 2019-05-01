@@ -14,6 +14,7 @@ export async function UploadPhotoAsync(answers) {
         body: JSON.stringify({
             sessionId: Constants.sessionId,
             answers: answers,
+            'source': 'app'
         }),
     });
 }

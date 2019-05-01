@@ -19,6 +19,7 @@ export async function UploadPhotoAsync(localUri) {
     formData.append('file', { uri: localUri, name: filename, type });
     formData.append('source', 'app')
 
+    formData.append("sessionId", Constants.sessionId)
     return await fetch(YOUR_SERVER_URL, {
         method: 'POST',
         body: formData,
