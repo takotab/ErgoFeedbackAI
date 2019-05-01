@@ -86,7 +86,7 @@ export class SingleQuestion extends React.Component {
                     <Text style={{
                         fontSize: 16, fontWeight: "bold", color: "#3498db",
                     }}>
-                        {this.props.index}) {this.props.question.question}
+                        {'\t'}{this.props.index}) {this.props.question.question}
                     </Text>
                 </View >
 
