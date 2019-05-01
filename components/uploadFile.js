@@ -1,18 +1,7 @@
-YOUR_SERVER_URL = 'https://ergoscan.appspot.com/analyze'
+import { Constants } from 'expo';
+OUR_SERVER_URL = 'https://ergoscan.appspot.com/analyze'
 
 export async function UploadPhotoAsync(localUri) {
-    // Display the camera to the user and wait for them to take a photo or to cancel
-    // the action
-    // let result = await ImagePicker.launchCameraAsync({
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    // });
-
-
-    // if (result.cancelled) {
-    //   return;
-    // }
-
 
     // // ImagePicker saves the taken photo to disk and returns a local URI to it
     // let localUri = result.uri;

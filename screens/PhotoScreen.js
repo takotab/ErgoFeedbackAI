@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ScrollView, StyleSheet, View, Text, FileSystem, Image } from 'react-native';
 import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 
-import { UploadPhotoAsync } from '../uploadFile'
+import { UploadPhotoAsync } from '../components/uploadFile'
 
 export default class PhotoScreen extends React.Component {
   static navigationOptions = {
@@ -99,7 +99,11 @@ export default class PhotoScreen extends React.Component {
         />
         <Button
           onPress={this._goNext}
-          title='Yes, continue!'
+          title='Ja!'
+        />
+        <Button
+          onPress={this._restore}
+          title='nope'
         />
       </View>
 
