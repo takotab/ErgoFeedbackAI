@@ -11,6 +11,7 @@ import {
     Alert,
 } from 'react-native';
 
+import { UploadAnswersAsync } from '../components/uploadJson'
 import { SingleQuestion } from '../components/Questions'
 
 
@@ -91,7 +92,7 @@ export default class QuestionsScreen extends React.Component {
         })
     }
 
-    onSubmit = () => {
+    onSubmit = async () => {
         questions = this._loadQuestionsJson()
         let allGood = true
         var i = 1;
@@ -109,7 +110,11 @@ export default class QuestionsScreen extends React.Component {
                 i = 101
             }
         }
-        // TODO: send answers to cloud
+        this.state.forEach(async (Q, index) => {
+            console.log("forEach")
+            console.log(Q + index)
+            await UploadAnswersAsync(this.state[Q], questions[Q].question)
+        });
 
         if (allGood) {
             var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1')) + 1
