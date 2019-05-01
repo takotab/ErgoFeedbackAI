@@ -5,6 +5,10 @@ import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
 import { UploadPhotoAsync } from '../uploadFile'
 
 export default class PhotoScreen extends React.Component {
+  static navigationOptions = {
+    headerTitleStyle: { alignSelf: 'center', fontSize: 20 },
+    headerTitle: "Maak een foto       ",
+  };
   state = {
     hasPhotos: false,
     uri: '',

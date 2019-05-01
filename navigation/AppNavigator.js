@@ -2,6 +2,8 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import MainTabNavigator, { PhotoStack, QeustionsStack, } from './MainTabNavigator'
+import { useScreens } from 'react-native-screens';
+useScreens(); //https://github.com/react-navigation/react-navigation.github.io/blob/source/docs/react-native-screens.md
 
 import MetaQuestionsScreen from '../screens/MetaQuestionScreen';
 import QuestionsScreen from '../screens/QuestionsScreen';
