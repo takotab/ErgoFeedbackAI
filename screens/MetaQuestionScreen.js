@@ -16,6 +16,8 @@ import q1 from '../questionData/questions1.json';
 import q2 from '../questionData/questions2.json';
 import q3 from '../questionData/questions3.json';
 import q4 from '../questionData/questions4.json';
+import q5 from '../questionData/questions5.json';
+
 
 export default class MetaQuestionsScreen extends React.Component {
     state = {
@@ -64,8 +66,17 @@ export default class MetaQuestionsScreen extends React.Component {
 
             })
         }
+
+        else if (current_questions == 6) {
+            console.log("Metaswitch " + current_questions);
+            this.props.navigation.navigate('Questions', {
+                questions: q5,
+                question_meta_num: current_questions
+
+            });
+        }
         else {
-            console.log("Metaswitch hard " + 5);
+            console.log("Metaswitch hard " + 6);
             console.log("Metaswitch " + current_questions);
             this.props.navigation.navigate('Home')
         }

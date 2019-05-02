@@ -1,0 +1,16 @@
+{
+    "Q1": {
+        "question": "Wat is uw email-adres?",
+        "type": "mail",
+        "description": "Dit email adres word alleen gebruikt om u het verslag te sturen.",
+        "id": "Q1"
+
+    },
+    "Q2": {
+        "question": "Wilt u over een jaar opniew (met korting) een ergoscan doen?",
+        "type": "boolean",
+        "description": "U krijgt dan eenmalig volgend jaar een mailtje met een kortingscode.",
+        "id": "Q2"
+
+    }
+}
