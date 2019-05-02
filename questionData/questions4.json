@@ -20,5 +20,10 @@
         "type": "boolean",
         "id": "Q4",
         "next": "false"
+    },
+    "Q5": {
+        "question": "Typt u meer als 2 uur op uw laptoptoetsenbord?",
+        "type": "boolean",
+        "id": "Q5"
     }
 }

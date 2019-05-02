@@ -30,9 +30,16 @@
         "id": "Q5"
     },
     "Q6": {
+        "question": "Ondersteunen de armleuningen uw elleboog/onderarm?",
+
+        "type": "boolean",
+        "id": "Q6"
+    },
+
+    "Q7": {
         "question": "Kunt u uw bovenarmen ontspannen laten rusten op de armsteunen?",
         "type": "boolean",
-        "id": "Q6",
+        "id": "Q7",
         "next": "questions4"
     }
 }
