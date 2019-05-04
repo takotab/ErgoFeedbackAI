@@ -68,7 +68,7 @@ Alleen beantwoorden als u veel leest of overtypt van documenten: Is er een voldo
 ?AI
 
 10 vinger blind typen?
-  Met hoeveel vingers typt u?
+  -- met hoeveel vinger typt u?
   
 === werkdruk
 -- Heeft u een duidelijke taakomschrijving en afspraken over wat er van u op het werk wordt verwacht?
