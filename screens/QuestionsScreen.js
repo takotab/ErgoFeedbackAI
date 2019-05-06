@@ -85,11 +85,13 @@ export default class QuestionsScreen extends React.Component {
         return result
     }
 
-    onSelect = (key, answer) => {
+    onSelect = async (key, answer) => {
         console.log('selected ' + answer + " for " + key)
         this.setState({
             [key]: answer
         })
+        // await UploadAnswersAsync(this.state[key], questions[key])
+
     }
 
     onSubmit = async () => {
@@ -110,11 +112,18 @@ export default class QuestionsScreen extends React.Component {
                 i = 101
             }
         }
-        this.state.forEach(async (Q, index) => {
-            console.log("forEach")
-            console.log(Q + index)
-            await UploadAnswersAsync(this.state[Q], questions[Q].question)
-        });
+        i = 1
+        while (i < 50) {
+            q = 'Q' + i
+            console.log(q)
+            if (q in this.state) {
+                await UploadAnswersAsync(this.state[q], questions[q], temp = false)
+            }
+            else {
+                i = 50
+            }
+            i++
+        }
 
         if (allGood) {
             var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1')) + 1
