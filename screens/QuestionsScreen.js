@@ -98,6 +98,8 @@ export default class QuestionsScreen extends React.Component {
         questions = this._loadQuestionsJson()
         let allGood = true
         var i = 1;
+        let _quest = []
+        let answers = []
         console.log(questions)
         while (i < 50) {
             if ('Q' + i in questions) {
@@ -106,26 +108,20 @@ export default class QuestionsScreen extends React.Component {
                     allGood = false
                     i = 101
                 }
+                else {
+                    answers.push(this.state['Q' + i])
+                    _quest.push(questions['Q' + i])
+                }
                 i++
             }
             else {
                 i = 101
             }
         }
-        i = 1
-        while (i < 50) {
-            q = 'Q' + i
-            console.log(q)
-            if (q in this.state) {
-                await UploadAnswersAsync(this.state[q], questions[q], temp = false)
-            }
-            else {
-                i = 50
-            }
-            i++
-        }
+        // await UploadAnswersAsync(this.state[q], questions[q], temp = false)
 
         if (allGood) {
+            await UploadAnswersAsync(answers, _quest, temp = false)
             var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1')) + 1
             console.log('toward meta: ' + question_meta_num)
             this.props.navigation.navigate('Meta', {

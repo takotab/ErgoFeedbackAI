@@ -19,11 +19,13 @@ export class SingleQuestion extends React.Component {
     renderBool = (key) => {
         return [
             <RadioButton value={"Ja"} key={key + 'Ja'}>
-                <Text style={styles.radioText}>Ja</Text>
+                <Text style={styles.radioText}
+                    key='ja'
+                >Ja</Text>
             </RadioButton>,
 
             <RadioButton value={"Nee"} key={key + 'Nee'}>
-                <Text style={styles.radioText}>Nee</Text>
+                <Text style={styles.radioText} key='nee'>Nee</Text>
             </RadioButton>
         ];
     }
@@ -97,7 +99,7 @@ export class SingleQuestion extends React.Component {
                 flexDirection: 'column',
                 flex: 0.8
             }}>
-                <View style={styles.viewText}>
+                <View key={this.props.keys + 'viewin'} style={styles.viewText}>
 
                     <Text style={{
                         fontSize: 16, fontWeight: "bold", color: "#3498db",

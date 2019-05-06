@@ -15,7 +15,7 @@ export async function UploadAnswersAsync(answers, question, temp = true) {
         body: JSON.stringify({
             "sessionId": Constants.sessionId,
             'answers': answers,
-            'question': question,
+            'questions': question,
             'source': 'app',
             'temp': temp
         }),
