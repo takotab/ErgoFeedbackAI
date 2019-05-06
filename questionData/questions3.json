@@ -14,7 +14,7 @@
 
     },
     "Q3": {
-        "question": "Heeft het onderste deel van uw rug wordt gesteund door de welving van de rugleuning?",
+        "question": "Word het onderste deel van uw rug gesteund door de welving van de rugleuning?",
         "type": "boolean",
         "id": "Q3"
     },
@@ -30,16 +30,10 @@
         "id": "Q5"
     },
     "Q6": {
-        "question": "Ondersteunen de armleuningen uw elleboog/onderarm?",
+        "question": "Met onspannen bovenarmen steunen de armleuningen uw elleboog/onderarm?",
 
         "type": "boolean",
         "id": "Q6"
     },
 
-    "Q7": {
-        "question": "Kunt u uw bovenarmen ontspannen laten rusten op de armsteunen?",
-        "type": "boolean",
-        "id": "Q7",
-        "next": "questions4"
-    }
 }
