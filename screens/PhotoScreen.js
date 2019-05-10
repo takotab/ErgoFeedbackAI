@@ -17,12 +17,16 @@ export default class PhotoScreen extends React.Component {
   //   header: 'Ph',
   // };
   _onPictureSaved = async photo => {
+    console.log(photo.cancelled)
+    if (photo.cancelled) {
+      console.log(photo.cancelled + ' photo cancelled')
+      return
+    }
     console.log('Picture made and saved' + photo.uri)
     // response = await UploadPhotoAsync(photo.uri)
     // json_response = await response.json()
     // console.log('cloud reaction:' + json_response)
     this.setState({ hasPhotos: true, uri: photo.uri });
-
   }
   _askPermission = async (type, failureMessage) => {
     const { status, permissions } = await Permissions.askAsync(type);
@@ -50,7 +54,6 @@ export default class PhotoScreen extends React.Component {
       allowsEditing: true,
       aspect: [4, 3],
     }); '  '
-
     this._onPictureSaved(pickerResult);
   };
 
@@ -102,7 +105,7 @@ export default class PhotoScreen extends React.Component {
           title='Ja!'
         />
         <Button
-          onPress={this._restore}
+          onPress={this._restore}//TODO: --
           title='nope'
         />
       </View>
