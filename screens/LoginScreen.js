@@ -5,11 +5,14 @@ import * as firebase from 'firebase';
 
 
 firebasekeys = require('../firebase-keys.json')
+
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: firebasekeys["apikey"],
     authDomain: firebasekeys["authDomain"],
     databaseURL: firebasekeys["databaseURL"],
+    messagingSenderId: firebasekeys["messagingSenderId"],
+    appId: firebasekeys["appId"],
     storageBucket: firebasekeys["storageBucket"]
 };
 
@@ -30,13 +33,9 @@ export default class LoginScreen extends React.Component {
 
     render() {
         return (
-            <View>
-                <FirebaseLogin
-                    login={(user) => {
-                        this.login(user)
-                    }}
-                />
-            </View >
+            <FirebaseLogin
+                login={this.login}
+            />
         )
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import InputField from "../../components/InputField";
-import {w, h, totalSize} from '../../api/Dimensions';
+import { w, h, totalSize } from '../../api/Dimensions';
 import GetStarted from './GetStarted';
 import Firebase from '../../api/Firebase';
 
@@ -25,7 +25,7 @@ export default class Login extends Component {
       isEmailCorrect: email === '',
       isPasswordCorrect: password === '',
     }, () => {
-      if(email !== '' && password !== ''){
+      if (email !== '' && password !== '') {
         this.loginToFireBase(email, password);
       } else {
         console.warn('Fill up all fields')
@@ -46,7 +46,7 @@ export default class Login extends Component {
     this.setState({ isLogin: true });
     Firebase.userLogin(email, password)
       .then(user => {
-        if(user) this.props.success(user);
+        if (user) this.props.success(user);
         this.setState({ isLogin: false });
       });
   };
@@ -54,7 +54,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.icon} resizeMode="contain" source={companyLogo}/>
+        <Image style={styles.icon} resizeMode="contain" source={companyLogo} />
         <InputField
           placeholder="Email"
           keyboardType="email-address"
@@ -114,13 +114,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   createAccount: {
-    color:'#ffffffEE',
+    color: '#ffffffEE',
     textAlign: 'center',
     fontSize: totalSize(2),
     fontWeight: '600',
   },
   forgotPassword: {
-    color:'#ffffffEE',
+    color: '#ffffffEE',
     textAlign: 'center',
     fontSize: totalSize(2),
     fontWeight: '600',
