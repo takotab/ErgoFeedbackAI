@@ -23,9 +23,9 @@ export default class PhotoScreen extends React.Component {
       return
     }
     console.log('Picture made and saved' + photo.uri)
-    // response = await UploadPhotoAsync(photo.uri)
-    // json_response = await response.json()
-    // console.log('cloud reaction:' + json_response)
+    response = await UploadPhotoAsync(photo.uri)
+    json_response = await response.json()
+    console.log('cloud reaction:' + json_response)
     this.setState({ hasPhotos: true, uri: photo.uri });
   }
   _askPermission = async (type, failureMessage) => {
@@ -41,7 +41,8 @@ export default class PhotoScreen extends React.Component {
     await this._askPermission(Permissions.CAMERA_ROLL, 'We need the camera-roll permission to read pictures from your phone...');
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [3, 4],
+      mediaTypes: 'Images',
     });
 
     this._onPictureSaved(pickerResult);
@@ -52,8 +53,9 @@ export default class PhotoScreen extends React.Component {
     await this._askPermission(Permissions.CAMERA_ROLL, 'We need the camera-roll permission to read pictures from your phone...');
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 3],
-    }); '  '
+      aspect: [3, 4],
+      mediaTypes: 'Images',
+    });
     this._onPictureSaved(pickerResult);
   };
 

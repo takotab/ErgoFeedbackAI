@@ -1,5 +1,5 @@
 import { Constants } from 'expo';
-OUR_SERVER_URL = 'https://ergoscan.appspot.com/analyze'
+ANALYSE = 'https://ergoscan.appspot.com/analyze'
 
 export async function UploadPhotoAsync(localUri) {
 
@@ -12,15 +12,15 @@ export async function UploadPhotoAsync(localUri) {
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
 
-
+    // todo : reduce size https://forums.expo.io/t/get-image-size-in-bytes/3541
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();
     // Assume "photo" is the name of the form field the server expects
     formData.append('file', { uri: localUri, name: filename, type });
     formData.append('source', 'app')
     formData.append("sessionId", Constants.sessionId)
-    
-    return await fetch(YOUR_SERVER_URL, {
+
+    return await fetch(ANALYSE, {
         method: 'POST',
         body: formData,
         header: {
