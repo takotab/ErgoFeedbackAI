@@ -6,4 +6,4 @@ npm-debug.*
 *.key
 *.mobileprovision
 
-firebase-keys.js
+firebase-keys.json
