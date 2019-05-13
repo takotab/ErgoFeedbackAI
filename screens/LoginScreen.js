@@ -3,7 +3,6 @@ import View from 'react-native';
 
 import * as firebase from 'firebase';
 
-import FirebaseLogin from "./FirebaseLogin";
 
 firebasekeys = require('../firebase-keys.json')
 // Initialize Firebase
@@ -16,7 +15,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export default class LoginFirebase extends React.Component {
+import FirebaseLogin from "../FirebaseLogin";
+
+
+export default class LoginScreen extends React.Component {
 
     login = (user) => {
         console.log('user loged in!!!')

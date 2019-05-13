@@ -23,15 +23,15 @@ export default class FirebaseLogin extends Component {
   render() {
     let screenToShow;
 
-    switch(this.state.currentScreen) {
+    switch (this.state.currentScreen) {
       case 'login':
-        screenToShow = <Login change={this.changeScreen} success={this.userSuccessfullyLoggedIn}/>;
+        screenToShow = <Login change={this.changeScreen} success={this.userSuccessfullyLoggedIn} />;
         break;
       case 'register':
         screenToShow = <Register change={this.changeScreen} />;
         break;
       case 'forgot':
-        screenToShow = <ForgotPassword change={this.changeScreen}/>;
+        screenToShow = <ForgotPassword change={this.changeScreen} />;
         break;
     }
 
