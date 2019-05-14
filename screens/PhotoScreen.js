@@ -83,7 +83,6 @@ export default class PhotoScreen extends React.Component {
 
   }
   render() {
-    console.log(w(75))
     if (!this.state.hasPhotos) {
       return (
         <View style={styles.container} >
