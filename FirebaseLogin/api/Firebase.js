@@ -19,10 +19,10 @@ class Firebase {
           }
           resolve(null);
         }).then(user => {
-        if (user) {
-          resolve(user);
-        }
-      });
+          if (user) {
+            resolve(user);
+          }
+        });
     })
   };
 

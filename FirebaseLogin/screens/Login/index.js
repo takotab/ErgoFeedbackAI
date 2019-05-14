@@ -85,6 +85,9 @@ export default class Login extends Component {
           <TouchableOpacity onPress={this.props.change('forgot')} style={styles.touchable} activeOpacity={0.6}>
             <Text style={styles.forgotPassword}>Forgot Password</Text>
           </TouchableOpacity>
+          {/* <TouchableOpacity onPress={this.skipLogin()} style={styles.touchable} activeOpacity={0.6}>
+            <Text style={styles.createAccount}>Skip</Text>
+          </TouchableOpacity> */}
         </View>
       </View>
     )

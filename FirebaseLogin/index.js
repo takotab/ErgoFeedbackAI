@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { KeyboardAvoidingView, StyleSheet, ImageBackground } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import ForgotPassword from './screens/ForgotPassword';
 import { w } from './api/Dimensions';
+import Firebase from './api/Firebase';
 
 export default class FirebaseLogin extends Component {
 
@@ -19,6 +20,11 @@ export default class FirebaseLogin extends Component {
   userSuccessfullyLoggedIn = (user) => {
     this.props.login(user);
   };
+
+  createAnoFireBaseAccount = () => {
+    Firebase.createAnoFirebaseAccount
+
+  }
 
   render() {
     let screenToShow;
@@ -71,5 +77,8 @@ const styles = StyleSheet.create({
   background: {
     width: '100%',
     height: '100%',
-  }
+  },
+  touchable: {
+    flex: 1,
+  },
 });

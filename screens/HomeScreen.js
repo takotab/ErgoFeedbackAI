@@ -80,7 +80,12 @@ export default class HomeScreen extends React.Component {
     })
     return result
   }
-
+  storeAnswer = (id, answer) => {
+    firebase.database().ref('users/' + this.props.user).set({
+      id: answer
+    });
+    console.log('stored answer in firebase')
+  }
   onSelect = (index, answer) => {
     const question = questions[index];
     const id = question.id
@@ -88,26 +93,27 @@ export default class HomeScreen extends React.Component {
       ...this.answers,
       id: answer
     })
+    storeAnswer(id, answer)
 
-    if ('Callback' in question) {
-      if (answer in question.Callback) {
-        let callbacks = question.Callback[answer]
+    // if ('Callback' in question) {
+    //   if (answer in question.Callback) {
+    //     let callbacks = question.Callback[answer]
 
-        const delay = 50
-        callbacks.forEach((key, index) => {
-          if (index == 0) {
-            this.addQuestionToState(key);
-          }
-          else {
-            setTimeout(() => {
-              this.addQuestionToState(key);
-            }
-              , delay * index)
-            console.log('added ' + key + ' to futher changes w delay:' + delay * index)
-          }
-        })
-      }
-    }
+    //     const delay = 50
+    //     callbacks.forEach((key, index) => {
+    //       if (index == 0) {
+    //         this.addQuestionToState(key);
+    //       }
+    //       else {
+    //         setTimeout(() => {
+    //           this.addQuestionToState(key);
+    //         }
+    //           , delay * index)
+    //         console.log('added ' + key + ' to futher changes w delay:' + delay * index)
+    //       }
+    //     })
+    //   }
+    // }
 
   };
   onSubmit = () => {
