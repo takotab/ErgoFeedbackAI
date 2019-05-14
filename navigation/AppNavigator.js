@@ -12,8 +12,8 @@ import QuestionsScreen from '../screens/QuestionsScreen';
 export default createAppContainer(createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-  Questions: QuestionsScreen,
   Photo: PhotoScreen,
+  Questions: QuestionsScreen,
   Meta: MetaQuestionsScreen,
   // login: LoginScreen,
 }));

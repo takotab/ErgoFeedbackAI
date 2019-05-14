@@ -1,21 +1,25 @@
 import React from 'react';
 import {
-  Button,
   ScrollView,
   StyleSheet,
   View, Text,
+  // Button,
   StatusBar,
   FileSystem,
   Image,
-  Platform
+  Platform,
+  TouchableHighlight
 } from 'react-native';
 import {
   ExpoLinksView,
   Permissions,
   ImagePicker
 } from 'expo';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { UploadPhotoAsync } from '../components/uploadFile'
+import { w } from '../components/Dimensions'
 
 export default class PhotoScreen extends React.Component {
   static navigationOptions = {
@@ -79,6 +83,7 @@ export default class PhotoScreen extends React.Component {
 
   }
   render() {
+    console.log(w(75))
     if (!this.state.hasPhotos) {
       return (
         <View style={styles.container} >
@@ -92,7 +97,7 @@ export default class PhotoScreen extends React.Component {
             margin: 5,
           }}>
           </View>
-          <View style={{ fontSize: 14, padding: 6, }}>
+          <View style={styles.text}>
             <Text>Vraag iemand om een foto van hoe je achter je computer zit.</Text>
             <Text>Zorg dat de enkel, knie, heup, en schouder zichtbaar zijn.</Text>
           </View>
@@ -118,36 +123,57 @@ export default class PhotoScreen extends React.Component {
     }
     else {
       console.log(this.state.uri)
-      return <View style={styles.container}>
-        <Text>IS this the photo you want?</Text>
+      return (
+        <View>
+          <View style={{
+            padding: 25,
+            backgroundColor: 'white',
+            margin: 5,
+          }}>
+          </View>
+          <View style={{
+            justifyContent: 'center'
+          }}>
+            <Text style={styles.text}>Is de juiste foto?</Text>
+            < Image
+              style={{
+                width: 200,
+                height: 150,
+                resizeMode: 'contain',
+                margin: 15,
+              }}
+              source={{
+                uri:
+                  this.state.uri,
+              }}
+            />
 
-        < Image
-          style={{
-            width: 200,
-            height: 150,
-            resizeMode: 'contain',
-            marginVertical: 8,
-          }}
-          source={{
-            uri:
-              this.state.uri,
-          }}
-        />
-        <Button
-          onPress={this._goNext}
-          title='Ja!'
-        />
-        <Button
-          onPress={this._restore}
-          title='nope'
-        />
-      </View>
+            <Button
+              style={styles.button}
+              onPress={this._goNext}
+              key='ja'
+              title='Ja!'
+            />
+            <View style={{
+              padding: 10,
+              backgroundColor: 'white',
+              margin: 5,
+            }}>
+            </View>
+            <Button
+              key='nope'
+              style={styles.button}
+              onPress={this._restore}
+              title='nope'
+            />
+          </View>
 
+        </View >
+      )
     }
 
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -163,6 +189,14 @@ const styles = StyleSheet.create({
   },
   button: {
     // padding: 25,
-    margin: 50,
+    margin: 100,
+    padding: 5,
+    width: w(75)
+  },
+  text: {
+    fontSize: 14,
+    padding: 6,
+    // borderTopColor: '#007AFF',
+    // borderTopWidth: 1,
   }
 });
