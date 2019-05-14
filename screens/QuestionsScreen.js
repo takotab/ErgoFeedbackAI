@@ -53,16 +53,23 @@ export default class QuestionsScreen extends React.Component {
         }
 
         return [
-            < SingleQuestion
-                key={key + "-" + index}
-                keys={key + "-" + index}
-                onSelect={(answer) => {
-                    this.onSelect(key, answer);
-                }}
-                index={index}
-                question={questions[key]}
-                answer={answer}
-            />
+            <View key={key.toString() + '-' + index.toString()}
+                // style={{
+                //     borderTopColor: '#007AFF',
+                //     borderTopWidth: 1,
+                // }}
+                >
+                < SingleQuestion
+                    key={key.toString() + "-" + index.toString()}
+                    keys={key + "-" + index}
+                    onSelect={(answer) => {
+                        this.onSelect(key, answer);
+                    }}
+                    index={index}
+                    question={questions[key]}
+                    answer={answer}
+                />
+            </View >
         ];
     }
 
@@ -84,14 +91,11 @@ export default class QuestionsScreen extends React.Component {
         console.log(questions)
         return result
     }
-
     onSelect = async (key, answer) => {
         console.log('selected ' + answer + " for " + key)
         this.setState({
             [key]: answer
         })
-        // await UploadAnswersAsync(this.state[key], questions[key])
-
     }
 
     onSubmit = async () => {
@@ -135,9 +139,15 @@ export default class QuestionsScreen extends React.Component {
         console.log('render')
         return [
             <View style={styles.container}>
+                <View style={{
+                    padding: 15,
+                    backgroundColor: 'white',
+                    margin: 5,
+                }}></View>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
-                    {this.renderQuestions()}
+                    <View key={'key'}>
+                        {this.renderQuestions()}
+                    </View>
                     <Button
                         title="Volgende"
                         onPress={() => {

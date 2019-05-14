@@ -95,7 +95,7 @@ export class SingleQuestion extends React.Component {
     render() {
         return (
             //style={{ flex: 1, padding: 12 }}
-            <View key={this.props.keys + 'view'} style={{
+            <View key={this.props.keys.toString() + 'Question-view'} style={{
                 flexDirection: 'column',
                 flex: 0.8
             }}>

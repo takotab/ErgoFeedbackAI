@@ -39,6 +39,7 @@ export default class PhotoScreen extends React.Component {
     // console.log('cloud reaction:' + json_response)
     this.setState({ hasPhotos: true, uri: photo.uri });
   }
+
   _askPermission = async (type, failureMessage) => {
     const { status, permissions } = await Permissions.askAsync(type);
 
@@ -73,7 +74,10 @@ export default class PhotoScreen extends React.Component {
     navigate('Meta')
 
   };
+  _restore = () => {
+    this.setState({ hasPhotos: false, uri: '' });
 
+  }
   render() {
     if (!this.state.hasPhotos) {
       return (
@@ -82,19 +86,29 @@ export default class PhotoScreen extends React.Component {
             backgroundColor="black"
             barStyle="dark-content"
           />
-          <View style={styles.buttons}>
-            <View>
-              <Button
-                style={styles.button}
-                onPress={this._takePhoto}
-                title="Take a photo"
-              />
-            </View>
+          <View style={{
+            padding: 25,
+            backgroundColor: 'white',
+            margin: 5,
+          }}>
+          </View>
+          <View style={{ fontSize: 14, padding: 6, }}>
+            <Text>Vraag iemand om een foto van hoe je achter je computer zit.</Text>
+            <Text>Zorg dat de enkel, knie, heup, en schouder zichtbaar zijn.</Text>
+          </View>
+
+          <View style={styles.buttons}><View>
+            <Button
+              style={styles.button}
+              onPress={this._takePhoto}
+              title="Maak een foto"
+            />
+          </View>
             <View>
               <Button
                 style={styles.button}
                 onPress={this._pickPhoto}
-                title="Pick Photo"
+                title="Kies een foto uit je galerij"
               // accessibilityLabel="Learn more about this purple button"
               />
             </View>
@@ -124,7 +138,7 @@ export default class PhotoScreen extends React.Component {
           title='Ja!'
         />
         <Button
-          onPress={this._restore}//TODO: --
+          onPress={this._restore}
           title='nope'
         />
       </View>
@@ -140,7 +154,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   buttons: {
-    flex: 1,
+    flex: .25,
     flexDirection: 'column',
     justifyContent: 'space-around',
     // alignItems: 'center',

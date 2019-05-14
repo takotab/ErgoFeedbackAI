@@ -80,12 +80,7 @@ export default class HomeScreen extends React.Component {
     })
     return result
   }
-  storeAnswer = (id, answer) => {
-    firebase.database().ref('users/' + this.props.user).set({
-      id: answer
-    });
-    console.log('stored answer in firebase')
-  }
+
   onSelect = (index, answer) => {
     const question = questions[index];
     const id = question.id
@@ -93,7 +88,6 @@ export default class HomeScreen extends React.Component {
       ...this.answers,
       id: answer
     })
-    storeAnswer(id, answer)
 
     // if ('Callback' in question) {
     //   if (answer in question.Callback) {
