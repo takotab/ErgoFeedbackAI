@@ -1,6 +1,19 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View, Text, FileSystem, Image } from 'react-native';
-import { ExpoLinksView, Permissions, ImagePicker } from 'expo';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  View, Text,
+  StatusBar,
+  FileSystem,
+  Image,
+  Platform
+} from 'react-native';
+import {
+  ExpoLinksView,
+  Permissions,
+  ImagePicker
+} from 'expo';
 
 import { UploadPhotoAsync } from '../components/uploadFile'
 
@@ -13,9 +26,7 @@ export default class PhotoScreen extends React.Component {
     hasPhotos: false,
     uri: '',
   };
-  // static navigationOptions = {
-  //   header: 'Ph',
-  // };
+
   _onPictureSaved = async photo => {
     console.log(photo.cancelled)
     if (photo.cancelled) {
@@ -66,26 +77,34 @@ export default class PhotoScreen extends React.Component {
   render() {
     if (!this.state.hasPhotos) {
       return (
-        <ScrollView style={styles.container}>
-          <View><Text>Test</Text></View>
-          <View style={{ marginVertical: 8 }}>
-            <Button
-              onPress={this._takePhoto}
-              title="Take a photo"
-            />
+        <View style={styles.container} >
+          <StatusBar
+            backgroundColor="black"
+            barStyle="dark-content"
+          />
+          <View style={styles.buttons}>
+            <View>
+              <Button
+                style={styles.button}
+                onPress={this._takePhoto}
+                title="Take a photo"
+              />
+            </View>
+            <View>
+              <Button
+                style={styles.button}
+                onPress={this._pickPhoto}
+                title="Pick Photo"
+              // accessibilityLabel="Learn more about this purple button"
+              />
+            </View>
           </View>
-          <View>
-            <Button
-              onPress={this._pickPhoto}
-              title="Pick Photo"
-            />
-          </View>
-        </ScrollView>
+        </View>
       );
     }
     else {
       console.log(this.state.uri)
-      return <View>
+      return <View style={styles.container}>
         <Text>IS this the photo you want?</Text>
 
         < Image
@@ -118,7 +137,18 @@ export default class PhotoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    flexDirection: 'column',
   },
+  buttons: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    // alignItems: 'center',
+    // fontSize: 18,
+    // height: 44,
+  },
+  button: {
+    // padding: 25,
+    margin: 50,
+  }
 });

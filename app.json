@@ -16,6 +16,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    // "barStyle": "dark-content",
     "updates": {
       "fallbackToCacheTimeout": 0
     },

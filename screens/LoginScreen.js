@@ -26,7 +26,7 @@ export default class LoginScreen extends React.Component {
     login = (user) => {
         console.log('user loged in!!!')
         console.log(user)
-        this.props.navigation.navigate('Home', {
+        this.props.navigation.navigate('Photo', {
             user: user,
         })
     }

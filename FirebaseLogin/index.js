@@ -21,10 +21,6 @@ export default class FirebaseLogin extends Component {
     this.props.login(user);
   };
 
-  createAnoFireBaseAccount = () => {
-    Firebase.createAnoFirebaseAccount
-
-  }
 
   render() {
     let screenToShow;
