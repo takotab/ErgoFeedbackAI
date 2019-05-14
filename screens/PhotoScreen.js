@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   ScrollView,
@@ -13,7 +14,8 @@ import {
 import {
   ExpoLinksView,
   Permissions,
-  ImagePicker
+  ImagePicker,
+  Constants
 } from 'expo';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,6 +31,7 @@ export default class PhotoScreen extends React.Component {
   state = {
     hasPhotos: false,
     uri: '',
+    wait: false,
   };
 
   _onPictureSaved = async photo => {
@@ -38,9 +41,6 @@ export default class PhotoScreen extends React.Component {
       return
     }
     console.log('Picture made and saved' + photo.uri)
-    // response = await UploadPhotoAsync(photo.uri)
-    // json_response = await response.json()
-    // console.log('cloud reaction:' + json_response)
     this.setState({ hasPhotos: true, uri: photo.uri });
   }
 
@@ -75,12 +75,38 @@ export default class PhotoScreen extends React.Component {
 
   _goNext = async () => {
     await console.log('goNext');
-    navigate('Meta')
+    this.setState({ wait: true });
+
+    response = await UploadPhotoAsync(this.state.uri)
+    json_response = await response.json()
+    console.log('cloud reaction:')
+    console.log(json_response)
+    this.props.navigation.navigate('Questions')
 
   };
   _restore = () => {
     this.setState({ hasPhotos: false, uri: '' });
 
+  }
+  renderbutton = () => {
+    if (this.state.wait) {
+      return <Button
+        style={styles.button}
+        onPress={this._goNext}
+        key='ja'
+        title='Ja!'
+        loading
+      />
+    }
+    else {
+      return <Button
+        style={styles.button}
+        onPress={this._goNext}
+        key='ja'
+        title='Ja!'
+      />
+
+    }
   }
   render() {
     if (!this.state.hasPhotos) {
@@ -146,13 +172,7 @@ export default class PhotoScreen extends React.Component {
                   this.state.uri,
               }}
             />
-
-            <Button
-              style={styles.button}
-              onPress={this._goNext}
-              key='ja'
-              title='Ja!'
-            />
+            {this.renderbutton()}
             <View style={{
               padding: 10,
               backgroundColor: 'white',

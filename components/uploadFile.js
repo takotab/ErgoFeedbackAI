@@ -1,6 +1,9 @@
 import { Constants } from 'expo';
+const api = (Constants.appOwnership === "expo") //&& Constants.packagerOpts.dev
+    ? 'http://192.168.178.28:8080'
+    : `https://ergoscan.appspot.com`;
 OUR_SERVER_URL = 'https://ergoscan.appspot.com/analyze'
-
+INTERNAL_SERVER_URL = 'http://localhost:8080/analyze'
 export async function UploadPhotoAsync(localUri) {
 
     // // ImagePicker saves the taken photo to disk and returns a local URI to it
@@ -19,8 +22,19 @@ export async function UploadPhotoAsync(localUri) {
     formData.append('file', { uri: localUri, name: filename, type });
     formData.append('source', 'app')
     formData.append("sessionId", Constants.sessionId)
-    
-    return await fetch(YOUR_SERVER_URL, {
+
+    // if (Constants.appOwnership === 'expo') {
+    //     SERVER_URL = OUR_SERVER_URL;
+    //     console.log('still debug mode. interal server used.');
+    //     formData.append("debug", 'true')
+    // }
+    // else {
+    //     SERVER_URL = OUR_SERVER_URL;
+    //     formData.append("debug", 'false')
+    //     console.log('real deal server');
+    // }
+    console.log((api + '/analyze'))
+    return await fetch((api + '/analyze'), {
         method: 'POST',
         body: formData,
         header: {
