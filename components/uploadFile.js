@@ -1,8 +1,8 @@
 import { Constants } from 'expo';
-const api = (Constants.appOwnership === "expo") //&& Constants.packagerOpts.dev
+let api = (Constants.appOwnership === "expo") //&& Constants.packagerOpts.dev
     ? 'http://192.168.178.28:8080'
     : `https://ergoscan.appspot.com`;
-OUR_SERVER_URL = 'https://ergoscan.appspot.com/analyze'
+api = 'https://ergoscan.appspot.com'
 INTERNAL_SERVER_URL = 'http://localhost:8080/analyze'
 export async function UploadPhotoAsync(localUri) {
 
@@ -33,8 +33,7 @@ export async function UploadPhotoAsync(localUri) {
     //     formData.append("debug", 'false')
     //     console.log('real deal server');
     // }
-    console.log((api + '/analyze'))
-    return await fetch((api + '/analyze'), {
+    return await fetch((api + '/analyze/' + Constants.sessionId.replace('-', '')), {
         method: 'POST',
         body: formData,
         header: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Button,
+    // Button,
     ScrollView,
     StyleSheet,
     View,
@@ -10,6 +10,7 @@ import {
     Platform,
     Alert,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import { UploadAnswersAsync } from '../components/uploadJson'
 import { SingleQuestion } from '../components/Questions'
@@ -21,7 +22,8 @@ export default class QuestionsScreen extends React.Component {
         headerTitle: "Vragen    ",
     };
     state = {
-        Q1: null
+        Q1: null,
+        wait: false
     }
 
 
@@ -54,11 +56,11 @@ export default class QuestionsScreen extends React.Component {
 
         return [
             <View key={key.toString() + '-' + index.toString()}
-                // style={{
-                //     borderTopColor: '#007AFF',
-                //     borderTopWidth: 1,
-                // }}
-                >
+            // style={{
+            //     borderTopColor: '#007AFF',
+            //     borderTopWidth: 1,
+            // }}
+            >
                 < SingleQuestion
                     key={key.toString() + "-" + index.toString()}
                     keys={key + "-" + index}
@@ -99,6 +101,9 @@ export default class QuestionsScreen extends React.Component {
     }
 
     onSubmit = async () => {
+        this.setState({
+            wait: true
+        })
         questions = this._loadQuestionsJson()
         let allGood = true
         var i = 1;
@@ -132,8 +137,27 @@ export default class QuestionsScreen extends React.Component {
                 question_meta_num: question_meta_num,
             })
         }
+        this.setState({
+            wait: false
+        })
     }
 
+    renderbutton = () => {
+        if (this.state.wait) {
+            return <Button
+                title="Volgende"
+                loading
+            />
+        }
+        else {
+            return <Button
+                title="Volgende"
+                onPress={() => {
+                    this.onSubmit();
+                }}
+            />
+        }
+    }
     render() {
         console.log('--- QuestionsScreen ---')
         console.log('render')
@@ -148,12 +172,7 @@ export default class QuestionsScreen extends React.Component {
                     <View key={'key'}>
                         {this.renderQuestions()}
                     </View>
-                    <Button
-                        title="Volgende"
-                        onPress={() => {
-                            this.onSubmit();
-                        }}
-                    />
+                    {this.renderbutton()}
                 </ScrollView>
             </View>
 
