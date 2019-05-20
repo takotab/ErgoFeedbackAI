@@ -28,9 +28,6 @@ export default class MetaQuestionsScreen extends React.Component {
     render() {
         console.log('---- meta ----')
         var current_questions = this.props.navigation.getParam('question_meta_num', '1')
-        console.log('meta' + current_questions)
-        console.log(q2)
-        console.log('---meta---q2')
         if (current_questions == 1) {
             console.log("Metaswitch " + current_questions);
             this.props.navigation.navigate('Questions', {
@@ -67,7 +64,7 @@ export default class MetaQuestionsScreen extends React.Component {
             })
         }
 
-        else if (current_questions == 6) {
+        else if (current_questions == 5) {
             console.log("Metaswitch " + current_questions);
             this.props.navigation.navigate('Questions', {
                 questions: q5,
