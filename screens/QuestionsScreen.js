@@ -90,7 +90,6 @@ export default class QuestionsScreen extends React.Component {
             }
         }
         console.log(this.state)
-        console.log(questions)
         return result
     }
     onSelect = async (key, answer) => {
@@ -130,8 +129,10 @@ export default class QuestionsScreen extends React.Component {
         // await UploadAnswersAsync(this.state[q], questions[q], temp = false)
 
         if (allGood) {
-            await UploadAnswersAsync(answers, _quest, temp = false)
-            var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1')) + 1
+            var question_meta_num = parseInt(this.props.navigation.getParam('question_meta_num', '1'))
+            await UploadAnswersAsync(answers, _quest, question_meta_num, temp = false)
+
+            question_meta_num = question_meta_num + 1
             console.log('toward meta: ' + question_meta_num)
             this.props.navigation.navigate('Meta', {
                 question_meta_num: question_meta_num,

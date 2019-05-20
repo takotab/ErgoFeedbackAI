@@ -6,7 +6,7 @@ import { useScreens } from 'react-native-screens';
 useScreens(); //https://github.com/react-navigation/react-navigation.github.io/blob/source/docs/react-native-screens.md
 
 import PhotoScreen from '../screens/PhotoScreen';
-// import LoginScreen from '../screens/LoginScreen'
+import HomeScreen from '../screens/HomeScreen'
 import MetaQuestionsScreen from '../screens/MetaQuestionScreen';
 import QuestionsScreen from '../screens/QuestionsScreen';
 export default createAppContainer(createSwitchNavigator({
@@ -15,5 +15,5 @@ export default createAppContainer(createSwitchNavigator({
   Photo: PhotoScreen,
   Questions: QuestionsScreen,
   Meta: MetaQuestionsScreen,
-  // login: LoginScreen,
+  Home: HomeScreen,
 }));
