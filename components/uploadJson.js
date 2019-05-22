@@ -18,7 +18,7 @@ export async function UploadAnswersAsync(answers, question, question_meta_num = 
             'questions': question,
             'source': 'app',
             'temp': temp,
-            question_meta_num: stringify(question_meta_num)
+            question_meta_num: question_meta_num.toString()
         }),
     });
 

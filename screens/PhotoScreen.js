@@ -19,6 +19,7 @@ import {
 } from 'expo';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SingleQuestion } from '../components/Questions'
 
 import { UploadPhotoAsync } from '../components/uploadFile'
 import { w } from '../components/Dimensions'
@@ -32,6 +33,7 @@ export default class PhotoScreen extends React.Component {
         hasPhotos: false,
         uri: '',
         wait: false,
+        answer: null
     };
 
     _onPictureSaved = async photo => {
@@ -85,14 +87,18 @@ export default class PhotoScreen extends React.Component {
 
     };
     _restore = () => {
-        this.setState({ hasPhotos: false, uri: '' });
-
+        this.setState({
+            hasPhotos: false,
+            uri: '',
+            wait: false,
+        });        
     }
+
     renderbutton = () => {
         if (this.state.wait) {
             return <Button
                 style={styles.button}
-                onPress={this._goNext}
+                // onPress={this._goNext}
                 key='ja'
                 title='Ja!'
                 loading
@@ -107,6 +113,12 @@ export default class PhotoScreen extends React.Component {
             />
 
         }
+    }
+    onSelect = async (key, answer) => {
+        console.log('selected ' + answer + " for " + key)
+        this.setState({
+            answer: answer
+        })
     }
     render() {
         if (!this.state.hasPhotos) {
@@ -172,6 +184,25 @@ export default class PhotoScreen extends React.Component {
                                     this.state.uri,
                             }}
                         />
+                        {/* <View style={{
+                            padding: 10,
+                            backgroundColor: 'white',
+                            margin: 5,
+                        }}>
+                        </View>
+                        <SingleQuestion
+                            key='akkord'
+                            keys={'akkord-'}
+                            onselect={(answer) => {
+                                this.onSelect(key, answers);
+                            }}
+                            index={'1'}
+                            question={{
+                                'type': 'boolean',
+                                'question': 'Gaat u akkoord met de Algemene Voorwaarde?'
+                            }}
+                            answer={this.answer}
+                        /> */}
                         {this.renderbutton()}
                         <View style={{
                             padding: 10,

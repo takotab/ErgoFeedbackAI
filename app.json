@@ -16,7 +16,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    // "barStyle": "dark-content",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -27,5 +26,11 @@
       "supportsTablet": true
     },
     "description": ""
+  },
+  "ios": {
+    "bundleIdentifier": "com.ergoscan.ergoscanai"
+  },
+  "android": {
+    "package": "com.ergoscan.ergoscanai"
   }
 }

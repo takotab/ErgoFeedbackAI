@@ -33,7 +33,9 @@ export async function UploadPhotoAsync(localUri) {
     //     formData.append("debug", 'false')
     //     console.log('real deal server');
     // }
-    return await fetch((api + '/analyze/' + Constants.sessionId.replace('-', '')), {
+    console.log('uploading to ' + api + '/analyze/' + (Constants.sessionId).replace('-', ''))
+
+    return await fetch((api + '/analyze/' + (Constants.sessionId).replace('-', '')), {
         method: 'POST',
         body: formData,
         header: {
