@@ -75,7 +75,8 @@ export default class MetaQuestionsScreen extends React.Component {
         else {
             console.log("Metaswitch hard " + 6);
             console.log("Metaswitch " + current_questions);
-            this.props.navigation.navigate('Home')
+            Alert.alert("U heeft een mailtje gekregen met het raport.")
+            this.props.navigation.navigate('Photo')
         }
         return <View><Text>Loading..</Text></View>
     };
