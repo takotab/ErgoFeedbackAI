@@ -8,9 +8,12 @@
       "ios",
       "android"
     ],
-    "version": "0.1.0",
+    "version": "0.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "android": {
+      "package": "com.ergoscan.ergoscanai"
+    },
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -29,8 +32,5 @@
   },
   "ios": {
     "bundleIdentifier": "com.ergoscan.ergoscanai"
-  },
-  "android": {
-    "package": "com.ergoscan.ergoscanai"
   }
 }

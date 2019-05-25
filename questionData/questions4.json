@@ -19,5 +19,11 @@
         "question": "Typt u meer als 2 uur op uw laptoptoetsenbord?",
         "type": "boolean",
         "id": "Q4"
+    },
+    "Q5": {
+        "question": "Hoelang doet u op een dag beeldscherm werk?",
+        "description": "De lengte in uren.",
+        "type": "slider",
+        "id": "Q5"
     }
 }
