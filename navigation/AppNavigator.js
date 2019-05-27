@@ -9,11 +9,11 @@ import PhotoScreen from '../screens/PhotoScreen';
 import HomeScreen from '../screens/HomeScreen'
 import MetaQuestionsScreen from '../screens/MetaQuestionScreen';
 import QuestionsScreen from '../screens/QuestionsScreen';
+import EndScreen from '../screens/EndScreen'
 export default createAppContainer(createSwitchNavigator({
-  // You could add another route here for authentication.
-  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Photo: PhotoScreen,
   Questions: QuestionsScreen,
   Meta: MetaQuestionsScreen,
   Home: HomeScreen,
+  End: EndScreen,
 }));

@@ -229,7 +229,7 @@ export default class PhotoScreen extends React.Component {
                             key='nope'
                             style={styles.button}
                             onPress={this._restore}
-                            title='nope'
+                            title='Nee'
                         />
                     </View>
 
