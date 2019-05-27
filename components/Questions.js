@@ -86,7 +86,7 @@ export class SingleQuestion extends React.Component {
                     fontSize: 14, color: "#5b6a75",
                     flexWrap: 'wrap'
                 }}>
-                    {'\t\t'}{this.props.question.description}
+                    {this.props.question.description}
                 </Text>
             </View >
 
@@ -104,12 +104,12 @@ export class SingleQuestion extends React.Component {
                     <Text style={{
                         fontSize: 16, fontWeight: "bold", color: "#3498db",
                     }}>
-                        {'\t'}{this.props.index}) {this.props.question.question}
+                        {this.props.question.question}
                     </Text>
-                </View >
 
-                {this.renderDescription()}
-                {this.renderOptions(this.props.question, this.props.keys)}
+                    {this.renderDescription()}
+                    {this.renderOptions(this.props.question, this.props.keys)}
+                </View >
 
             </View>
         );
@@ -121,12 +121,10 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     viewText: {
+        paddingHorizontal: 10,
+        flex: 1,
         flexDirection: "column",
-
+        flexWrap: 'wrap',
+        flexShrink: 1,
     },
-    textQuestion: {
-        flexWrap: 'wrap'
-
-    }
-
 });

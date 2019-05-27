@@ -91,7 +91,7 @@ export default class PhotoScreen extends React.Component {
             hasPhotos: false,
             uri: '',
             wait: false,
-        });        
+        });
     }
 
     renderbutton = () => {
@@ -161,21 +161,22 @@ export default class PhotoScreen extends React.Component {
         else {
             console.log(this.state.uri)
             return (
-                <View><TouchableOpacity
-                activeOpacity={0.7}
-                onPress={this.clickHandler}
-                style={styles.TouchableOpacityStyle}>
-                <Image
-                  //We are making FAB using TouchableOpacity with an image
-                  //We are using online image here
-                   source={{
-      uri:'http://aboutreact.com/wp-content/uploads/2018/08/bc72de57b000a7037294b53d34c2cbd1.png',
-                  }}
-                  //You can use you project image Example below
-                  //source={require('./images/float-add-icon.png')}
-                  style={styles.FloatingButtonStyle}
-                />
-              </TouchableOpacity>
+                <View>
+                    {/* <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={this.clickHandler}
+                        style={styles.TouchableOpacityStyle}>
+                        <Image
+                            //We are making FAB using TouchableOpacity with an image
+                            //We are using online image here
+                            source={{
+                                uri: 'http://aboutreact.com/wp-content/uploads/2018/08/bc72de57b000a7037294b53d34c2cbd1.png',
+                            }}
+                            //You can use you project image Example below
+                            //source={require('./images/float-add-icon.png')}
+                            style={styles.FloatingButtonStyle}
+                        />
+                    </TouchableOpacity> */}
                     <View style={{
                         padding: 25,
                         backgroundColor: 'white',
