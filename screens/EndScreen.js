@@ -11,9 +11,35 @@ import {
     TouchableHighlight
 } from 'react-native';
 
+import { UploadAnswersAsync } from '../components/uploadJson';
+
 export default class EndScreen extends React.Component {
+    state = {
+        send: false,
+        response: '',
+    }
+    _response() {
+        if (this.state.response === '') {
+            return <Text style={styles.text}>Het kan even duren. </Text>
+        }
+        else if (!this.state.response === '') {
+            if (this.state.response.result === 'fail') {
+                return <Text style={styles.text}>Er is iets mis gegaan. U krijgt binnen 24 uur een reactie. </Text>
+            }
+            if (this.state.response.result === 'succes') {
+                return <Text style={styles.text}>U heeft een mailtje gekregen met uw rapport. </Text>
+            }
+        }
+    }
 
     render() {
+        if (this.state.send == false) {
+            r = UploadAnswersAsync('', '', done = 'true')
+            this.setState({
+                send: true,
+                response: r
+            })
+        }
         return <View style={styles.container} >
             <StatusBar
                 backgroundColor="black"
@@ -27,10 +53,7 @@ export default class EndScreen extends React.Component {
             <Text style={styles.text}>
                 Je krijgt een email met het rapport.
             </Text>
-            <Text style={styles.text}>
-                Het kan even duren.
-
-            </Text>
+            {this._response()}
             {/* <Text style={styles.text}>
                 Mocht u na 5 minuten geen bericht hebben.
             </Text> */}

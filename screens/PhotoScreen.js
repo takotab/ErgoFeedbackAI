@@ -100,7 +100,7 @@ export default class PhotoScreen extends React.Component {
                 style={styles.button}
                 // onPress={this._goNext}
                 key='ja'
-                title='Ja!'
+                title='Ja'
                 loading
             />
         }
@@ -109,7 +109,7 @@ export default class PhotoScreen extends React.Component {
                 style={styles.button}
                 onPress={this._goNext}
                 key='ja'
-                title='Ja!'
+                title='Ja'
             />
 
         }

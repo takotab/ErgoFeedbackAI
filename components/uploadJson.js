@@ -3,7 +3,7 @@ import { Constants } from 'expo';
 
 YOUR_SERVER_URL = 'https://ergoscan.appspot.com/analyzejson'
 
-export async function UploadAnswersAsync(answers, question, question_meta_num = 0, temp = true) {
+export async function UploadAnswersAsync(answers, question, question_meta_num = 0, temp = true, done = 'false') {
     console.log("----uploadJSON---")
 
     let response = await fetch(YOUR_SERVER_URL + '/' + Constants.sessionId.replace('-', ''), {
@@ -18,7 +18,9 @@ export async function UploadAnswersAsync(answers, question, question_meta_num = 
             'questions': question,
             'source': 'app',
             'temp': temp,
+            'done': done,
             question_meta_num: question_meta_num.toString()
+
         }),
     });
 
@@ -26,6 +28,6 @@ export async function UploadAnswersAsync(answers, question, question_meta_num = 
     console.log("---cloud reaction---")
     console.log(json_response)
     console.log("--end cloud---")
-
+    return json_response
 
 }
