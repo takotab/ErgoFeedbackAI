@@ -174,6 +174,11 @@ export default class QuestionsScreen extends React.Component {
                         {this.renderQuestions()}
                     </View>
                     {this.renderbutton()}
+                <View style={{
+                    padding: 15,
+                    backgroundColor: 'white',
+                    margin: 5,
+                }}></View>
                 </ScrollView>
             </View>
 
