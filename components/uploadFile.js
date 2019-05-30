@@ -18,13 +18,14 @@ export async function UploadPhotoAsync(localUri) {
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
 
+    let sessionid = Constants.sessionId;
 
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();
     // Assume "photo" is the name of the form field the server expects
     formData.append('file', { uri: localUri, name: filename, type });
     formData.append('source', 'app')
-    formData.append("sessionId", Constants.sessionId)
+    formData.append("sessionId", sessionid)
 
     // if (Constants.appOwnership === 'expo') {
     //     SERVER_URL = OUR_SERVER_URL;
@@ -36,9 +37,9 @@ export async function UploadPhotoAsync(localUri) {
     //     formData.append("debug", 'false')
     //     console.log('real deal server');
     // }
-    console.log('uploading to ' + api + '/analyze/' + (Constants.sessionId).replace('-', ''))
+    console.log('uploading to ' + api + '/analyze/' + sessionid)
 
-    return await fetch((api + '/analyze/' + (Constants.sessionId).replace('-', '')), {
+    return await fetch((api + '/analyze/' + sessionid), {
         method: 'POST',
         body: formData,
         header: {

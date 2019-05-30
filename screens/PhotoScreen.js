@@ -8,7 +8,7 @@ import {
     StatusBar,
     FileSystem,
     Image,
-    Platform,
+    ImageManipulator,
     TouchableHighlight
 } from 'react-native';
 import {
@@ -35,6 +35,16 @@ export default class PhotoScreen extends React.Component {
         wait: false,
         answer: null
     };
+    // _changeSizePicture = async (uri) => {
+    //     console.log(uri)
+    //     const photo = await ImageManipulator.manipulateAsync(
+    //         uri,
+    //         [{ resize: 1080 }],
+    //         { format: 'png', compress: 0.75 }
+    //     );
+    //     console.log(photo)
+    //     return photo
+    // }
 
     _onPictureSaved = async photo => {
         console.log(photo.cancelled)
@@ -43,6 +53,8 @@ export default class PhotoScreen extends React.Component {
             return
         }
         console.log('Picture made and saved' + photo.uri)
+        // photoUri = await this._changeSizePicture(photo.uri)
+        // console.log('Picture resized' + photoUri)
         this.setState({ hasPhotos: true, uri: photo.uri });
     }
 
@@ -60,6 +72,7 @@ export default class PhotoScreen extends React.Component {
         let pickerResult = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [4, 3],
+
         });
 
         this._onPictureSaved(pickerResult);

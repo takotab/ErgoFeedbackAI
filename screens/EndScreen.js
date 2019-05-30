@@ -19,27 +19,41 @@ export default class EndScreen extends React.Component {
         response: '',
     }
     _response() {
-        if (this.state.response === '') {
-            return <Text style={styles.text}>Het kan even duren. </Text>
-        }
-        else if (!this.state.response === '') {
-            if (this.state.response.result === 'fail') {
+        if (this.state.send) {
+            if (this.state.response === 'fail') {
                 return <Text style={styles.text}>Er is iets mis gegaan. U krijgt binnen 24 uur een reactie. </Text>
             }
-            if (this.state.response.result === 'succes') {
+            if (this.state.response === 'succes') {
                 return <Text style={styles.text}>U heeft een mailtje gekregen met uw rapport. </Text>
             }
         }
-    }
+        else {
+            return (
+                <View>
+                    <Text style={styles.text}>
+                        Je krijgt een email met het rapport.
+                </Text>
+                    <Text style={styles.text}>Het kan even duren. </Text>
+                </View>
+            )
+        }
+        console.log('somthing went wrong in _response')
+        console.log(this.state)
 
-    render() {
+    }
+    _check_response = async () => {
         if (this.state.send == false) {
-            r = UploadAnswersAsync('', '', done = 'true')
+            r = await UploadAnswersAsync('', '', '', '', 'true')
             this.setState({
                 send: true,
-                response: r
+                response: r.result
             })
+            console.log('Everything uploaded')
+            console.log(r.result === 'fail')
         }
+    }
+    render() {
+        this._check_response()
         return <View style={styles.container} >
             <StatusBar
                 backgroundColor="black"
@@ -50,9 +64,6 @@ export default class EndScreen extends React.Component {
                 backgroundColor: 'white',
                 margin: 5,
             }}></View>
-            <Text style={styles.text}>
-                Je krijgt een email met het rapport.
-            </Text>
             {this._response()}
             {/* <Text style={styles.text}>
                 Mocht u na 5 minuten geen bericht hebben.
