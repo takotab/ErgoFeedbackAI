@@ -18,7 +18,7 @@ export async function UploadPhotoAsync(localUri) {
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
 
-    let sessionid = Constants.sessionId;
+    let sessionid = Constants.sessionId.replace(/-/g,'_');
 
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();

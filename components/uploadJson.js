@@ -6,7 +6,7 @@ YOUR_SERVER_URL = 'https://ergoscan.appspot.com/analyzejson'
 export async function UploadAnswersAsync(answers, question, question_meta_num = 0, temp = true, done = 'false') {
     console.log("----uploadJSON---")
 
-    let sessionid = Constants.sessionId;
+    let sessionid = Constants.sessionId.replace(/-/g, '_');
     let response = await fetch(YOUR_SERVER_URL + '/' + sessionid, {
         method: 'POST',
         headers: {
