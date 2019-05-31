@@ -8,7 +8,8 @@ import {
     FileSystem,
     Image,
     Platform,
-    TouchableHighlight
+    TouchableHighlight,
+    Linking,
 } from 'react-native';
 
 import { UploadAnswersAsync } from '../components/uploadJson';
@@ -24,9 +25,15 @@ export default class EndScreen extends React.Component {
                 return <Text style={styles.text}>Er is iets mis gegaan. U krijgt binnen 24 uur een reactie. </Text>
             }
             if (this.state.response === 'succes') {
-                return <Text style={styles.text}>U heeft een mailtje gekregen met uw rapport. </Text>
+                // Todo show link
+                return < Text style={styles.text} >U heeft een mailtje gekregen met uw rapport.</Text >
+                //     < Text style={styles.text} onPress={() => Linking.openURL('https://google.com')} >
+                //         Kli
+                // </ Text >
+
             }
         }
+
         else {
             return (
                 <View>
