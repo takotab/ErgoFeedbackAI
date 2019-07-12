@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
     ScrollView,
@@ -12,10 +11,10 @@ import {
     TouchableHighlight
 } from 'react-native';
 import Constants from 'expo-constants'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 import {
     ExpoLinksView,
-    Permissions,
-    ImagePicker,
 } from 'expo';
 
 import { Button } from 'react-native-elements';
