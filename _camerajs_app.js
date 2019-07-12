@@ -1,4 +1,5 @@
-import { Constants, Camera, FileSystem, Permissions, BarCodeScanner } from 'expo';
+import { Camera, FileSystem, Permissions, BarCodeScanner } from 'expo';
+import Constants from 'expo-constants'
 import React from 'react';
 import {
     Alert,
@@ -118,7 +119,7 @@ export default class CameraScreen extends React.Component {
     takePicture = () => {
         if (this.camera) {
             dir = this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
-            
+
         }
     };
 

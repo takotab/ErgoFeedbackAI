@@ -1,5 +1,4 @@
-
-import { Constants } from 'expo';
+import Constants from 'expo-constants'
 
 YOUR_SERVER_URL = 'https://ergoscan.appspot.com/analyzejson'
 

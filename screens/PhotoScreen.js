@@ -11,12 +11,13 @@ import {
     ImageManipulator,
     TouchableHighlight
 } from 'react-native';
+import Constants from 'expo-constants'
 import {
     ExpoLinksView,
     Permissions,
     ImagePicker,
-    Constants
 } from 'expo';
+
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SingleQuestion } from '../components/Questions'
@@ -83,8 +84,10 @@ export default class PhotoScreen extends React.Component {
         await this._askPermission(Permissions.CAMERA_ROLL, 'We need the camera-roll permission to read pictures from your phone...');
         let pickerResult = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
-            aspect: [4, 3],
-        }); '  '
+            aspect: [1024, 1024],
+            quality: 0.1,
+        });
+        console.log(pickerResult)
         this._onPictureSaved(pickerResult);
     };
 
@@ -107,22 +110,22 @@ export default class PhotoScreen extends React.Component {
         });
     }
 
-    renderbutton = () => {
+    renderbutton = (name, onpress) => {
         if (this.state.wait) {
             return <Button
                 style={styles.button}
                 // onPress={this._goNext}
-                key='ja'
-                title='Ja'
+                key={name}
+                title={name}
                 loading
             />
         }
         else {
             return <Button
                 style={styles.button}
-                onPress={this._goNext}
-                key='ja'
-                title='Ja'
+                onPress={onpress}
+                key={name}
+                title={name}
             />
 
         }
@@ -212,26 +215,7 @@ export default class PhotoScreen extends React.Component {
                                     this.state.uri,
                             }}
                         />
-                        {/* <View style={{
-                            padding: 10,
-                            backgroundColor: 'white',
-                            margin: 5,
-                        }}>
-                        </View>
-                        <SingleQuestion
-                            key='akkord'
-                            keys={'akkord-'}
-                            onselect={(answer) => {
-                                this.onSelect(key, answers);
-                            }}
-                            index={'1'}
-                            question={{
-                                'type': 'boolean',
-                                'question': 'Gaat u akkoord met de Algemene Voorwaarde?'
-                            }}
-                            answer={this.answer}
-                        /> */}
-                        {this.renderbutton()}
+                        {this.renderbutton('ja', this._goNext)}
                         <View style={{
                             padding: 10,
                             backgroundColor: 'white',

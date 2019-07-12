@@ -1,4 +1,5 @@
-import { Constants } from 'expo';
+
+import Constants from 'expo-constants'
 import ImageResizer from 'react-native-image-resizer';
 
 let api = (Constants.appOwnership === "expo") //&& Constants.packagerOpts.dev
@@ -18,7 +19,7 @@ export async function UploadPhotoAsync(localUri) {
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
 
-    let sessionid = Constants.sessionId.replace(/-/g,'_');
+    let sessionid = Constants.sessionId.replace(/-/g, '_');
 
     // Upload the image using the fetch and FormData APIs
     let formData = new FormData();
