@@ -20,6 +20,7 @@
     "expo-font": "^5.0.1",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-fetch-blob": "^0.10.8",
     "react-native-image-resizer": "^1.0.1",
     "react-navigation": "^3.9.1"
   },

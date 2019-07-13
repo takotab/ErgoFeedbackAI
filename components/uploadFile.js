@@ -28,16 +28,6 @@ export async function UploadPhotoAsync(localUri) {
     formData.append('source', 'app')
     formData.append("sessionId", sessionid)
 
-    // if (Constants.appOwnership === 'expo') {
-    //     SERVER_URL = OUR_SERVER_URL;
-    //     console.log('still debug mode. interal server used.');
-    //     formData.append("debug", 'true')
-    // }
-    // else {
-    //     SERVER_URL = OUR_SERVER_URL;
-    //     formData.append("debug", 'false')
-    //     console.log('real deal server');
-    // }
     console.log('uploading to ' + api + '/analyze/' + sessionid)
 
     return await fetch((api + '/analyze/' + sessionid), {
