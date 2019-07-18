@@ -19,6 +19,7 @@ import { ExpoLinksView } from "expo";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { CheckAno } from "../components/CheckAno";
+import { Head } from "../components/Head";
 
 import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
@@ -178,14 +179,8 @@ export default class PhotoScreen extends React.Component {
     if (!this.state.hasPhotos) {
       return (
         <View style={styles.container}>
-          <StatusBar backgroundColor="black" barStyle="dark-content" />
-          <View
-            style={{
-              padding: 25,
-              backgroundColor: "white",
-              margin: 5
-            }}
-          />
+          {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
+          <Head pad={25} />
           <View style={styles.text}>
             <Text>
               Vraag iemand om een foto van hoe je achter je computer zit.
@@ -217,46 +212,35 @@ export default class PhotoScreen extends React.Component {
     } else if (!this.state.photoannotated) {
       return (
         <View>
+          <Head pad={25} />
+          <Text style={styles.text}>Is de juiste foto?</Text>
+          <Image
+            style={{
+              width: 200,
+              height: 150,
+              resizeMode: "contain",
+              margin: 15
+            }}
+            source={{
+              uri: this.state.uri
+            }}
+          />
+          {this.renderbutton("ja", this._uploadPhoto)}
           <View
             style={{
-              padding: 25,
+              padding: 10,
               backgroundColor: "white",
               margin: 5
             }}
           />
-          <View
-            style={{
-              justifyContent: "center"
-            }}
-          >
-            <Text style={styles.text}>Is de juiste foto?</Text>
-            <Image
-              style={{
-                width: 200,
-                height: 150,
-                resizeMode: "contain",
-                margin: 15
-              }}
-              source={{
-                uri: this.state.uri
-              }}
-            />
-            {this.renderbutton("ja", this._uploadPhoto)}
-            <View
-              style={{
-                padding: 10,
-                backgroundColor: "white",
-                margin: 5
-              }}
-            />
-            <Button
-              key="nope"
-              style={styles.button}
-              onPress={this._restore}
-              title="Nee"
-            />
-          </View>
+          <Button
+            key="nope"
+            style={styles.button}
+            onPress={this._restore}
+            title="Nee"
+          />
         </View>
+        // </View>
       );
     } else if (this.state.photoannotated) {
       return (
@@ -269,6 +253,7 @@ export default class PhotoScreen extends React.Component {
     }
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

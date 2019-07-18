@@ -19,6 +19,7 @@ import { ExpoLinksView } from "expo";
 import { Button } from "react-native-elements";
 
 import { UploadDctAsync } from "./uploadJson";
+import { Head } from "./Head";
 import { w } from "./Dimensions";
 
 export class CheckAno extends React.Component {
@@ -84,63 +85,51 @@ export class CheckAno extends React.Component {
 
     return (
       <View>
+        <Head pad={25} />
+        <Text style={styles.text}>Kloppen de anotaties in de foto?</Text>
+
+        <Image
+          source={{ uri: this.props.poseimg }}
+          style={{ width: 300, height: 400 }}
+        />
+        <Text style={styles.text}>
+          Let aub op de locatie van de volgende markers:
+        </Text>
+        <View style={{ padding: 25 }}>
+          <FlatList
+            data={[
+              { key: "Oor" },
+              { key: "Schouder" },
+              { key: "Elleboog" },
+              { key: "Pols" },
+              { key: "Heup" },
+              { key: "Knie" },
+              { key: "Enkel" }
+            ]}
+            renderItem={({ item }) => <Text>- {item.key}</Text>}
+          />
+        </View>
         <View
           style={{
-            padding: 25,
+            // padding: 15,
             backgroundColor: "white",
             margin: 5
           }}
         />
+        {this.renderbutton("ja", this._goNext)}
         <View
           style={{
-            justifyContent: "center"
+            padding: 10,
+            backgroundColor: "white",
+            margin: 5
           }}
-        >
-          <Text style={styles.text}>Kloppen de anotaties in de foto?</Text>
-
-          <Image
-            source={{ uri: this.props.poseimg }}
-            style={{ width: 300, height: 400 }}
-          />
-          <Text style={styles.text}>
-            Let aub op de locatie van de volgende markers:
-          </Text>
-          <View style={{ padding: 25 }}>
-            <FlatList
-              data={[
-                { key: "Oor" },
-                { key: "Schouder" },
-                { key: "Elleboog" },
-                { key: "Pols" },
-                { key: "Heup" },
-                { key: "Knie" },
-                { key: "Enkel" }
-              ]}
-              renderItem={({ item }) => <Text>- {item.key}</Text>}
-            />
-          </View>
-          <View
-            style={{
-              // padding: 15,
-              backgroundColor: "white",
-              margin: 5
-            }}
-          />
-          {this.renderbutton("ja", this._goNext)}
-          <View
-            style={{
-              padding: 10,
-              backgroundColor: "white",
-              margin: 5
-            }}
-          />
-          <Button
-            key="nope"
-            style={styles.button}
-            onPress={this._restore}
-            title="Nee"
-          />
-        </View>
+        />
+        <Button
+          key="nope"
+          style={styles.button}
+          onPress={this._restore}
+          title="Nee"
+        />
       </View>
     );
   }
