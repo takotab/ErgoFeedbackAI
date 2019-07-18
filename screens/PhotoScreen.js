@@ -23,17 +23,23 @@ import { CheckAno } from "../components/CheckAno";
 import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
+defaultState = {
+  hasPhotos: true, // TODO change
+  uri: "",
+  wait: false,
+  answer: null,
+  photoannotated: true, // TODO change
+
+  poseimg:
+    "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
+};
+
 export default class PhotoScreen extends React.Component {
   static navigationOptions = {
     headerTitleStyle: { alignSelf: "center", fontSize: 20 },
     headerTitle: "Maak een foto       "
   };
-  state = {
-    hasPhotos: false,
-    uri: "",
-    wait: false,
-    answer: null
-  };
+  state = Object.assign({}, defaultState);
   // _changeSizePicture = async (uri) => {
   //     console.log(uri)
   //     const photo = await ImageManipulator.manipulateAsync(
@@ -52,8 +58,6 @@ export default class PhotoScreen extends React.Component {
       return;
     }
     console.log("Picture made and saved" + photo.uri);
-    // photoUri = await this._changeSizePicture(photo.uri)
-    // console.log('Picture resized' + photoUri)
     this.setState({ hasPhotos: true, uri: photo.uri });
   };
 
@@ -97,25 +101,37 @@ export default class PhotoScreen extends React.Component {
     console.log(pickerResult);
     this._onPictureSaved(pickerResult);
   };
-
-  _goNext = async () => {
-    await console.log("goNext");
+  _uploadPhoto = async () => {
+    await console.log("uploadPhoto");
     this.setState({ wait: true });
 
     response = await UploadPhotoAsync(this.state.uri);
     json_response = await response.json();
     console.log("cloud reaction:");
     console.log(json_response);
-    this.props.navigation.navigate("Questions", {
-      poseimg:
-        "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
-    });
+    this.state.img_pose = json_response.img_pose;
+  };
+
+  _goNext = async () => {
+    this.props.navigation.navigate(
+      "Questions"
+      // {
+      //   poseimg:
+      //     "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
+      // }
+    );
   };
   _restore = () => {
+    this.setState(() => {
+      let dstate = { ...defaultState };
+      return dstate;
+    });
+
     this.setState({
       hasPhotos: false,
       uri: "",
-      wait: false
+      wait: false,
+      photoannotated: false
     });
   };
 
@@ -148,6 +164,8 @@ export default class PhotoScreen extends React.Component {
     });
   };
   render() {
+    console.log("renderphotoscreen");
+    console.log(this.state);
     if (!this.state.hasPhotos) {
       return (
         <View style={styles.container}>
@@ -187,25 +205,9 @@ export default class PhotoScreen extends React.Component {
           </View>
         </View>
       );
-    } else {
-      console.log(this.state.uri);
+    } else if (!this.state.photoannotated) {
       return (
         <View>
-          {/* <TouchableOpacity
-                        activeOpacity={0.7}
-                        onPress={this.clickHandler}
-                        style={styles.TouchableOpacityStyle}>
-                        <Image
-                            //We are making FAB using TouchableOpacity with an image
-                            //We are using online image here
-                            source={{
-                                uri: 'http://aboutreact.com/wp-content/uploads/2018/08/bc72de57b000a7037294b53d34c2cbd1.png',
-                            }}
-                            //You can use you project image Example below
-                            //source={require('./images/float-add-icon.png')}
-                            style={styles.FloatingButtonStyle}
-                        />
-                    </TouchableOpacity> */}
           <View
             style={{
               padding: 25,
@@ -230,7 +232,7 @@ export default class PhotoScreen extends React.Component {
                 uri: this.state.uri
               }}
             />
-            {this.renderbutton("ja", this._goNext)}
+            {this.renderbutton("ja", this._uploadPhoto)}
             <View
               style={{
                 padding: 10,
@@ -246,6 +248,14 @@ export default class PhotoScreen extends React.Component {
             />
           </View>
         </View>
+      );
+    } else if (this.state.photoannotated) {
+      return (
+        <CheckAno
+          poseimg={this.state.poseimg}
+          restore={this._restore}
+          goNext={this._goNext}
+        />
       );
     }
   }
