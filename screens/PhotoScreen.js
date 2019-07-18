@@ -24,14 +24,13 @@ import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
 defaultState = {
-  hasPhotos: true, // TODO change
+  hasPhotos: false, // TODO change
   uri: "",
   wait: false,
   answer: null,
-  photoannotated: true, // TODO change
-
-  poseimg:
-    "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
+  photoannotated: false, // TODO change
+  poseimg: ""
+  // "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
 };
 
 export default class PhotoScreen extends React.Component {
@@ -106,10 +105,20 @@ export default class PhotoScreen extends React.Component {
     this.setState({ wait: true });
 
     response = await UploadPhotoAsync(this.state.uri);
-    json_response = await response.json();
-    console.log("cloud reaction:");
-    console.log(json_response);
-    this.state.img_pose = json_response.img_pose;
+    await response
+      .json()
+      .then(json_response => {
+        console.log("cloud reaction:");
+        console.log(json_response);
+        console.log(json_response.angles.pose_img);
+        this.setState({
+          poseimg: json_response.angles.pose_img,
+          photoannotated: true
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   _goNext = async () => {
