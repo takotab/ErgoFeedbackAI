@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Alert,
   // Button,
   StatusBar,
   FileSystem,
@@ -22,16 +23,18 @@ import { CheckAno } from "../components/CheckAno";
 import { Head } from "../components/Head";
 import { CheckPhoto } from "../components/CheckPhoto";
 
+import { UploadDctAsync } from "../components/uploadJson";
 import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
-defaultState = {
-  hasPhotos: false, // TODO change
+let defaultState = {
+  hasPhotos: false,
   uri: "",
   wait: false,
   answer: null,
-  photoannotated: false, // TODO change
-  poseimg: ""
+  photoannotated: false,
+  poseimg: "",
+  no_human: true
   // "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
 };
 
@@ -41,16 +44,6 @@ export default class PhotoScreen extends React.Component {
     headerTitle: "Maak een foto       "
   };
   state = Object.assign({}, defaultState);
-  // _changeSizePicture = async (uri) => {
-  //     console.log(uri)
-  //     const photo = await ImageManipulator.manipulateAsync(
-  //         uri,
-  //         [{ resize: 1080 }],
-  //         { format: 'png', compress: 0.75 }
-  //     );
-  //     console.log(photo)
-  //     return photo
-  // }
 
   _onPictureSaved = async photo => {
     console.log(photo.cancelled);
@@ -112,11 +105,19 @@ export default class PhotoScreen extends React.Component {
       .then(json_response => {
         console.log("cloud reaction:");
         console.log(json_response);
-        console.log(json_response.angles.pose_img);
-        this.setState({
-          poseimg: json_response.angles.pose_img,
-          photoannotated: true
-        });
+        if (json_response.is_human) {
+          console.log(json_response.angles.pose_img);
+          this.setState({
+            poseimg: json_response.angles.pose_img,
+            photoannotated: true,
+            incl_human: true
+          });
+        } else {
+          this.setState({
+            pose_img: json_response.pic_url,
+            incl_human: false
+          });
+        }
       })
       .catch(error => {
         console.error(error);
@@ -137,13 +138,7 @@ export default class PhotoScreen extends React.Component {
       let dstate = { ...defaultState };
       return dstate;
     });
-
-    this.setState({
-      hasPhotos: false,
-      uri: "",
-      wait: false,
-      photoannotated: false
-    });
+    console.log("default restored");
   };
 
   onSelect = async (key, answer) => {
@@ -186,6 +181,45 @@ export default class PhotoScreen extends React.Component {
               />
             </View>
           </View>
+        </View>
+      );
+    } else if (!this.state.incl_human) {
+      return (
+        <View>
+          <Head pad={25} />
+          <CheckPhoto
+            text="Klopt het dat er geen persoon in de foto te vinden is?"
+            uri={this.state.uri}
+            ja={() => {
+              this.setState({ wait: true });
+              UploadDctAsync(
+                {
+                  ImageCheck: this.state.pose_img,
+                  incl_human: "false"
+                },
+                "to_firebase"
+              ).then(this._restore);
+            }}
+            nee={() => {
+              this.setState({ wait: true });
+              UploadDctAsync(
+                {
+                  ImageCheck: this.state.pose_img,
+                  incl_human: "true"
+                },
+                "to_firebase"
+              )
+                .then(
+                  Alert.alert(
+                    "Exuses",
+                    "Het huidige programma kan u niet in de foto vinden. " +
+                      "Kunt alstublieft een nieuwe foto maken. Mogelijk iets verder uitgezoomd."
+                  )
+                )
+                .then(this._restore);
+            }}
+            wait={this.wait}
+          />
         </View>
       );
     } else if (!this.state.photoannotated) {
