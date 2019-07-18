@@ -20,6 +20,7 @@ import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { CheckAno } from "../components/CheckAno";
 import { Head } from "../components/Head";
+import { CheckPhoto } from "../components/CheckPhoto";
 
 import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
@@ -145,28 +146,6 @@ export default class PhotoScreen extends React.Component {
     });
   };
 
-  renderbutton = (name, onpress) => {
-    if (this.state.wait) {
-      return (
-        <Button
-          style={styles.button}
-          // onPress={this._goNext}
-          key={name}
-          title={name}
-          loading
-        />
-      );
-    } else {
-      return (
-        <Button
-          style={styles.button}
-          onPress={onpress}
-          key={name}
-          title={name}
-        />
-      );
-    }
-  };
   onSelect = async (key, answer) => {
     console.log("selected " + answer + " for " + key);
     this.setState({
@@ -213,31 +192,12 @@ export default class PhotoScreen extends React.Component {
       return (
         <View>
           <Head pad={25} />
-          <Text style={styles.text}>Is de juiste foto?</Text>
-          <Image
-            style={{
-              width: 200,
-              height: 150,
-              resizeMode: "contain",
-              margin: 15
-            }}
-            source={{
-              uri: this.state.uri
-            }}
-          />
-          {this.renderbutton("ja", this._uploadPhoto)}
-          <View
-            style={{
-              padding: 10,
-              backgroundColor: "white",
-              margin: 5
-            }}
-          />
-          <Button
-            key="nope"
-            style={styles.button}
-            onPress={this._restore}
-            title="Nee"
+          <CheckPhoto
+            text="Is dit de juiste foto?"
+            uri={this.state.uri}
+            ja={this._uploadPhoto}
+            nee={this._restore}
+            wait={this.wait}
           />
         </View>
         // </View>
