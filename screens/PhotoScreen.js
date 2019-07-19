@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  // Button,
-  StatusBar,
-  FileSystem,
-  Image,
-  ImageManipulator,
-  TouchableHighlight
-} from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
@@ -100,18 +88,20 @@ export default class PhotoScreen extends React.Component {
       .json()
       .then(json_response => {
         console.log("cloud reaction:");
-        console.log(json_response);
-        if (json_response.incl_human === "true") {
+        console.log(json_response, Boolean(json_response.angles.incl_human));
+        if (json_response.angles.incl_human === "true") {
           console.log(json_response.angles.pose_img);
           this.setState({
             poseimg: json_response.angles.pose_img,
             photoannotated: true,
-            incl_human: true
+            incl_human: true,
+            wait: false
           });
         } else {
           this.setState({
-            pose_img: json_response.pic_url,
-            incl_human: false
+            poseimg: json_response.pic_url,
+            incl_human: false,
+            wait: false
           });
         }
       })
@@ -168,7 +158,11 @@ export default class PhotoScreen extends React.Component {
           </View>
         </View>
       );
-    } else if (this.state.hasPhotos && !this.state.photoannotated) {
+    } else if (
+      this.state.hasPhotos &&
+      !this.state.photoannotated &&
+      this.state.poseimg === ""
+    ) {
       return (
         <View>
           <Head pad={25} />
@@ -193,7 +187,7 @@ export default class PhotoScreen extends React.Component {
               this.setState({ wait: true });
               UploadDctAsync(
                 {
-                  ImageCheck: this.state.pose_img,
+                  ImageCheck: this.state.poseimg,
                   incl_human: "false"
                 },
                 "to_firebase"
@@ -204,7 +198,7 @@ export default class PhotoScreen extends React.Component {
               this.setState({ wait: true });
               UploadDctAsync(
                 {
-                  ImageCheck: this.state.pose_img,
+                  ImageCheck: this.state.poseimg,
                   incl_human: "true"
                 },
                 "to_firebase"
@@ -222,10 +216,11 @@ export default class PhotoScreen extends React.Component {
       );
     } else if (this.state.photoannotated) {
       return (
-        <CheckAno
-          poseimg={this.state.poseimg}
-          restore={this._restore}
-          goNext={this._goNext}
+        <CheckPhoto
+          text="Kloppen de anotaties in de foto?"
+          uri={this.state.poseimg}
+          nee={this._restore}
+          ja={this._goNext}
         />
       );
     }

@@ -9,7 +9,7 @@ export class Head extends React.Component {
     }
     return (
       <View>
-        <Text>' '</Text>
+        <Text> </Text>
         <View
           style={{
             padding: padding,

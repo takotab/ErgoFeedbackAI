@@ -90,7 +90,7 @@ export class CheckAno extends React.Component {
 
         <Image
           source={{ uri: this.props.poseimg }}
-          style={{ width: 300, height: 400 }}
+          style={{ width: 400, height: 400 }}
         />
         <Text style={styles.text}>
           Let aub op de locatie van de volgende markers:
