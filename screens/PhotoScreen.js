@@ -5,6 +5,7 @@ import * as Permissions from "expo-permissions";
 
 import { Button } from "react-native-elements";
 import { CheckAno } from "../components/CheckAno";
+import { Ionicons } from "@expo/vector-icons";
 import { Head } from "../components/Head";
 import { CheckPhoto } from "../components/CheckPhoto";
 
@@ -156,6 +157,14 @@ export default class PhotoScreen extends React.Component {
               />
             </View>
           </View>
+          <View style={{ position: "absolute", bottom: 0, right: 7 }}>
+            <Ionicons
+              name="md-information-circle-outline"
+              size={32}
+              // color="green"
+              // onPress=
+            />
+          </View>
         </View>
       );
     } else if (
@@ -174,7 +183,6 @@ export default class PhotoScreen extends React.Component {
             wait={this.state.wait}
           />
         </View>
-        // </View>
       );
     } else if (this.state.hasPhotos && !this.state.incl_human) {
       return (
