@@ -12,13 +12,10 @@ import {
   ImageManipulator,
   TouchableHighlight
 } from "react-native";
-import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import { ExpoLinksView } from "expo";
 
 import { Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { CheckAno } from "../components/CheckAno";
 import { Head } from "../components/Head";
 import { CheckPhoto } from "../components/CheckPhoto";
@@ -34,7 +31,7 @@ let defaultState = {
   answer: null,
   photoannotated: false,
   poseimg: "",
-  no_human: true
+  incl_human: false
   // "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
 };
 
@@ -96,16 +93,15 @@ export default class PhotoScreen extends React.Component {
     this._onPictureSaved(pickerResult);
   };
   _uploadPhoto = async () => {
-    await console.log("uploadPhoto");
+    await console.log("_uploadPhoto");
     this.setState({ wait: true });
-
     response = await UploadPhotoAsync(this.state.uri);
     await response
       .json()
       .then(json_response => {
         console.log("cloud reaction:");
         console.log(json_response);
-        if (json_response.is_human) {
+        if (json_response.incl_human === "true") {
           console.log(json_response.angles.pose_img);
           this.setState({
             poseimg: json_response.angles.pose_img,
@@ -125,14 +121,9 @@ export default class PhotoScreen extends React.Component {
   };
 
   _goNext = async () => {
-    this.props.navigation.navigate(
-      "Questions"
-      // {
-      //   poseimg:
-      //     "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
-      // }
-    );
+    this.props.navigation.navigate("Questions");
   };
+
   _restore = () => {
     this.setState(() => {
       let dstate = { ...defaultState };
@@ -141,14 +132,8 @@ export default class PhotoScreen extends React.Component {
     console.log("default restored");
   };
 
-  onSelect = async (key, answer) => {
-    console.log("selected " + answer + " for " + key);
-    this.setState({
-      answer: answer
-    });
-  };
   render() {
-    console.log("renderphotoscreen");
+    console.log("render photoscreen");
     console.log(this.state);
     if (!this.state.hasPhotos) {
       return (
@@ -183,7 +168,21 @@ export default class PhotoScreen extends React.Component {
           </View>
         </View>
       );
-    } else if (!this.state.incl_human) {
+    } else if (this.state.hasPhotos && !this.state.photoannotated) {
+      return (
+        <View>
+          <Head pad={25} />
+          <CheckPhoto
+            text="Is dit de juiste foto?"
+            uri={this.state.uri}
+            ja={this._uploadPhoto}
+            nee={this._restore}
+            wait={this.state.wait}
+          />
+        </View>
+        // </View>
+      );
+    } else if (this.state.hasPhotos && !this.state.incl_human) {
       return (
         <View>
           <Head pad={25} />
@@ -198,7 +197,8 @@ export default class PhotoScreen extends React.Component {
                   incl_human: "false"
                 },
                 "to_firebase"
-              ).then(this._restore);
+              );
+              this._restore();
             }}
             nee={() => {
               this.setState({ wait: true });
@@ -208,33 +208,17 @@ export default class PhotoScreen extends React.Component {
                   incl_human: "true"
                 },
                 "to_firebase"
-              )
-                .then(
-                  Alert.alert(
-                    "Exuses",
-                    "Het huidige programma kan u niet in de foto vinden. " +
-                      "Kunt alstublieft een nieuwe foto maken. Mogelijk iets verder uitgezoomd."
-                  )
-                )
-                .then(this._restore);
+              );
+              Alert.alert(
+                "Exuses",
+                "Het huidige programma kan u niet in de foto vinden. " +
+                  "Kunt alstublieft een nieuwe foto maken. Mogelijk iets verder uitgezoomd."
+              );
+              this._restore();
             }}
-            wait={this.wait}
+            wait={this.state.wait}
           />
         </View>
-      );
-    } else if (!this.state.photoannotated) {
-      return (
-        <View>
-          <Head pad={25} />
-          <CheckPhoto
-            text="Is dit de juiste foto?"
-            uri={this.state.uri}
-            ja={this._uploadPhoto}
-            nee={this._restore}
-            wait={this.wait}
-          />
-        </View>
-        // </View>
       );
     } else if (this.state.photoannotated) {
       return (
