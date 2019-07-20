@@ -8,7 +8,10 @@
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|sentry-expo|native-base))"
+    ]
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
+    "jest": "^24.8.0",
     "jest-expo": "^32.0.0"
   },
   "private": true
