@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   Linking
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { UploadAnswersAsync } from "../components/uploadJson";
 
@@ -20,21 +21,43 @@ export default class EndScreen extends React.Component {
     send: false,
     response: ""
   };
+  _return() {
+    console.log("Go back");
+    this.props.navigation.navigate("Photo");
+  }
+  backButton() {
+    return (
+      <View>
+        <Ionicons
+          name="md-return-left"
+          size={32}
+          // color="green"
+          onPress={this._return}
+        />
+      </View>
+    );
+  }
   _response() {
     if (this.state.send) {
       if (this.state.response === "fail") {
         return (
-          <Text style={styles.text}>
-            Er is iets mis gegaan. U krijgt binnen 24 uur een reactie.{" "}
-          </Text>
+          <View>
+            {this.backButton()}
+            <Text style={styles.text}>
+              Er is iets mis gegaan. U krijgt binnen 24 uur een reactie.{" "}
+            </Text>
+          </View>
         );
       }
       if (this.state.response === "succes") {
         // Todo show link
         return (
-          <Text style={styles.text}>
-            U heeft een mailtje gekregen met uw rapport.
-          </Text>
+          <View>
+            {this.backButton()}
+            <Text style={styles.text}>
+              U heeft een mailtje gekregen met uw rapport.
+            </Text>
+          </View>
         );
         //     < Text style={styles.text} onPress={() => Linking.openURL('https://google.com')} >
         //         Kli
