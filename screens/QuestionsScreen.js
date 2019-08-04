@@ -18,7 +18,7 @@ import { SingleQuestion } from "../components/Questions";
 export default class QuestionsScreen extends React.Component {
   static navigationOptions = {
     headerTitleStyle: { alignSelf: "center", fontSize: 20 },
-    headerTitle: "Vragen    "
+    headerTitle: "Vragen"
   };
   state = {
     Q1: null,

@@ -130,7 +130,7 @@ export default class PhotoScreen extends React.Component {
       return (
         <View style={styles.container}>
           {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-          <Head pad={25} />
+          <Head pad={5} />
           <View style={styles.text}>
             <Text>
               Vraag iemand om een foto van hoe je achter je computer zit.
@@ -174,7 +174,7 @@ export default class PhotoScreen extends React.Component {
     ) {
       return (
         <View>
-          <Head pad={25} />
+          <Head pad={5} />
           <CheckPhoto
             text="Is dit de juiste foto?"
             uri={this.state.uri}
@@ -187,7 +187,7 @@ export default class PhotoScreen extends React.Component {
     } else if (this.state.hasPhotos && !this.state.incl_human) {
       return (
         <View>
-          <Head pad={25} />
+          <Head pad={5} />
           <CheckPhoto
             text="Klopt het dat er geen persoon in de foto te vinden is?"
             uri={this.state.uri}
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     width: w(75),
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     padding: 6,
     // borderTopColor: '#007AFF',
     // borderTopWidth: 1,

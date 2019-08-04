@@ -1,5 +1,9 @@
 import React from "react";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import {
+  createAppContainer,
+  createSwitchNavigator,
+  createStackNavigator
+} from "react-navigation";
 
 import MainTabNavigator, {
   PhotoStack,
@@ -15,12 +19,12 @@ import MetaQuestionsScreen from "../screens/MetaQuestionScreen";
 import QuestionsScreen from "../screens/QuestionsScreen";
 import EndScreen from "../screens/EndScreen";
 export default createAppContainer(
-  createSwitchNavigator({
-    // CheckAno: CheckAnoScreen,
-    Photo: PhotoScreen,
-    Questions: QuestionsScreen,
-    Meta: MetaQuestionsScreen,
-    Home: HomeScreen,
-    End: EndScreen
+  createStackNavigator({
+    Photo: { screen: PhotoScreen },
+    Questions: { screen: QuestionsScreen },
+    // #TODO add all the different question screens
+    Meta: { screen: MetaQuestionsScreen },
+    Home: { screen: HomeScreen },
+    End: { screen: EndScreen }
   })
 );
