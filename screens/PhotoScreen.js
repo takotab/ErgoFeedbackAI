@@ -20,14 +20,14 @@ let defaultState = {
   answer: null,
   photoannotated: false,
   poseimg: "",
-  incl_human: false
+  incl_human: false,
   // "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
 };
 
 export default class PhotoScreen extends React.Component {
   static navigationOptions = {
     headerTitleStyle: { alignSelf: "center", fontSize: 20 },
-    headerTitle: "Maak een foto       "
+    headerTitle: "Maak een foto       ",
   };
   state = Object.assign({}, defaultState);
 
@@ -52,15 +52,15 @@ export default class PhotoScreen extends React.Component {
   _takePhoto = async () => {
     await this._askPermission(
       Permissions.CAMERA,
-      "We need the camera permission to take a picture..."
+      "We need the camera permission to take a picture...",
     );
     await this._askPermission(
       Permissions.CAMERA_ROLL,
-      "We need the camera-roll permission to read pictures from your phone..."
+      "We need the camera-roll permission to read pictures from your phone...",
     );
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      quality: 0.1
+      quality: 0.1,
       // aspect: [4, 3],
     });
 
@@ -71,12 +71,12 @@ export default class PhotoScreen extends React.Component {
     // await this._askPermission(Permissions.CAMERA, 'We need the camera permission to take a picture...');
     await this._askPermission(
       Permissions.CAMERA_ROLL,
-      "We need the camera-roll permission to read pictures from your phone..."
+      "We need the camera-roll permission to read pictures from your phone...",
     );
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       // aspect: [1024, 1024],
-      quality: 0.1
+      quality: 0.1,
     });
     console.log(pickerResult);
     this._onPictureSaved(pickerResult);
@@ -96,13 +96,13 @@ export default class PhotoScreen extends React.Component {
             poseimg: json_response.angles.pose_img,
             photoannotated: true,
             incl_human: true,
-            wait: false
+            wait: false,
           });
         } else {
           this.setState({
             poseimg: json_response.pic_url,
             incl_human: false,
-            wait: false
+            wait: false,
           });
         }
       })
@@ -196,9 +196,9 @@ export default class PhotoScreen extends React.Component {
               UploadDctAsync(
                 {
                   ImageCheck: this.state.poseimg,
-                  incl_human: "false"
+                  incl_human: "false",
                 },
-                "to_firebase"
+                "to_firebase",
               );
               this._restore();
             }}
@@ -207,14 +207,14 @@ export default class PhotoScreen extends React.Component {
               UploadDctAsync(
                 {
                   ImageCheck: this.state.poseimg,
-                  incl_human: "true"
+                  incl_human: "true",
                 },
-                "to_firebase"
+                "to_firebase",
               );
               Alert.alert(
                 "Exuses",
                 "Het huidige programma kan u niet in de foto vinden. " +
-                  "Kunt alstublieft een nieuwe foto maken. Mogelijk iets verder uitgezoomd."
+                  "Kunt alstublieft een nieuwe foto maken. Mogelijk iets verder uitgezoomd.",
               );
               this._restore();
             }}
@@ -238,12 +238,12 @@ export default class PhotoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
   },
   buttons: {
     flex: 0.25,
     flexDirection: "column",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
     // alignItems: 'center',
     // fontSize: 18,
     // height: 44,
@@ -252,12 +252,12 @@ const styles = StyleSheet.create({
     // padding: 25,
     margin: 100,
     padding: 5,
-    width: w(75)
+    width: w(75),
   },
   text: {
-    fontSize: 14,
-    padding: 6
+    fontSize: 16,
+    padding: 6,
     // borderTopColor: '#007AFF',
     // borderTopWidth: 1,
-  }
+  },
 });
