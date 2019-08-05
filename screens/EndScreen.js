@@ -10,7 +10,7 @@ import {
   Image,
   Platform,
   TouchableHighlight,
-  Linking
+  Linking,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -20,7 +20,7 @@ export default class EndScreen extends React.Component {
   renderHeader = () => {};
   state = {
     send: false,
-    response: ""
+    response: "",
   };
 
   // _return() {
@@ -81,9 +81,11 @@ export default class EndScreen extends React.Component {
   _check_response = async () => {
     if (this.state.send == false) {
       r = await UploadAnswersAsync("", "", "", "", "true");
+      console.log("response to done");
+      console.log(r);
       this.setState({
         send: true,
-        response: r.result
+        response: r.result,
       });
       console.log("Everything uploaded");
       console.log(r.result === "fail");
@@ -98,7 +100,7 @@ export default class EndScreen extends React.Component {
           style={{
             padding: 25,
             backgroundColor: "white",
-            margin: 5
+            margin: 5,
           }}
         />
         {this._response()}
@@ -113,12 +115,12 @@ export default class EndScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
   },
   buttons: {
     flex: 0.25,
     flexDirection: "column",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
     // alignItems: 'center',
     // fontSize: 18,
     // height: 44,
@@ -126,15 +128,15 @@ const styles = StyleSheet.create({
   button: {
     // padding: 25,
     margin: 100,
-    padding: 5
+    padding: 5,
     // width: w(75)
   },
   text: {
     fontSize: 14,
     padding: 6,
     color: "rgba(96,100,109, 0.8)",
-    fontSize: 20
+    fontSize: 20,
     // borderTopColor: '#007AFF',
     // borderTopWidth: 1,
-  }
+  },
 });
