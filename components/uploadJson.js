@@ -7,7 +7,7 @@ export async function UploadAnswersAsync(
   question,
   question_meta_num = 0,
   temp = true,
-  done = "false"
+  done = "false",
 ) {
   return UploadDctAsync(
     {
@@ -17,9 +17,9 @@ export async function UploadAnswersAsync(
       source: "app",
       temp: temp,
       done: done,
-      question_meta_num: question_meta_num.toString()
+      question_meta_num: question_meta_num.toString(),
     },
-    "analyzejson"
+    "analyzejson",
   );
 }
 
@@ -32,13 +32,18 @@ export async function UploadDctAsync(dict, url) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(dict)
+    body: JSON.stringify(dict),
   });
 
-  const json_response = await response.json();
   console.log("---cloud reaction---");
+  console.log("status:" + response.status.toString());
+  if (response.status == 500) {
+    return { result: "fail", status: 500 };
+  }
+  // if response.status=
+  const json_response = await response.json();
   console.log(json_response);
   console.log("--end cloud---");
   return json_response;
