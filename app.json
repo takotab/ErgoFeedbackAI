@@ -28,7 +28,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   },
   "ios": {
     "bundleIdentifier": "com.ergoscan.ergoscanai"
