@@ -12,7 +12,6 @@ export async function UploadAnswersAsync(
 ) {
   return UploadDctAsync(
     {
-      // "sessionId": sessionid,
       answers: answers,
       // questions: question,
       keys: keys,
