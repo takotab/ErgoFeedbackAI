@@ -7,7 +7,7 @@ export class SingleQuestion extends React.Component {
     super();
 
     this.state = {
-      answer: null
+      answer: null,
     };
   }
   renderBool = key => {
@@ -22,7 +22,7 @@ export class SingleQuestion extends React.Component {
         <Text style={styles.radioText} key="nee">
           Nee
         </Text>
-      </RadioButton>
+      </RadioButton>,
     ];
   };
   renderOptions = (question, key) => {
@@ -37,7 +37,7 @@ export class SingleQuestion extends React.Component {
           selectedIndex={this.props.answer}
         >
           {this.renderBool(key)}
-        </RadioGroup>
+        </RadioGroup>,
       ];
     } else if (question.type == "slider") {
       return [
@@ -48,7 +48,7 @@ export class SingleQuestion extends React.Component {
               height: 40,
               borderColor: "gray",
               borderWidth: 0.5,
-              justifyContent: "center"
+              justifyContent: "center",
             }}
             onChangeText={answer => {
               this.setState({ answer: answer });
@@ -57,7 +57,7 @@ export class SingleQuestion extends React.Component {
             defaultValue={this.props.answer}
             keyboardType="numeric"
           />
-        </View>
+        </View>,
       ];
     } else if (question.type == "mail") {
       return [
@@ -68,7 +68,7 @@ export class SingleQuestion extends React.Component {
               height: 40,
               borderColor: "gray",
               borderWidth: 0.5,
-              justifyContent: "center"
+              justifyContent: "center",
             }}
             onChangeText={answer => {
               this.setState({ answer: answer });
@@ -77,19 +77,22 @@ export class SingleQuestion extends React.Component {
             defaultValue={this.props.answer}
             keyboardType="email-address"
           />
-        </View>
+        </View>,
       ];
     }
   };
   renderDescription = () => {
     if ("description" in this.props.question) {
       return (
-        <View style={{ flexDirection: "row", flex: 1 }}>
+        <View
+          key={"description-" + this.props.key}
+          style={{ flexDirection: "row", flex: 1, paddingHorizontal: 10 }}
+        >
           <Text
             style={{
               fontSize: 14,
               color: "#5b6a75",
-              flexWrap: "wrap"
+              flexWrap: "wrap",
             }}
           >
             {this.props.question.description}
@@ -99,26 +102,15 @@ export class SingleQuestion extends React.Component {
     }
   };
   render() {
+    console.log(this.props.question.question);
     return (
-      //style={{ flex: 1, padding: 12 }}
-      <View
-        key={this.props.keys.toString() + "Question-view"}
-        style={{
-          flexDirection: "column",
-          flex: 0.8
-        }}
-      >
+      <View key={this.props.keys.toString() + "Question-view"}>
         <View key={this.props.keys + "viewin"} style={styles.viewText}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: "#3498db"
-            }}
-          >
+          <Text style={styles.questionText}>
             {this.props.question.question}
           </Text>
-
+        </View>
+        <View>
           {this.renderDescription()}
           {this.renderOptions(this.props.question, this.props.keys)}
         </View>
@@ -129,13 +121,20 @@ export class SingleQuestion extends React.Component {
 
 const styles = StyleSheet.create({
   radioText: {
-    fontSize: 20
+    fontSize: 20,
   },
   viewText: {
-    paddingHorizontal: 10,
+    flexDirection: "row",
     flex: 1,
-    flexDirection: "column",
+    paddingHorizontal: 10,
+    // flexShrink: 1,
+    // flexShrink: 1,
+  },
+  questionText: {
+    fontSize: 16,
+    // fontWeight: "bold",
+    color: "#3498db",
+    // flexShrink: 1,
     flexWrap: "wrap",
-    flexShrink: 1
-  }
+  },
 });
