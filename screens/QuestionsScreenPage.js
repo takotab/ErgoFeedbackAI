@@ -49,18 +49,21 @@ export default class QuestionsScreenPage extends React.Component {
         [key]: null,
       }));
       console.log("added " + key);
+    } else {
+      answer = this.state[key];
     }
-    if (this.state[key] == null && "answer" in questions[key]) {
-      this.setState((state, props) => ({
-        [key]: questions[key].answer,
-      }));
-      answer = questions[key].answer;
-      console.log("added default " + key + "  " + answer);
-    }
+    // if (this.state[key] == null && !questions[key].req) {
+    //   this.setState((state, props) => ({
+    //     [key]: null,
+    //   }));
+    //   answer = questions[key].answer;
+    //   console.log("added default " + key + "  " + answer);
+    // }
+    return answer;
   };
   _renderSingleQ = (key, index, questions) => {
     console.log("render single question key:" + key);
-    this._prepForAnswer(key, index, questions);
+    let answer = this._prepForAnswer(key, index, questions);
     return [
       <View key={"view-" + key.toString() + "-" + index.toString()}>
         <SingleQuestion
@@ -112,7 +115,7 @@ export default class QuestionsScreenPage extends React.Component {
     console.log(questions);
     while (i < 50) {
       if ("Q" + i in questions) {
-        if (this.state["Q" + i] == null) {
+        if (this.state["Q" + i] == null && !questions["Q" + i].req) {
           Alert.alert(
             "Vraag " + i + " vergeten",
             "Vult u alstublieft nog vraag " + i + " in.",
