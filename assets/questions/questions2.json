@@ -1,0 +1,28 @@
+{
+    "Q1": {
+        "question": "Wordt uw beeldschermwerk minimaal 2x per dag afgewisseld met andere werkzaamheden?",
+        "type": "boolean",
+        "description": "Denk aan: vergaderingen, collegiaal overleg, bellen, werken met papieren dossiers dit exclusief de lunchpauze",
+        "id": "Q1"
+
+    },
+    "Q2": {
+        "question": "Werkt u heel intensief met één onderdeel van uw apparatuur?",
+        "description": "D.w.z. leest u vooral intensief van het scherm, typt u vooral veel of muist u vooral veel",
+        "type": "boolean",
+        "id": "Q2"
+    },
+    "Q3": {
+        "question": "Zit u vaak langer dan een uur achter elkaar zonder afwisseling met lopen en staan?",
+        "description": "Zowel voor beeldschermwerk als andere taken die zittend worden uitgevoerd",
+        "type": "boolean",
+        "id": "Q3"
+    },
+    
+    "Q4": {
+        "question": "Doet u regelmatig 's avonds (buiten werkuren) nog beeldschermwerk?",
+        "type": "boolean",
+        "id": "Q4",
+        "next": "questions3"
+    }
+}

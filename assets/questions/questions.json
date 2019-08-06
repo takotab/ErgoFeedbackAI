@@ -1,0 +1,59 @@
+{
+    "Q1": {
+        "question": "Gebruikt u een smartphone / tablet voor uw werk?  ",
+        "type": "boolean",
+        "description": "mailen, internetten, agendabeheer",
+        "page": "1"
+    },
+    "Q2": {
+        "question": "Hoelang gebruikt u uw smartphone?",
+        "description": "Geeft u de tijd in minuten.",
+        "type": "slider",
+        "req": "False",
+        "page": "1"
+    },
+    "Q3": {
+        "question": "Gebruikt u hierbij een extern toetsenboord?",
+        "type": "boolean",
+        "req": "False",
+        "page": "1"
+    },
+    "Q4": {
+        "question": "Hoelang gebruikt u uw Tablet?",
+        "description": "Geeft u de tijd in minuten.",
+        "type": "slider",
+        "req": "False",
+        "page": "1"
+    },
+    "Q5": {
+        "question": "Gebruikt u hierbij een extern toetsenboard?",
+        "type": "boolean",
+        "req": "False",
+        "page": "1"
+    },
+    "Q6": {
+        "question": "Wordt uw beeldschermwerk minimaal 2x per dag afgewisseld met andere werkzaamheden?",
+        "type": "boolean",
+        "description": "Denk aan: vergaderingen, collegiaal overleg, bellen, werken met papieren dossiers dit exclusief de lunchpauze",
+        "page": "2"
+
+    },
+    "Q7": {
+        "question": "Werkt u heel intensief met één onderdeel van uw apparatuur?",
+        "description": "D.w.z. leest u vooral intensief van het scherm, typt u vooral veel of muist u vooral veel",
+        "type": "boolean",
+        "page": "2"
+    },
+    "Q8": {
+        "question": "Zit u vaak langer dan een uur achter elkaar zonder afwisseling met lopen en staan?",
+        "description": "Zowel voor beeldschermwerk als andere taken die zittend worden uitgevoerd",
+        "id": "Q3",
+        "page": "2"
+    },
+    "Q9": {
+        "question": "Doet u regelmatig 's avonds (buiten werkuren) nog beeldschermwerk?",
+        "type": "boolean",
+        "page": "2"
+    }
+
+}
