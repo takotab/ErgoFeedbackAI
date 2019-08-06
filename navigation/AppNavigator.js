@@ -22,10 +22,10 @@ import EndScreen from "../screens/EndScreen";
 export default createAppContainer(
   createStackNavigator({
     q_1: { screen: QuestionsScreenPage, params: { page: 1 } },
-    q_2: { screen: QuestionsScreen, params: { page: 2 } },
-    q_3: { screen: QuestionsScreen, params: { page: 3 } },
-    q_4: { screen: QuestionsScreen, params: { page: 4 } },
-    q_5: { screen: QuestionsScreen, params: { page: 5 } },
+    q_2: { screen: QuestionsScreenPage, params: { page: 2 } },
+    q_3: { screen: QuestionsScreenPage, params: { page: 3 } },
+    q_4: { screen: QuestionsScreenPage, params: { page: 4 } },
+    q_5: { screen: QuestionsScreenPage, params: { page: 5 } },
     Photo: { screen: PhotoScreen },
     Meta: { screen: MetaQuestionsScreen },
     Home: { screen: HomeScreen },

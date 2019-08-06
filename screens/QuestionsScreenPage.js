@@ -67,7 +67,7 @@ export default class QuestionsScreenPage extends React.Component {
     return [
       <View key={"view-" + key.toString() + "-" + index.toString()}>
         <SingleQuestion
-          key={key.toString() + "-" + index.toString()}
+          key={"sq-" + key.toString() + "-" + index.toString()}
           keys={key + "-" + index}
           onSelect={answer => {
             this.onSelect(key, answer);
@@ -84,16 +84,12 @@ export default class QuestionsScreenPage extends React.Component {
     questions = this._loadQuestionsJson();
     const result = [];
     var i = 1;
-    while (i < 50) {
-      if ("Q" + i in questions) {
-        result.push(this._renderSingleQ("Q" + i, i, questions));
-        i++;
-      } else {
-        console.log("Q" + i + " not more in json");
-        i = 51;
-      }
-    }
-    console.log(this.state);
+    Object.keys(questions).forEach(key => {
+      result.push(this._renderSingleQ(key, i, questions));
+
+      i++;
+    });
+    // console.log("result", result);
     return result;
   };
   onSelect = async (key, answer) => {
@@ -131,24 +127,13 @@ export default class QuestionsScreenPage extends React.Component {
         i = 101;
       }
     }
-    // await UploadAnswersAsync(this.state[q], questions[q], temp = false)
-
     if (allGood) {
-      var question_meta_num = parseInt(
-        this.props.navigation.getParam("question_meta_num", "1"),
-      );
-      await UploadAnswersAsync(
-        answers,
-        _quest,
-        question_meta_num,
-        (temp = false),
-      );
-
-      question_meta_num = question_meta_num + 1;
-      console.log("toward meta: " + question_meta_num);
-      this.props.navigation.navigate("Meta", {
-        question_meta_num: question_meta_num,
-      });
+      var page = parseInt(this._page());
+      await UploadAnswersAsync(answers, _quest, page, (temp = false));
+      page = page + 1;
+      console.log("toward new screen: " + page);
+      this.props.navigation.navigate("q_" + page.toString());
+      
     }
     this.setState({
       wait: false,
@@ -170,7 +155,7 @@ export default class QuestionsScreenPage extends React.Component {
     }
   };
   render() {
-    console.log("--- QuestionsScreen ---");
+    console.log("--- QuestionsScreenPage ---");
     console.log(this._page());
     console.log("render");
     return [
@@ -179,7 +164,7 @@ export default class QuestionsScreenPage extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <View key={"key"}>{this.renderQuestions()}</View>
+          <View>{this.renderQuestions()}</View>
           {this.renderbutton()}
           <View
             style={{

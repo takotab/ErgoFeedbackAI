@@ -47,7 +47,8 @@
     "Q8": {
         "question": "Zit u vaak langer dan een uur achter elkaar zonder afwisseling met lopen en staan?",
         "description": "Zowel voor beeldschermwerk als andere taken die zittend worden uitgevoerd",
-        "page": "2"
+        "page": "2",
+        "type": "boolean"
     },
     "Q9": {
         "question": "Doet u regelmatig 's avonds (buiten werkuren) nog beeldschermwerk?",
