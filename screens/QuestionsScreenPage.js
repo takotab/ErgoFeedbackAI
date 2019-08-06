@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   // Button,
   ScrollView,
@@ -9,16 +9,20 @@ import {
   Image,
   Platform,
   Alert,
+  Dimensions,
 } from "react-native";
 import { Button } from "react-native-elements";
 
 import { UploadAnswersAsync } from "../components/uploadJson";
 import { SingleQuestion } from "../components/Questions";
 
-export default class QuestionsScreenPage extends React.Component {
-  static navigationOptions = {
-    // headerTitleStyle: { alignSelf: "center", fontSize: 20 },
-    headerTitle: "Vragen",
+export default class QuestionsScreenPage extends Component {
+  static navigationOptions = () => {
+    return {
+      title: "Vragen",
+      headerBackTitle: null,
+      headerTitleStyle: { width: Dimensions.get("window").width },
+    };
   };
   state = {
     Q1: null,
@@ -33,11 +37,7 @@ export default class QuestionsScreenPage extends React.Component {
     all_questions = require("../assets/questions/questions.json");
     Object.keys(all_questions).forEach(key => {
       if (all_questions[key].page == this._page()) {
-        // console.log(key, all_questions[key]);
         questions[key] = all_questions[key];
-        // this.setState((state, props) => ({
-        // [key]: all_questions[key],
-        // }));
       }
     });
     return questions;
@@ -52,13 +52,6 @@ export default class QuestionsScreenPage extends React.Component {
     } else {
       answer = this.state[key];
     }
-    // if (this.state[key] == null && !questions[key].req) {
-    //   this.setState((state, props) => ({
-    //     [key]: null,
-    //   }));
-    //   answer = questions[key].answer;
-    //   console.log("added default " + key + "  " + answer);
-    // }
     return answer;
   };
   _renderSingleQ = (key, index, questions) => {
@@ -86,10 +79,8 @@ export default class QuestionsScreenPage extends React.Component {
     var i = 1;
     Object.keys(questions).forEach(key => {
       result.push(this._renderSingleQ(key, i, questions));
-
       i++;
     });
-    // console.log("result", result);
     return result;
   };
   onSelect = async (key, answer) => {
@@ -98,42 +89,52 @@ export default class QuestionsScreenPage extends React.Component {
       [key]: answer,
     });
   };
-
+  _get_req = question => {
+    let r = true;
+    if ("req" in question) {
+      r = question.req;
+    }
+    console.log("get_req", r == true);
+    return r == true;
+  };
   onSubmit = async () => {
     this.setState({
       wait: true,
     });
+    console.log("submit");
     questions = this._loadQuestionsJson();
     let allGood = true;
     var i = 1;
     let _quest = [];
     let answers = [];
-    console.log(questions);
-    while (i < 50) {
-      if ("Q" + i in questions) {
-        if (this.state["Q" + i] == null && !questions["Q" + i].req) {
-          Alert.alert(
-            "Vraag " + i + " vergeten",
-            "Vult u alstublieft nog vraag " + i + " in.",
-          );
-          allGood = false;
-          i = 101;
-        } else {
-          answers.push(this.state["Q" + i]);
-          _quest.push(questions["Q" + i]);
-        }
-        i++;
-      } else {
-        i = 101;
+    let keys = [];
+
+    Object.keys(questions).forEach(key => {
+      if (this._get_req(questions[key]) && this.state[key] == null && allGood) {
+        console.log(
+          this._get_req(questions[key]),
+          this.state[key] == null,
+          allGood,
+        );
+        Alert.alert(
+          "Vraag " + i + " vergeten",
+          "Vult u alstublieft nog vraag " + i + " in.",
+        );
+        allGood = false;
+        return;
+      } else if (allGood) {
+        answers.push(this.state[key]);
+        _quest.push(questions[key]);
+        keys.push(key);
       }
-    }
+      i++;
+    });
     if (allGood) {
       var page = parseInt(this._page());
-      await UploadAnswersAsync(answers, _quest, page, (temp = false));
+      await UploadAnswersAsync(answers, _quest, keys, page, (temp = false));
       page = page + 1;
       console.log("toward new screen: " + page);
       this.props.navigation.navigate("q_" + page.toString());
-      
     }
     this.setState({
       wait: false,

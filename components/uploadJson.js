@@ -5,6 +5,7 @@ YOUR_SERVER_URL = "https://ergoscan.appspot.com";
 export async function UploadAnswersAsync(
   answers,
   question,
+  keys,
   question_meta_num = 0,
   temp = true,
   done = "false",
@@ -13,7 +14,8 @@ export async function UploadAnswersAsync(
     {
       // "sessionId": sessionid,
       answers: answers,
-      questions: question,
+      // questions: question,
+      keys: keys,
       source: "app",
       temp: temp,
       done: done,

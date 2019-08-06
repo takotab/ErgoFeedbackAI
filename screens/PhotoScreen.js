@@ -112,7 +112,7 @@ export default class PhotoScreen extends React.Component {
   };
 
   _goNext = async () => {
-    this.props.navigation.navigate("Questions");
+    this.props.navigation.navigate("q_1");
   };
 
   _restore = () => {

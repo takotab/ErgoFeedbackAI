@@ -102,7 +102,6 @@ export class SingleQuestion extends React.Component {
     }
   };
   render() {
-    console.log(this.props.question.question);
     return (
       <View key={this.props.keys.toString() + "Question-view"}>
         <View key={this.props.keys + "viewin"} style={styles.viewText}>
