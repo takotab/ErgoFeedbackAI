@@ -29,40 +29,40 @@ export default class QuestionsScreenPage extends React.Component {
     return navigation.getParam("page", "");
   };
   _loadQuestionsJson = () => {
-    const { navigation } = this.props;
-    var questions = navigation.getParam("questions", null);
-    if (questions == null) {
-      questions = require("../questionData/questions1.json");
-    }
+    let questions = Object();
+    all_questions = require("../assets/questions/questions.json");
+    Object.keys(all_questions).forEach(key => {
+      if (all_questions[key].page == this._page()) {
+        // console.log(key, all_questions[key]);
+        questions[key] = all_questions[key];
+        // this.setState((state, props) => ({
+        // [key]: all_questions[key],
+        // }));
+      }
+    });
     return questions;
   };
-  _renderSingleQ = (key, index, questions) => {
-    console.log("render single question key:" + key);
+  _prepForAnswer = (key, index, questions) => {
     var answer = null;
     if (!key in this.state) {
-      // () =>
       this.setState((state, props) => ({
         [key]: null,
       }));
       console.log("added " + key);
     }
     if (this.state[key] == null && "answer" in questions[key]) {
-      // () =>
       this.setState((state, props) => ({
         [key]: questions[key].answer,
       }));
       answer = questions[key].answer;
       console.log("added default " + key + "  " + answer);
     }
-
+  };
+  _renderSingleQ = (key, index, questions) => {
+    console.log("render single question key:" + key);
+    this._prepForAnswer(key, index, questions);
     return [
-      <View
-        key={key.toString() + "-" + index.toString()}
-        // style={{
-        //     borderTopColor: '#007AFF',
-        //     borderTopWidth: 1,
-        // }}
-      >
+      <View key={"view-" + key.toString() + "-" + index.toString()}>
         <SingleQuestion
           key={key.toString() + "-" + index.toString()}
           keys={key + "-" + index}
@@ -87,7 +87,7 @@ export default class QuestionsScreenPage extends React.Component {
         i++;
       } else {
         console.log("Q" + i + " not more in json");
-        i = 101;
+        i = 51;
       }
     }
     console.log(this.state);
