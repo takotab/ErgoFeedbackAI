@@ -2,28 +2,27 @@
     "Q1": {
         "question": "Is uw bureau instelbaar tot stahoogte?",
         "type": "boolean",
-        "id": "Q1"
+        "page": "4"
     },
     "Q2": {
         "question": "Kunt u met 10 vingers blind typen?",
         "type": "boolean",
-        "id": "Q2"
+        "page": "4"
     },
     "Q3": {
         "question": "Kunt u bij technische problemen rond het instellen van uw stoel/tafel hulp inroepen?",
         "type": "boolean",
-        "id": "Q3",
-        "next": "false"
+        "page": "4"
     },
     "Q4": {
         "question": "Typt u meer als 2 uur op uw laptoptoetsenbord?",
         "type": "boolean",
-        "id": "Q4"
+        "page": "4"
     },
     "Q5": {
         "question": "Hoelang doet u op een dag beeldscherm werk?",
         "description": "De lengte in uren.",
         "type": "slider",
-        "id": "Q5"
+        "page": "4"
     }
 }

@@ -3,41 +3,34 @@
         "question": "Stelt u uw stoel in op uw eigen lichaamsmaten?",
         "type": "boolean",
         "description": "Zoals zithoogte, zitdiepte, armleuningen. Dit is vooral belangerijk als u flexplex.",
-        "id": "Q1",
-        "q-id": "instellen-stoel"
+        "page": "3"
     },
     "Q2": {
         "question": "Heeft u de zithoogte van uw stoel aangepast aan uw beenlengte?",
         "description": "- uw voeten zijn ondersteund (op de grond of een voetenbankje) -uw knieën zijn vrijwel op dezelfde hoogte als uw heupen -uw bovenbenen worden comfortabel ondersteund(waarbij u geen hinderlijke drukpunten ervaart)",
         "type": "boolean",
-        "id": "Q2",
-        "req": "boolean",
-        "q-id": "instellen-zithoogte"
+        "page": "3"
 
     },
     "Q3": {
         "question": "Wordt het onderste deel van uw rug gesteund door de welving van de rugleuning?",
         "type": "boolean",
-        "id": "Q3",
-        "q-id": "onderste-rug"
+        "page": "3"
     },
     "Q4": {
         "question": "Komt de rugleuning tot minimaal uw schouderbladen?",
         "type": "boolean",
-        "id": "Q4",
-        "q-id": "rugleuning-schouderbladen"
+        "page": "3"
     },
     "Q5": {
         "question": "Zitten de armleuningen in de weg bij het aanschuiven van de stoel?",
         "type": "boolean",
-        "id": "Q5",
-        "q-id": "armleuningen-aanschuiven"
+        "page": "3"
     },
     "Q6": {
         "question": "Met onspannen bovenarmen steunen de armleuningen uw elleboog/onderarm?",
         "type": "boolean",
-        "id": "Q6",
-        "q-id": "onspannen-armleuningen"
+        "page": "3"
     }
 
 }
