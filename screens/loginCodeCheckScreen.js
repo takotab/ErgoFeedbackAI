@@ -134,9 +134,13 @@ export default class loginCodeCheckScreen extends Component {
   };
 
   _nextScreen = async (answers, _quest, keys) => {
-    await UploadLoginCode(answers[0]);
-    console.log("toward new screen: q_1");
-    this.props.navigation.navigate("q_1");
+    r = await UploadLoginCode(answers[0]);
+    if (r.result == "succes") {
+      console.log("toward new screen: q_1");
+      this.props.navigation.navigate("q_1");
+    } else {
+      Alert.alert(r.msg);
+    }
   };
 
   renderbutton = () => {
