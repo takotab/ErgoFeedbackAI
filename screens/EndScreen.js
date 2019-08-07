@@ -14,7 +14,7 @@ import {
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { UploadAnswersAsync } from "../components/uploadJson";
+import { UploadDone } from "../components/uploadJson";
 
 export default class EndScreen extends React.Component {
   renderHeader = () => {};
@@ -80,7 +80,7 @@ export default class EndScreen extends React.Component {
   }
   _check_response = async () => {
     if (this.state.send == false) {
-      r = await UploadAnswersAsync("", "", "", "", "true");
+      r = await UploadDone();
       console.log("response to done");
       console.log(r);
       this.setState({

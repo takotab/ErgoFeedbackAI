@@ -20,7 +20,8 @@ export async function UploadAnswersAsync(
       done: done,
       question_meta_num: question_meta_num.toString(),
     },
-    "analyzejson",
+    "answers",
+    "/" + question_meta_num.toString(),
   );
 }
 function makerand(length, addition = "") {
@@ -39,26 +40,33 @@ export async function UploadLoginCode(code) {
     makerand(25) + code + "i" + makerand(24 - code.toString().length, "i");
   UploadDctAsync({ logincode: total_code }, "logincode");
 }
-export async function UploadDctAsync(dict, url) {
+
+export async function UploadDone() {
+  return UploadDctAsync({ done: "true" }, "make_rapport");
+}
+
+export async function UploadDctAsync(dict, url, addition = "") {
   console.log("----uploadJSON---");
 
   let sessionid = Constants.sessionId.replace(/-/g, "_");
   dict.sessionId = sessionid;
-  let response = await fetch(YOUR_SERVER_URL + "/" + url + "/" + sessionid, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+  let response = await fetch(
+    YOUR_SERVER_URL + "/" + url + "/" + sessionid + addition,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dict),
     },
-    body: JSON.stringify(dict),
-  });
+  );
 
   console.log("---cloud reaction---");
   console.log("status:" + response.status.toString());
   if (response.status == 500) {
     return { result: "fail", status: 500 };
   }
-  // if response.status=
   const json_response = await response.json();
   console.log(json_response);
   console.log("--end cloud---");
