@@ -24,6 +24,10 @@ export async function UploadAnswersAsync(
   );
 }
 
+export async function UploadDone() {
+  return UploadDctAsync({ done: "true" }, "analyzejson");
+}
+
 export async function UploadDctAsync(dict, url) {
   console.log("----uploadJSON---");
 
@@ -43,7 +47,6 @@ export async function UploadDctAsync(dict, url) {
   if (response.status == 500) {
     return { result: "fail", status: 500 };
   }
-  // if response.status=
   const json_response = await response.json();
   console.log(json_response);
   console.log("--end cloud---");
