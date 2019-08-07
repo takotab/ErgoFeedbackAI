@@ -16,7 +16,7 @@ import { Button } from "react-native-elements";
 import { UploadAnswersAsync } from "../components/uploadJson";
 import { SingleQuestion } from "../components/Questions";
 
-export default class CodeCheckScreen extends Component {
+export default class loginCodeCheckScreen extends Component {
   static navigationOptions = () => {
     return {
       title: "Bedrijfs code",
@@ -28,20 +28,7 @@ export default class CodeCheckScreen extends Component {
     Q1: null,
     wait: false,
   };
-  _page = () => {
-    const { navigation } = this.props;
-    return navigation.getParam("page", "");
-  };
-  _loadQuestionsJson = () => {
-    let questions = Object();
-    all_questions = require("../assets/questions/questions.json");
-    Object.keys(all_questions).forEach(key => {
-      if (all_questions[key].page == this._page()) {
-        questions[key] = all_questions[key];
-      }
-    });
-    return questions;
-  };
+
   _prepForAnswer = (key, index, questions) => {
     var answer = null;
     if (!key in this.state) {
@@ -74,7 +61,7 @@ export default class CodeCheckScreen extends Component {
   };
 
   renderQuestions = () => {
-    questions = this._loadQuestionsJson();
+    questions = {'company'};
     const result = [];
     var i = 1;
     Object.keys(questions).forEach(key => {
