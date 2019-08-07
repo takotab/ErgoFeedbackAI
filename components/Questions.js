@@ -79,6 +79,26 @@ export class SingleQuestion extends React.Component {
           />
         </View>,
       ];
+    } else if (question.type == "text") {
+      return [
+        <View style={{ padding: 10 }}>
+          {/* TODO: add HH:MM */}
+          <TextInput
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 0.5,
+              justifyContent: "center",
+            }}
+            onChangeText={answer => {
+              this.setState({ answer: answer });
+              this.props.onSelect(answer);
+            }}
+            defaultValue={this.props.answer}
+            // keyboardType="email-address"
+          />
+        </View>,
+      ];
     }
   };
   renderDescription = () => {

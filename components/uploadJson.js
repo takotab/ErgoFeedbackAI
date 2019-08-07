@@ -24,6 +24,22 @@ export async function UploadAnswersAsync(
     "/" + question_meta_num.toString(),
   );
 }
+function makerand(length, addition = "") {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz0123456789" + addition;
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+export async function UploadLoginCode(code) {
+  let total_code =
+    makerand(25) + code + "i" + makerand(24 - code.toString().length, "i");
+  UploadDctAsync({ logincode: total_code }, "logincode");
+}
 
 export async function UploadDone() {
   return UploadDctAsync({ done: "true" }, "make_rapport");
