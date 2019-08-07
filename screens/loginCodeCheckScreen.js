@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 
-import { UploadAnswersAsync } from "../components/uploadJson";
+import { UploadLoginCode } from "../components/uploadJson";
 import { SingleQuestion } from "../components/Questions";
 
 export default class loginCodeCheckScreen extends Component {
@@ -59,9 +59,18 @@ export default class loginCodeCheckScreen extends Component {
       </View>,
     ];
   };
-
+  _loadQuestions = () => {
+    return {
+      logincode: {
+        question: "Wat is de login code van uw bedrijf?",
+        description: "Geen inlog codes? Mail naar ergofeedbackai@gmail.com.",
+        // TODO email link
+        type: "text",
+      },
+    };
+  };
   renderQuestions = () => {
-    questions = {'company'};
+    questions = this._loadQuestions();
     const result = [];
     var i = 1;
     Object.keys(questions).forEach(key => {
@@ -89,7 +98,7 @@ export default class loginCodeCheckScreen extends Component {
       wait: true,
     });
     console.log("submit");
-    questions = this._loadQuestionsJson();
+    questions = this._loadQuestions();
     let allGood = true;
     var i = 1;
     let _quest = [];
@@ -117,15 +126,17 @@ export default class loginCodeCheckScreen extends Component {
       i++;
     });
     if (allGood) {
-      var page = parseInt(this._page());
-      await UploadAnswersAsync(answers, _quest, keys, page, (temp = false));
-      page = page + 1;
-      console.log("toward new screen: " + page);
-      this.props.navigation.navigate("q_" + page.toString());
+      await this._nextScreen(answers, _quest, keys);
     }
     this.setState({
       wait: false,
     });
+  };
+
+  _nextScreen = async (answers, _quest, keys) => {
+    await UploadLoginCode(answers[0]);
+    console.log("toward new screen: q_1");
+    this.props.navigation.navigate("q_1");
   };
 
   renderbutton = () => {
@@ -144,7 +155,6 @@ export default class loginCodeCheckScreen extends Component {
   };
   render() {
     console.log("--- QuestionsScreenPage ---");
-    console.log(this._page());
     console.log("render");
     return [
       <View style={styles.container}>
