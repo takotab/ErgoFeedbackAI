@@ -157,12 +157,13 @@ export default class PhotoScreen extends React.Component {
               />
             </View>
           </View>
-          <View style={{ position: "absolute", bottom: 0, right: 7 }}>
+          <View style={{ position: "absolute", bottom: 3, right: 10 }}>
             <Ionicons
               name="md-information-circle-outline"
               size={32}
-              // color="green"
-              // onPress=
+              onPress={() => {
+                Alert.alert("Version", "120190808");
+              }}
             />
           </View>
         </View>

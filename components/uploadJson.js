@@ -36,9 +36,13 @@ function makerand(length, addition = "") {
 }
 
 export async function UploadLoginCode(code) {
-  let total_code =
-    makerand(25) + code + "i" + makerand(24 - code.toString().length, "i");
-  UploadDctAsync({ logincode: total_code }, "logincode");
+  crypt = require("../assets/crypt.json");
+  let r = "";
+  for (var i = 0; i < code.length; i++) {
+    r += crypt[code.charAt(i)];
+  }
+  let total_code = makerand(25) + r;
+  return UploadDctAsync({ logincode: total_code }, "logincode");
 }
 
 export async function UploadDone() {
