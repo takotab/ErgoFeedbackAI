@@ -162,7 +162,7 @@ export default class PhotoScreen extends React.Component {
               name="md-information-circle-outline"
               size={32}
               onPress={() => {
-                Alert.alert("Version", "120190808");
+                Alert.alert("Version", "120190808-2");
               }}
             />
           </View>
