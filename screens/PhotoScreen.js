@@ -161,8 +161,7 @@ export default class PhotoScreen extends React.Component {
             <Ionicons
               name="md-information-circle-outline"
               size={32}
-              // color="green"
-              // onPress=
+              onPress={Alert.alert("120190808")}
             />
           </View>
         </View>
