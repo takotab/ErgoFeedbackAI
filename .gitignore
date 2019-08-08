@@ -9,3 +9,4 @@ npm-debug.*
 firebase-keys.json
 api-*.json
 ErgoFeedbackAI-*-signed.apk
+assets/crypt.json

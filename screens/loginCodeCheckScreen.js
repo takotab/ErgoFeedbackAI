@@ -140,6 +140,7 @@ export default class loginCodeCheckScreen extends Component {
       this.props.navigation.navigate("q_1");
     } else {
       Alert.alert(r.msg);
+      this.setState({ logincode: "" });
     }
   };
 
