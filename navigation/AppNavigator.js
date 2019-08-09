@@ -21,12 +21,12 @@ import QuestionsScreenPage from "../screens/QuestionsScreenPage";
 import EndScreen from "../screens/EndScreen";
 export default createAppContainer(
   createStackNavigator({
+    q_4: { screen: QuestionsScreenPage, params: { page: 4 } },
     Photo: { screen: PhotoScreen },
     login: { screen: loginCodeCheckScreen },
     q_1: { screen: QuestionsScreenPage, params: { page: 1 } },
     q_2: { screen: QuestionsScreenPage, params: { page: 2 } },
     q_3: { screen: QuestionsScreenPage, params: { page: 3 } },
-    q_4: { screen: QuestionsScreenPage, params: { page: 4 } },
     q_5: { screen: QuestionsScreenPage, params: { page: 5 } },
     q_6: { screen: EndScreen },
   }),
