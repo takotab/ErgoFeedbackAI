@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { Image, StyleSheet, View, Text, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
@@ -13,6 +13,8 @@ import { UploadDctAsync } from "../components/uploadJson";
 import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
+let quality = 0.8;
+let version = "13-08-2019";
 let defaultState = {
   hasPhotos: false,
   uri: "",
@@ -60,7 +62,7 @@ export default class PhotoScreen extends React.Component {
     );
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      quality: 0.1,
+      quality: quality,
       // aspect: [4, 3],
     });
 
@@ -76,7 +78,7 @@ export default class PhotoScreen extends React.Component {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       // aspect: [1024, 1024],
-      quality: 0.1,
+      quality: quality,
     });
     console.log(pickerResult);
     this._onPictureSaved(pickerResult);
@@ -128,43 +130,56 @@ export default class PhotoScreen extends React.Component {
     console.log(this.state);
     if (!this.state.hasPhotos) {
       return (
-        <View style={styles.container}>
-          {/* <StatusBar backgroundColor="black" barStyle="dark-content" /> */}
-          <Head pad={5} />
-          <View style={styles.text}>
-            <Text>
-              Vraag iemand om een foto van hoe je achter je computer zit.
-            </Text>
-            <Text>
-              Zorg dat de enkel, knie, heup, schouder, en oor zichtbaar zijn.
-            </Text>
-          </View>
-
-          <View style={styles.buttons}>
-            <View>
-              <Button
-                style={styles.button}
-                onPress={this._takePhoto}
-                title="Maak een foto"
-              />
-            </View>
-            <View>
-              <Button
-                style={styles.button}
-                onPress={this._pickPhoto}
-                title="Kies een foto uit je galerij"
-                // accessibilityLabel="Learn more about this purple button"
-              />
-            </View>
-          </View>
-          <View style={{ position: "absolute", bottom: 3, right: 10 }}>
-            <Ionicons
-              name="md-information-circle-outline"
-              size={32}
-              onPress={() => {
-                Alert.alert("Version", "120190808-2");
-              }}
+        <View style={styles.row_container}>
+          <View style={{ flex: 0.5 }}>
+            <Image
+              style={{ width: 400, resizeMode: "contain" }}
+              source={require("../assets/images/example_pic.jpg")}
             />
+          </View>
+          <View>
+            <View style={styles.container}>
+              <View style={styles.text}>
+                <Text>
+                  Vraag iemand om een foto van hoe je achter je computer zit.
+                  Houd uw handen op het toetsenboard.
+                </Text>
+                <Text>
+                  Zorg dat de enkel, knie, heup, schouder, en oor zichtbaar
+                  zijn.
+                </Text>
+                <Text>
+                  Doe het scherm van uw computer uit. En probeer rechte foto te
+                  maken, met camera ter hoogte van het bureaublad.
+                </Text>
+              </View>
+              <View style={styles.buttons}>
+                <View>
+                  <Button
+                    style={styles.button}
+                    onPress={this._takePhoto}
+                    title="Maak een foto"
+                  />
+                </View>
+                <View>
+                  <Button
+                    style={styles.button}
+                    onPress={this._pickPhoto}
+                    title="Kies een foto uit je galerij"
+                    // accessibilityLabel="Learn more about this purple button"
+                  />
+                </View>
+              </View>
+              <View style={{ position: "absolute", bottom: 3, right: 10 }}>
+                <Ionicons
+                  name="md-information-circle-outline"
+                  size={32}
+                  onPress={() => {
+                    Alert.alert("Version", version);
+                  }}
+                />
+              </View>
+            </View>
           </View>
         </View>
       );
@@ -240,6 +255,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+  },
+  row_container: {
+    flex: 1,
+    flexDirection: "row",
   },
   buttons: {
     flex: 0.25,
