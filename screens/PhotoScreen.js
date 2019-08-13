@@ -14,7 +14,7 @@ import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
 let quality = 0.8;
-let version = "13-08-2019";
+let version = "13-08-2019-2";
 let defaultState = {
   hasPhotos: false,
   uri: "",
@@ -23,6 +23,7 @@ let defaultState = {
   photoannotated: false,
   poseimg: "",
   incl_human: false,
+  _switch: "pic_photo",
   // "https://storage.googleapis.com/ergoscan-img/6271f2bc_00b2_46a9_9590_1fac749cb492/photo-0-6271f2bc_00b2_46a9_9590_1fac749cb492_w_pose_bbox.png"
 };
 
@@ -91,19 +92,30 @@ export default class PhotoScreen extends React.Component {
       .json()
       .then(json_response => {
         console.log("cloud reaction:");
-        console.log(json_response, Boolean(json_response.angles.incl_human));
-        if (json_response.angles.incl_human === "true") {
+        console.log(json_response);
+        if (json_response.angles.redo_pic === "true") {
+          this.setState({
+            poseimg: json_response.pic_url,
+            hasPhotos: false,
+            _switch: "pic_photo",
+            wait: false,
+          });
+          Alert.alert(
+            "Uw onderbeen staat niet recht.",
+            "Maakt u alstublieft een nieuwe foto waarbij deze wel recht staat.",
+          );
+          this._restore();
+        } else if (json_response.angles.incl_human === "true") {
           console.log(json_response.angles.pose_img);
           this.setState({
             poseimg: json_response.angles.pose_img,
-            photoannotated: true,
-            incl_human: true,
+            _switch: "annotated",
             wait: false,
           });
         } else {
           this.setState({
             poseimg: json_response.pic_url,
-            incl_human: false,
+            _switch: "no_human",
             wait: false,
           });
         }
@@ -183,11 +195,7 @@ export default class PhotoScreen extends React.Component {
           </View>
         </View>
       );
-    } else if (
-      this.state.hasPhotos &&
-      !this.state.photoannotated &&
-      this.state.poseimg === ""
-    ) {
+    } else if (this.state.hasPhotos && this.state._switch === "pic_photo") {
       return (
         <View>
           <Head pad={5} />
@@ -200,7 +208,7 @@ export default class PhotoScreen extends React.Component {
           />
         </View>
       );
-    } else if (this.state.hasPhotos && !this.state.incl_human) {
+    } else if (this.state.hasPhotos && this.state._switch === "no_human") {
       return (
         <View>
           <Head pad={5} />
@@ -238,7 +246,7 @@ export default class PhotoScreen extends React.Component {
           />
         </View>
       );
-    } else if (this.state.photoannotated) {
+    } else if (this.state._switch === "annotated") {
       return (
         <CheckPhoto
           text="Kloppen de anotaties in de foto?"
