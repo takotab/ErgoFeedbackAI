@@ -1,6 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Dimensions,
+  findNodeHandle,
+} from "react-native";
 import { RadioGroup, RadioButton } from "react-native-flexi-radio-button";
+
+var RCTUIManager = require("NativeModules").UIManager;
 
 export class SingleQuestion extends React.Component {
   constructor() {
@@ -25,6 +35,27 @@ export class SingleQuestion extends React.Component {
       </RadioButton>,
     ];
   };
+  onInputFocus(refName) {
+    setTimeout(() => {
+      let scrollResponder = this.refs.scrollView.getScrollResponder();
+      scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+        findNodeHandle(this.refs[refName]),
+        20, // additionalOffset
+        true,
+      );
+    }, 100);
+  }
+
+  resetWindowHeight() {
+    let scrollView = this.refs.scrollView;
+    let screenHeight = Dimensions.get("window").height;
+    setTimeout(() => {
+      RCTUIManager.measure(scrollView.getInnerViewNode(), (...data) => {
+        // data[3] is the height of the ScrollView component with content.
+        scrollView.scrollTo({ y: data[3] - screenHeight, animated: true });
+      });
+    }, 100);
+  }
   renderOptions = (question, key) => {
     if (question.type === "boolean") {
       return [
@@ -50,6 +81,9 @@ export class SingleQuestion extends React.Component {
               borderWidth: 0.5,
               justifyContent: "center",
             }}
+            ref="num_input"
+            // onFocus={this.onInputFocus.bind(this, "num_input")}
+            // onBlur={this.resetWindowHeight.bind(this)}
             onChangeText={answer => {
               this.setState({ answer: answer });
               this.props.onSelect(answer);
@@ -90,6 +124,9 @@ export class SingleQuestion extends React.Component {
               borderWidth: 0.5,
               justifyContent: "center",
             }}
+            ref="text_input"
+            onFocus={this.onInputFocus.bind(this, "text_input")}
+            onBlur={this.resetWindowHeight.bind(this)}
             onChangeText={answer => {
               this.setState({ answer: answer });
               this.props.onSelect(answer);
@@ -124,6 +161,7 @@ export class SingleQuestion extends React.Component {
   render() {
     return (
       <View key={this.props.keys.toString() + "Question-view"}>
+        {/* <ScrollView keyboardDismissMode="on-drag" ref="scrollView"> */}
         <View key={this.props.keys + "viewin"} style={styles.viewText}>
           <Text style={styles.questionText}>
             {this.props.question.question}
@@ -133,6 +171,7 @@ export class SingleQuestion extends React.Component {
           {this.renderDescription()}
           {this.renderOptions(this.props.question, this.props.keys)}
         </View>
+        {/* </ScrollView> */}
       </View>
     );
   }
