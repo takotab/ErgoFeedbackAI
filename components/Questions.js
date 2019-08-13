@@ -82,8 +82,8 @@ export class SingleQuestion extends React.Component {
               justifyContent: "center",
             }}
             ref="num_input"
-            onFocus={this.onInputFocus.bind(this, "num_input")}
-            onBlur={this.resetWindowHeight.bind(this)}
+            // onFocus={this.onInputFocus.bind(this, "num_input")}
+            // onBlur={this.resetWindowHeight.bind(this)}
             onChangeText={answer => {
               this.setState({ answer: answer });
               this.props.onSelect(answer);
@@ -161,17 +161,17 @@ export class SingleQuestion extends React.Component {
   render() {
     return (
       <View key={this.props.keys.toString() + "Question-view"}>
-        <ScrollView keyboardDismissMode="on-drag" ref="scrollView">
-          <View key={this.props.keys + "viewin"} style={styles.viewText}>
-            <Text style={styles.questionText}>
-              {this.props.question.question}
-            </Text>
-          </View>
-          <View>
-            {this.renderDescription()}
-            {this.renderOptions(this.props.question, this.props.keys)}
-          </View>
-        </ScrollView>
+        {/* <ScrollView keyboardDismissMode="on-drag" ref="scrollView"> */}
+        <View key={this.props.keys + "viewin"} style={styles.viewText}>
+          <Text style={styles.questionText}>
+            {this.props.question.question}
+          </Text>
+        </View>
+        <View>
+          {this.renderDescription()}
+          {this.renderOptions(this.props.question, this.props.keys)}
+        </View>
+        {/* </ScrollView> */}
       </View>
     );
   }
