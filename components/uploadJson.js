@@ -1,6 +1,5 @@
 import Constants from "expo-constants";
-
-YOUR_SERVER_URL = "https://ergoscan.appspot.com";
+import { api } from "../components/url";
 
 export async function UploadAnswersAsync(
   answers,
@@ -54,17 +53,16 @@ export async function UploadDctAsync(dict, url, addition = "") {
 
   let sessionid = Constants.sessionId.replace(/-/g, "_");
   dict.sessionId = sessionid;
-  let response = await fetch(
-    YOUR_SERVER_URL + "/" + url + "/" + sessionid + addition,
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dict),
+  let full_url = api + "/" + url + "/" + sessionid + addition;
+  console.log("url:" + full_url);
+  let response = await fetch(full_url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify(dict),
+  });
 
   console.log("---cloud reaction---");
   console.log("status:" + response.status.toString());

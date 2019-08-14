@@ -1,12 +1,6 @@
 import Constants from "expo-constants";
 import ImageResizer from "react-native-image-resizer";
-
-let api =
-  Constants.appOwnership === "expo" //&& Constants.packagerOpts.dev
-    ? "http://192.168.178.28:8080"
-    : `https://ergoscan.appspot.com`;
-api = "https://ergoscan.appspot.com";
-INTERNAL_SERVER_URL = "http://localhost:8080/analyze";
+import { api } from "../components/url";
 
 export async function UploadPhotoAsync(localUri) {
   // // ImagePicker saves the taken photo to disk and returns a local URI to it
@@ -28,12 +22,13 @@ export async function UploadPhotoAsync(localUri) {
   console.log(formData);
 
   //   console.log("uploading to " + api + "/analyze/" + sessionid);
-
-  return await fetch(api + "/analyze/" + sessionid, {
+  let full_url = api + "/analyze/" + sessionid;
+  console.log(full_url);
+  return await fetch(full_url, {
     method: "POST",
     body: formData,
     header: {
-      "content-type": "multipart/form-data"
-    }
+      "content-type": "multipart/form-data",
+    },
   });
 }
