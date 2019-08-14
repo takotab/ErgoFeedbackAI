@@ -89,6 +89,12 @@
         "type": "boolean",
         "page": "3"
     },
+    "Q20": {
+        "question": "Hoelang doet u op een dag beeldscherm werk?",
+        "description": "De lengte in uren.",
+        "type": "slider",
+        "page": "4"
+    },
     "Q16": {
         "question": "Is uw bureau instelbaar tot stahoogte?",
         "type": "boolean",
@@ -107,12 +113,6 @@
     "Q19": {
         "question": "Typt u meer als 2 uur op uw laptoptoetsenbord?",
         "type": "boolean",
-        "page": "4"
-    },
-    "Q20": {
-        "question": "Hoelang doet u op een dag beeldscherm werk?",
-        "description": "De lengte in uren.",
-        "type": "slider",
         "page": "4"
     },
     "Q21": {
