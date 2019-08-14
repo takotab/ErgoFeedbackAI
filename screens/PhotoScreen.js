@@ -14,7 +14,7 @@ import { UploadPhotoAsync } from "../components/uploadFile";
 import { w } from "../components/Dimensions";
 
 let quality = 0.8;
-let version = "13-08-2019-2";
+let version = "14-08-2019";
 let defaultState = {
   hasPhotos: false,
   uri: "",
