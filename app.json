@@ -8,12 +8,12 @@
       "ios",
       "android"
     ],
-    "version": "0.3.1",
+    "version": "0.4.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "android": {
       "package": "com.ergoscan.ergoscanai",
-      "versionCode": 2
+      "versionCode": 44
     },
     "splash": {
       "image": "./assets/images/splash.png",
